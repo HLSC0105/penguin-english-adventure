@@ -44,6 +44,7 @@ PEA.pantallas.memoria = (function () {
     const cartas = [];
     estado.tablero.forEach(function (info, indice) {
       const carta = crearCarta(info, indice);
+      carta.style.setProperty("--i", String(indice));   /* retardo del reparto */
       if (info.visible) {
         carta.classList.add("volteada");
         carta.disabled = true;

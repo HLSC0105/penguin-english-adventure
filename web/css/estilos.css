@@ -157,6 +157,29 @@ body {
   outline: none;
 }
 
+/* ---------- velo del cambio de tema (espejo de fundir_fondo) ----------
+   Los gradientes del suelo no interpolan; el velo de hielo tapa el
+   salto mientras las variables cambian, y se desvanece. Solo durante
+   el flip (clase .tema-flip en <html>, 340 ms). */
+@keyframes velo-tema {
+  0%   { opacity: 0; }
+  22%  { opacity: .5; }
+  100% { opacity: 0; }
+}
+html.tema-flip::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  pointer-events: none;
+  background: radial-gradient(
+    120% 100% at 50% 40%,
+    rgba(219, 234, 254, .35) 0%,
+    rgba(148, 197, 245, .18) 34%,
+    transparent 72%);
+  animation: velo-tema 340ms var(--curva-salida) both;
+}
+
 /* --------------------------------------------------------------------------
    Página: marco central + ritmo vertical
    -------------------------------------------------------------------------- */
@@ -170,12 +193,45 @@ body {
 .seccion-acto { margin-top: 2.2rem; }
 .medida { max-width: 68ch; margin-inline: auto; }
 
-/* La pantalla entra rápido (≤120 ms: Do del DESIGN.md) y se queda visible. */
-@keyframes entrar-pantalla {
-  from { opacity: 0; transform: translateY(6px); }
+/* La pantalla entra en cascada: cada hijo sube y aparece un paso tras
+   otro (título → Pipo → secciones), como la apertura de un juego. El
+   contenedor mismo deja de animar; lo hacen los hijos, escalonados. */
+@keyframes entrar-hijo {
+  from { opacity: 0; transform: translateY(10px); }
 }
-.pantalla-contenido {
-  animation: entrar-pantalla var(--duracion-pantalla) var(--curva-salida) both;
+.pantalla-contenido > * {
+  animation: entrar-hijo 240ms var(--curva-salida) both;
+}
+.pantalla-contenido > *:nth-child(1)  { animation-delay: 30ms; }
+.pantalla-contenido > *:nth-child(2)  { animation-delay: 75ms; }
+.pantalla-contenido > *:nth-child(3)  { animation-delay: 120ms; }
+.pantalla-contenido > *:nth-child(4)  { animation-delay: 165ms; }
+.pantalla-contenido > *:nth-child(5)  { animation-delay: 210ms; }
+.pantalla-contenido > *:nth-child(6)  { animation-delay: 255ms; }
+.pantalla-contenido > *:nth-child(7)  { animation-delay: 300ms; }
+.pantalla-contenido > *:nth-child(8)  { animation-delay: 345ms; }
+.pantalla-contenido > *:nth-child(9)  { animation-delay: 390ms; }
+.pantalla-contenido > *:nth-child(n+10) { animation-delay: 420ms; }
+
+/* Fase de salida cuando navegas (espejo del repintado del escritorio):
+   la pantalla actual se encoge y muere; 95 ms — corto a propósito. */
+@keyframes salir-pantalla {
+  to { opacity: 0; transform: translateY(-8px) scale(.985); }
+}
+.pantalla-contenido.saliendo {
+  animation: salir-pantalla 95ms cubic-bezier(.5, 0, .75, .4) both;
+  pointer-events: none;
+}
+
+/* El título CRECE al llegar (espejo de animar_aparicion_titulo 18→26px).
+   Especificidad sobre la cascada: sale de la fila escalonada y baila solo. */
+@keyframes aparecer-titulo {
+  from { opacity: 0; transform: scale(.88) translateY(6px); letter-spacing: .06em; }
+  60%  { transform: scale(1.015); }
+  to   { opacity: 1; transform: scale(1); letter-spacing: .01em; }
+}
+.pantalla-contenido > .titulo-pantalla {
+  animation: aparecer-titulo 190ms var(--curva-salida) both;
 }
 
 /* --------------------------------------------------------------------------
@@ -242,12 +298,42 @@ h1, h2, h3 { text-wrap: balance; }
   align-items: baseline;
   gap: .35rem;
   white-space: nowrap;
+  position: relative;
+}
+
+/* Chip de puntos que sube al ganar (+10 / +20): feedback de juego. */
+.hud-valor { position: relative; }
+@keyframes vuelo-puntos {
+  0%   { opacity: 0; transform: translateY(6px) scale(.8); }
+  25%  { opacity: 1; transform: translateY(-2px) scale(1.06); }
+  70%  { opacity: 1; transform: translateY(-16px) scale(1); }
+  100% { opacity: 0; transform: translateY(-26px) scale(.94); }
+}
+.chip-puntos {
+  position: absolute;
+  right: 0;
+  bottom: 105%;
+  color: var(--correcto);
+  font-weight: 800;
+  font-size: .8rem;
+  pointer-events: none;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, .4);
+  animation: vuelo-puntos 850ms var(--curva-salida) both;
+}
+
+/* El número de Puntos late cuando recibió (ticker corto). */
+@keyframes latido-puntos {
+  0%, 100% { transform: scale(1); }
+  40%      { transform: scale(1.22); }
+}
+.puntos-subieron {
+  display: inline-block;
+  animation: latido-puntos 280ms var(--curva-salida) 1;
 }
 
 .hud-rotulo {
   font-size: .78rem;
-  color: var(--texto-secundario);
-  font-weight: 600;
+  color: var(--texto-secundario);  font-weight: 600;
 }
 
 .hud-valor { font-weight: 700; font-size: .93rem; }
@@ -315,7 +401,7 @@ h1, h2, h3 { text-wrap: balance; }
   transform: translateY(-2px);
   box-shadow: 0 14px 30px -12px rgba(29, 78, 216, .55), var(--luces-canto);
 }
-.btn-pea:active { transform: translateY(0); }
+.btn-pea:active { transform: translateY(0) scale(.97); }
 
 .btn-pea-acento {
   --bs-btn-bg: var(--acento);
@@ -463,7 +549,18 @@ h1, h2, h3 { text-wrap: balance; }
   45% { transform: scale(1.06); }
   100% { transform: scale(1); }
 }
-.pulso-acierto { animation: pulso-acierto 480ms var(--curva-salida) 2; }
+/* El destillo verde acompaña al pulso (espejo de pulsar_widget con
+   interpolación de color en Tk): doble golpe de brillo y apaga. */
+@keyframes destello-verde {
+  0%, 100% { box-shadow: var(--elev-1), var(--anillo-tarjeta); }
+  50%      { box-shadow: 0 0 0 7px color-mix(in srgb, var(--correcto) 34%, transparent),
+                         0 10px 26px -10px color-mix(in srgb, var(--correcto) 55%, transparent),
+                         var(--elev-1); }
+}
+.pulso-acierto {
+  animation: pulso-acierto 480ms var(--curva-salida) 2,
+             destello-verde 480ms ease-in-out 2;
+}
 
 /* --------------------------------------------------------------------------
    Tarjetas y fichas
@@ -605,6 +702,18 @@ h1, h2, h3 { text-wrap: balance; }
   line-height: 1.5;
   flex: 1;
   min-width: 0;
+  /* Pipo habla: la burbuja respira en ámbar al montarse (espejo de
+     resal_burbuja_pipo; cada pantalla la monta de nuevo, así que la
+     respiración acompaña cada mensaje, y en el tema-velo no repite). */
+  animation: respirar-burbuja 720ms var(--curva-salida) 2;
+}
+
+@keyframes respirar-burbuja {
+  0%, 100% { border-color: var(--borde); }
+  50%      { border-color: var(--acento);
+             box-shadow: 0 0 0 3px
+               color-mix(in srgb, var(--acento) 22%, transparent),
+               0 2px 8px -3px var(--sombra); }
 }
 
 .burbuja::before,
@@ -697,6 +806,23 @@ h1, h2, h3 { text-wrap: balance; }
               0 1px 4px color-mix(in srgb, var(--barra-relleno) 45%, transparent);
 }
 
+/* Barrido de brillo premium: cada vez que la barra se monta (pregunta
+   nueva) una luz diagonal la recorre — espejo premium de animar_barra. */
+@keyframes brillo-barrido {
+  from { transform: translateX(-130%) skewX(-18deg); }
+  to   { transform: translateX(230%)  skewX(-18deg); }
+}
+.progress-bar::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(100deg,
+    transparent 30%, rgba(255, 255, 255, .5) 50%, transparent 70%);
+  transform: translateX(-130%) skewX(-18deg);
+  animation: brillo-barrido 850ms ease-out 260ms 1 both;
+  pointer-events: none;
+}
+
 /* --------------------------------------------------------------------------
    Menú: fichas de actividades (una destacada, las demás compactas)
    -------------------------------------------------------------------------- */
@@ -748,12 +874,20 @@ h1, h2, h3 { text-wrap: balance; }
 .ficha-actividad.completada {
   border-color: color-mix(in srgb, var(--correcto) 60%, var(--borde));
 }
-.ficha-actividad .ficha-hecha {
+
+/* El check de actividad completada: pop elástico al verse. */
+@keyframes pop-check {
+  0%   { transform: scale(0) rotate(-30deg); opacity: 0; }
+  62%  { transform: scale(1.3) rotate(6deg); }
+  100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+.ficha-actividad.completada .ficha-hecha {
   position: absolute;
   top: .85rem;
   right: .9rem;
   color: var(--correcto);
   font-size: 1rem;
+  animation: pop-check 300ms var(--curva-salida) both;
 }
 
 .ficha-vocabulario { min-height: 132px; }
@@ -873,6 +1007,15 @@ h1, h2, h3 { text-wrap: balance; }
   box-shadow: var(--elev-2), var(--anillo-tarjeta);
   border-radius: .8rem;
   transition: var(--ansi-elevacion);
+  /* Reparto de baraja: cada carta cae desde arriba con su retardo
+     (i*48ms, tope 12) — el tablero se reparte, como en los juegos. */
+  animation: repartir-carta 300ms var(--curva-salida) both;
+  animation-delay: calc(min(var(--i, 0), 12) * 48ms);
+}
+
+@keyframes repartir-carta {
+  from { opacity: 0; transform: translateY(-54px) scale(.86) rotate(-6deg); }
+  to   { opacity: 1; transform: translateY(0) scale(1) rotate(0deg); }
 }
 
 /* Animación de mesa: la carta se despega, crece e inclina — como se
@@ -1028,6 +1171,9 @@ h1, h2, h3 { text-wrap: balance; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: .01ms !important;
+    /* La demora también se mata: sin ella, los hijos de la cascada
+       quedaban invisibles 400+ ms esperando su turno. */
+    animation-delay: 0s !important;
     animation-iteration-count: 1 !important;
     transition-duration: .01ms !important;
     scroll-behavior: auto !important;

@@ -45,10 +45,27 @@ PEA.ui = (function () {
 
   /* ---------- pantalla: limpiar + dibujar + guardar (repintar_pantalla) ---------- */
 
+  let navegaEnVuelo = null;       /* temporizador de la fase de salida */
+
   function navegar(funcion) {
     const argumentos = Array.prototype.slice.call(arguments, 1);
     pantallaActual = [funcion, argumentos];
-    dibujarPantalla(funcion, argumentos);
+
+    /* Transición de juego en dos fases: la pantalla en escena sale
+       (95 ms) y la nueva entra en cascada. Con movimiento reducido o
+       primer dibujo, directo — como el repintado del escritorio. */
+    const enEscena = PANTALLA.querySelector(".pantalla-contenido");
+    const theMotionReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (!enEscena || theMotionReduced) {
+      dibujarPantalla(funcion, argumentos);
+      return;
+    }
+    if (navegaEnVuelo) window.clearTimeout(navegaEnVuelo);
+    enEscena.classList.add("saliendo");
+    navegaEnVuelo = window.setTimeout(function () {
+      navegaEnVuelo = null;
+      dibujarPantalla(funcion, argumentos);
+    }, 95);
   }
 
   function repintarPantalla() {
@@ -86,6 +103,11 @@ PEA.ui = (function () {
     const tema = PEA.estado.leerTema() === "claro" ? "oscuro" : "claro";
     PEA.estado.escribirTema(tema);
     aplicarTema(tema);
+    /* Velo de hielo durante el cambio (espejo de fundir_fondo). */
+    document.documentElement.classList.add("tema-flip");
+    window.setTimeout(function () {
+      document.documentElement.classList.remove("tema-flip");
+    }, 360);
     if (hudEstado) refrescarEncabezado();     /* etiqueta del botón */
     if (typeof notificador === "function") notificador(tema);
   }
@@ -108,6 +130,8 @@ PEA.ui = (function () {
     HUD.hidden = true;
   }
 
+  let puntoAnterior = null;       /* para el chip de puntos del HUD */
+
   function refrescarEncabezado() {
     if (!hudEstado) return;
     HUD.replaceChildren();
@@ -129,6 +153,7 @@ PEA.ui = (function () {
         rotulo, valor
       );
       estadisticas.append(dato);
+      if (renglon[0] === "Puntos:") tareaPuntos(valor);
     });
     interior.append(estadisticas);
 
@@ -178,6 +203,26 @@ PEA.ui = (function () {
 
     interior.append(controles);
     HUD.append(interior);
+  }
+
+  /* Feedback de pantalla completa del juego: si el puntaje creció desde
+     el último HUD, el NÚMERO late y un chip "+N" despega hacia arriba. */
+  function tareaPuntos(nodoValor) {
+    const puntos = PEA.estado.leerPuntos();
+    if (puntoAnterior !== null && puntos > puntoAnterior) {
+      const salto = puntos - puntoAnterior;
+      nodoValor.classList.add("puntos-subieron");
+      const chip = h("span", "chip-puntos", {
+        "aria-hidden": "true",
+      });
+      chip.textContent = "+" + salto;
+      nodoValor.append(chip);
+      window.setTimeout(function () { chip.remove(); }, 950);
+      window.setTimeout(function () {
+        nodoValor.classList.remove("puntos-subieron");
+      }, 300);
+    }
+    puntoAnterior = puntos;
   }
 
   /* ---------- piezas comunes ---------- */
