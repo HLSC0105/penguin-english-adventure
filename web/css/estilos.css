@@ -63,12 +63,13 @@ html[data-bs-theme="dark"] {
     rgba(13, 27, 62, .22) 32%,
     rgba(0, 0, 0, 0) 68%);
   --ansi-elevacion: transform 200ms var(--curva-salida),
-                    box-shadow 200ms var(--curva-salida),
-                    border-color 160ms var(--curva-salida);
+                    box-shadow 200ms var(--curva-salida);
 
   --boton-activo-fondo: var(--tarjeta);
   --boton-activo-borde: var(--borde);
   --boton-activo-texto: var(--texto);
+  /* En noche polar el ámbar crudo ya es legible: identidad intacta. */
+  --acento-texto: var(--acento);
 }
 
 html[data-bs-theme="light"] {
@@ -114,12 +115,15 @@ html[data-bs-theme="light"] {
     rgba(240, 247, 255, .55) 34%,
     rgba(255, 255, 255, 0) 70%);
   --ansi-elevacion: transform 200ms var(--curva-salida),
-                    box-shadow 200ms var(--curva-salida),
-                    border-color 160ms var(--curva-salida);
+                    box-shadow 200ms var(--curva-salida);
 
   --boton-activo-fondo: var(--tarjeta);
   --boton-activo-borde: var(--borde);
   --boton-activo-texto: var(--texto);
+  /* Texto corriente "acento" en hielo diurno: el ámbar crudo sobre
+     blanco cae a ~3.5:1 en texto pequeño; la derivada clipa al texto
+     (72/28) y llega a ~5:1 sin tocar los 20 tokens base. */
+  --acento-texto: color-mix(in srgb, var(--acento) 72%, var(--texto));
 }
 
 /* Superficies del navegador que el dibujo no toca: pertenecen al mundo. */
@@ -134,15 +138,25 @@ body {
   /* Suelo polar: mismo esquema del escritorio, con un gradiente radial
      muy sutil que da contraste a las sombras (el negro puro plano
      impedía leer la elevación). El color deriva del azul del botón,
-     no de una paleta nueva. Fijo: al hacer scroll el "hielo profundo"
-     no se arruga. */
+     no de una paleta nueva. El gradiente vive en html::before (position
+     fixed): iOS no soporta bien background-attachment: fixed y lo
+     degrada a re-pintados por frame; un pseudo fijo es el patrón
+     robusto en todos los dispositivos y el "hielo profundo" NO se
+     arruga al hacer scroll. */
   background-color: var(--fondo);
-  background-image: var(--suelo);
-  background-attachment: fixed;
   color: var(--texto);
   font-family: var(--fuente-cuerpo);
   min-height: 100dvh;
   -webkit-font-smoothing: antialiased;
+}
+
+html::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background-image: var(--suelo);
+  pointer-events: none;
 }
 
 :focus-visible {
@@ -313,11 +327,14 @@ html.tema-flip::after {
 }
 
 /* El título CRECE al llegar (espejo de animar_aparicion_titulo 18→26px).
-   Especificidad sobre la cascada: sale de la fila escalonada y baila solo. */
+   Especificidad sobre la cascada: sale de la fila escalonada y baila
+   solo. El respirado cambia transform y opacity en el compositor:
+   letter-spacing animado re-fluye el renglón por frame y NO es un
+   lecho del compositor. */
 @keyframes aparecer-titulo {
-  from { opacity: 0; transform: scale(.88) translateY(6px); letter-spacing: .06em; }
+  from { opacity: 0; transform: scale(.88) translateY(6px); }
   60%  { transform: scale(1.015); }
-  to   { opacity: 1; transform: scale(1); letter-spacing: .01em; }
+  to   { opacity: 1; transform: scale(1); }
 }
 .pantalla-contenido > .titulo-pantalla {
   animation: aparecer-titulo 190ms var(--curva-salida) both;
@@ -345,7 +362,8 @@ h1, h2, h3 { text-wrap: balance; }
 }
 
 .texto-secundario { color: var(--texto-secundario); }
-.texto-acento { color: var(--acento); }
+/* El acento en TEXTO corre por la derivada legible (72/28 en claro). */
+.texto-acento { color: var(--acento-texto); }
 .fuente-num { font-variant-numeric: tabular-nums; }
 
 /* --------------------------------------------------------------------------
@@ -426,7 +444,7 @@ h1, h2, h3 { text-wrap: balance; }
 }
 
 .hud-valor { font-weight: 700; font-size: .93rem; }
-.hud-valor-acento { color: var(--acento); }
+.hud-valor-acento { color: var(--acento-texto); }
 
 .hud-controles {
   margin-left: auto;
@@ -460,6 +478,12 @@ h1, h2, h3 { text-wrap: balance; }
   .hud-rotulo { display: none; }
   .hud-dato:nth-child(1) .hud-rotulo { display: inline; } /* el nombre nunca se oculta */
   .hud-volumen .form-range { display: none; }
+  /* Consola condensada: fila 1 = marcadores repartidos (scoreboard),
+     fila 2 = controles alineados a la derecha; sin sangría huérfana. */
+  .hud-estadisticas { flex: 1 1 auto; justify-content: space-between; gap: .45rem .55rem; }
+  .hud-controles { margin-left: 0; width: 100%; justify-content: flex-end; row-gap: .3rem; }
+  /* El slider no cabe; el icono solo queda decorativo: fuera. */
+  .hud-volumen { display: none; }
 }
 
 /* --------------------------------------------------------------------------
@@ -700,7 +724,7 @@ h1, h2, h3 { text-wrap: balance; }
 
 .ficha-palabra .palabra-ejemplo {
   font-size: .85rem;
-  color: var(--acento);
+  color: var(--acento-texto);
   font-style: italic;
   margin-top: .45rem;
 }
@@ -709,7 +733,7 @@ h1, h2, h3 { text-wrap: balance; }
   font-size: .72rem;
   font-weight: 700;
   letter-spacing: .04em;
-  color: var(--acento);
+  color: var(--acento-texto);
   border: 1px solid var(--acento);
   border-radius: 999px;
   padding: .1rem .55rem;
@@ -793,14 +817,15 @@ h1, h2, h3 { text-wrap: balance; }
   min-width: 0;
   /* Pipo habla: la burbuja respira en ámbar al montarse (espejo de
      resal_burbuja_pipo; cada pantalla la monta de nuevo, así que la
-     respiración acompaña cada mensaje, y en el tema-velo no repite). */
+     respiración acompaña cada mensaje, y en el tema-velo no repite).
+     El pulso vive en el halo (box-shadow): los anillos de borde no
+     interpolan en el compositor y el mensaje es el mismo. */
   animation: respirar-burbuja 720ms var(--curva-salida) 2;
 }
 
 @keyframes respirar-burbuja {
-  0%, 100% { border-color: var(--borde); }
-  50%      { border-color: var(--acento);
-             box-shadow: 0 0 0 3px
+  0%, 100% { box-shadow: 0 2px 8px -3px var(--sombra); }
+  50%      { box-shadow: 0 0 0 3px
                color-mix(in srgb, var(--acento) 22%, transparent),
                0 2px 8px -3px var(--sombra); }
 }
@@ -1052,6 +1077,7 @@ h1, h2, h3 { text-wrap: balance; }
   font-variant-numeric: tabular-nums;
   box-shadow: var(--elev-1);
   transition: var(--ansi-elevacion);
+  max-width: 100%;   /* pantallas estrechas: la caja de escribir no se sale */
 }
 
 .pea-input:focus {
@@ -1237,7 +1263,7 @@ h1, h2, h3 { text-wrap: balance; }
   font-family: var(--fuente-display);
   font-weight: 600;
   font-size: 1.02rem;
-  color: var(--acento);
+  color: var(--acento-texto);
   margin: 0 0 .35rem;
 }
 .bloque-ayuda p { margin: 0; font-size: .93rem; line-height: 1.55; }
@@ -1255,6 +1281,165 @@ h1, h2, h3 { text-wrap: balance; }
 .pie-creditos a:hover { color: var(--texto); }
 
 /* --------------------------------------------------------------------------
+   Documentación (documentacion.js): manual académico dentro del juego.
+   Las clases .doc-* solo viven en este bloque; el DOM no cambia.
+   -------------------------------------------------------------------------- */
+.titulo-seccion {
+  font-family: var(--fuente-display);
+  font-weight: 600;
+  font-size: clamp(1.28rem, 2.6vw, 1.7rem);
+  line-height: 1.25;
+  text-align: center;
+  margin: 0 0 .35rem;
+}
+
+.doc-texto {
+  margin: .45rem 0 0;
+  font-size: .95rem;
+  line-height: 1.62;
+}
+
+.doc-modulo,
+.doc-concepto {
+  padding: 1.05rem 1.2rem 1.1rem;
+}
+
+/* Las tarjetas se apilan planas (sin fila de grid entre ellas): el
+   respiro entre pares lo da la hermana precedente. */
+.doc-modulo + .doc-modulo,
+.doc-concepto + .doc-concepto {
+  margin-top: .8rem;
+}
+
+.doc-modulo-titulo,
+.doc-concepto-titulo {
+  font-family: var(--fuente-display);
+  font-weight: 600;
+  font-size: 1.1rem;
+  line-height: 1.35;
+  margin: 0;
+}
+
+/* El espejo web cierra cada módulo: fila de crédito con filete arriba. */
+.doc-espejo {
+  margin: .85rem 0 0;
+  padding-top: .7rem;
+  border-top: 1px solid var(--borde);
+  color: var(--acento-texto);
+  font-size: .82rem;
+  font-weight: 700;
+  letter-spacing: .02em;
+}
+
+/* --- tabla de equivalencias --- */
+/* La tabla vive en .table-responsive (única del juego, sólo acá): la
+   enmarco como tarjeta del mundo — filete, esquina y fondo de ficha.
+   Con la vista apilada de móvil y el scroll interno en intermedios.
+   Los renglones traen <code> directo en <tr>: al levantarlos a
+   display: table-cell vuelven a ser 3 columnas reales (Tk · Web ·
+   por qué), sin tocar el DOM. Monospace acá es contenido de código
+   real, no disfraz. */
+.seccion > .table-responsive {
+  border: 1px solid var(--borde);
+  border-radius: .9rem;
+  background: color-mix(in srgb, var(--tarjeta) 92%, transparent);
+}
+
+.doc-tabla {
+  width: 100%;
+  margin: 0;
+  font-size: .88rem;
+}
+.doc-tabla thead th {
+  font-size: .78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  color: var(--texto-secundario);
+  text-align: left;
+  padding: .6rem .75rem;
+  border-bottom: 1px solid var(--borde);
+}
+.doc-tabla thead th:nth-child(1) { width: 29%; }
+.doc-tabla thead th:nth-child(2) { width: 26%; }
+
+.doc-tabla tr > code.doc-celda-codigo {
+  display: table-cell;
+  vertical-align: top;
+  padding: .65rem .75rem;
+  border-bottom: 1px solid var(--borde);
+  background: color-mix(in srgb, var(--panel) 55%, transparent);
+  font-family: ui-monospace, "DejaVu Sans Mono", Menlo, Consolas, monospace;
+  font-size: .8rem;
+  color: var(--texto);
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+.doc-tabla .doc-celda-texto {
+  padding: .65rem .75rem;
+  border-bottom: 1px solid var(--borde);
+  color: var(--texto);
+  font-size: .88rem;
+  line-height: 1.55;
+}
+
+/* Móvil: la fila se apila como ficha (Tk → Web → por qué), con la
+   etiqueta de columna como marcador pequeño; la tabla completa queda
+   para tablet y escritorio. */
+@media (max-width: 575.98px) {
+  .doc-tabla tr { display: block; padding: .8rem 0 .55rem; border-bottom: 1px solid var(--borde); }
+  .doc-tabla tr:last-child { border-bottom: 0; }
+  .doc-tabla thead { display: none; }
+  .doc-tabla tr > code.doc-celda-codigo,
+  .doc-tabla .doc-celda-texto {
+    display: block;
+    width: auto;
+    border-bottom: 0;
+    padding: 0;
+    background: transparent;
+  }
+  .doc-tabla tr > code.doc-celda-codigo { margin: .55rem 0 0; }
+  .doc-tabla .doc-celda-texto { margin-top: .7rem; padding-top: .6rem; border-top: 1px dashed var(--borde); }
+  .doc-tabla tr > code.doc-celda-codigo:first-of-type::before,
+  .doc-tabla tr > code.doc-celda-codigo:nth-of-type(2)::before {
+    content: "Tkinter:";
+    display: block;
+    font-size: .66rem;
+    font-weight: 800;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--texto-secundario);
+    margin-bottom: .2rem;
+  }
+  .doc-tabla tr > code.doc-celda-codigo:nth-of-type(2)::before { content: "Web:"; }
+}
+
+/* --- capturas del producto --- */
+.doc-captura {
+  margin: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: .6rem;
+  padding: .65rem .65rem .8rem;
+}
+.doc-captura-img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  border-radius: .7rem;
+  border: 1px solid var(--borde);
+  background: var(--panel);
+}
+.doc-caption {
+  color: var(--texto-secundario);
+  font-size: .8rem;
+  line-height: 1.45;
+}
+
+/* --------------------------------------------------------------------------
    Móvil y tablet: interacción táctil real
    -------------------------------------------------------------------------- */
 
@@ -1262,14 +1447,56 @@ h1, h2, h3 { text-wrap: balance; }
 button, a, input, .memoria-carta { touch-action: manipulation; }
 
 /* El hover-lift es de MOUSE: en pantallas táctiles el :hover de
-   Safari/iOS queda pegado tras el tap ("hover sticky"). Neutralizo los
-   transform de hover cuando el dispositivo no puede pasar el puntero —
-   en su lugar el feedback táctil es el :active (abajo). */
+   Safari/iOS queda pegado tras el tap ("hover sticky"). Neutralizo el
+   hover completo (transform Y sombra — la sombra exótica pegada tras
+   el tap se lee como defecto) cuando el dispositivo no puede pasar el
+   puntero: en su lugar el feedback táctil es el :active (abajo). */
 @media (hover: none) {
-  .btn-pea:hover, .btn-opcion:hover, .btn-letra:hover,
-  .btn-categoria:hover, .ficha-actividad:hover, .pea-chip:hover,
-  .memoria-carta:hover, .ficha-palabra:hover {
+  .btn-pea:hover {
     transform: none;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .14),
+                0 10px 22px -14px var(--sombra);
+  }
+  /* Paridad de especificidad con cada regla base: las bases llevan
+     :not(:disabled)/:not(.resuelta) — sin la misma cadena el neutral
+     pierde y el lift pegado (sticky hover) sigue vivo. */
+  .btn-opcion:hover:not(:disabled), .btn-letra:hover:not(:disabled),
+  .btn-categoria:hover {
+    transform: none;
+    box-shadow: var(--elev-1), var(--anillo-tarjeta);
+  }
+  .ficha-actividad:hover:not(:disabled) {
+    transform: none;
+    box-shadow: var(--elev-2), var(--anillo-tarjeta);
+  }
+  .memoria-carta:hover:not(:disabled):not(.resuelta):not(.volteada) {
+    transform: none;
+    box-shadow: var(--elev-2), var(--anillo-tarjeta);
+  }
+  .ficha-palabra:hover {
+    transform: none;
+    box-shadow: var(--elev-2), var(--anillo-tarjeta);
+  }
+  .pea-chip:hover:not(.activa) {
+    transform: none;
+    box-shadow: var(--elev-1);
+  }
+
+  /* Objetivo táctil ≥44px (WCAG 2.5.8 / Apple HIG): chips, ghost y el
+     enlace del pie. El primario .btn-pea ya mide 44+ en pantallas
+     chicas gracias a su padding; los ghost eran de 37px. */
+  .btn-pea-ghost, .pea-chip {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .hud-volumen .form-range { height: 44px; width: 110px; }
+  .pie-creditos a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 0 .6rem;
   }
 }
 
@@ -1285,6 +1512,7 @@ button, a, input, .memoria-carta { touch-action: manipulation; }
   }
   .memoria-carta:active { transform: scale(.96); }
   .pea-chip:active { transform: scale(.97); }
+  .btn-pea-ghost:active { transform: scale(.96); }
 }
 
 /* Cascada compacta en pantallas chicas: la entrada del contenido se
