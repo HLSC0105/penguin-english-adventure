@@ -181,6 +181,95 @@ html.tema-flip::after {
 }
 
 /* --------------------------------------------------------------------------
+   Splash de carga (carga.js): Pipo flota, título crece, barra polar
+   -------------------------------------------------------------------------- */
+.pea-carga {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: var(--fondo);
+  background-image: var(--suelo);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.1rem;
+  cursor: pointer;
+  animation: entrar-hijo 240ms var(--curva-salida) both;
+}
+
+.carga-pipo {
+  width: 132px;
+  height: 132px;
+  animation: pipo-flota 2.6s ease-in-out infinite;
+}
+.carga-pipo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 10px 16px rgba(0, 0, 0, .45));
+}
+
+@keyframes pipo-flota {
+  0%, 100% { transform: translateY(6px); }
+  50%      { transform: translateY(-10px); }
+}
+
+.carga-titulo {
+  font-family: var(--fuente-display);
+  font-weight: 700;
+  font-size: clamp(1.7rem, 5vw, 2.6rem);
+  letter-spacing: .02em;
+  margin: 0;
+  text-align: center;
+  animation: aparecer-titulo 460ms var(--curva-salida) both;
+  animation-delay: 250ms;
+}
+
+.carga-subtitulo {
+  color: var(--texto-secundario);
+  font-size: .95rem;
+  margin: 0;
+  text-align: center;
+  animation: entrar-hijo 240ms var(--curva-salida) both;
+  animation-delay: 650ms;
+}
+
+.carga-barra {
+  width: min(300px, 62vw);
+  margin-top: .6rem;
+  animation: entrar-hijo 240ms var(--curva-salida) both;
+  animation-delay: 850ms;
+}
+.carga-relleno {
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  animation: llenar-carga 1.85s cubic-bezier(.33, .8, .4, 1) 900ms forwards;
+}
+@keyframes llenar-carga {
+  to { transform: scaleX(1); }
+}
+
+.carga-pista {
+  position: fixed;
+  bottom: 1.4rem;
+  color: var(--texto-secundario);
+  font-size: .8rem;
+  margin: 0;
+  opacity: 0;
+  animation: entrar-hijo 240ms var(--curva-salida) both;
+  animation-delay: 500ms;
+}
+
+.pea-carga.carga-muriendo {
+  animation: salir-carga 340ms var(--curva-salida) both;
+  pointer-events: none;
+}
+@keyframes salir-carga {
+  to { opacity: 0; transform: scale(1.02); }
+}
+
+/* --------------------------------------------------------------------------
    Página: marco central + ritmo vertical
    -------------------------------------------------------------------------- */
 .marco {
@@ -1164,6 +1253,63 @@ h1, h2, h3 { text-wrap: balance; }
 }
 .pie-creditos a { color: var(--texto-secundario); text-underline-offset: 3px; }
 .pie-creditos a:hover { color: var(--texto); }
+
+/* --------------------------------------------------------------------------
+   Móvil y tablet: interacción táctil real
+   -------------------------------------------------------------------------- */
+
+/* Golpe de tap sin la demora histórica del doble-tap para zoom. */
+button, a, input, .memoria-carta { touch-action: manipulation; }
+
+/* El hover-lift es de MOUSE: en pantallas táctiles el :hover de
+   Safari/iOS queda pegado tras el tap ("hover sticky"). Neutralizo los
+   transform de hover cuando el dispositivo no puede pasar el puntero —
+   en su lugar el feedback táctil es el :active (abajo). */
+@media (hover: none) {
+  .btn-pea:hover, .btn-opcion:hover, .btn-letra:hover,
+  .btn-categoria:hover, .ficha-actividad:hover, .pea-chip:hover,
+  .memoria-carta:hover, .ficha-palabra:hover {
+    transform: none;
+  }
+}
+
+/* Presión táctil: compresión clara al tocar (equivale al hover del
+   escritorio; sin ella una tarjeta no responde al dedo). */
+@media (hover: none) {
+  .btn-pea:active { transform: translateY(0) scale(.96); }
+  .btn-opcion:active, .btn-letra:active, .btn-categoria:active {
+    transform: translateY(0) scale(.97);
+  }
+  .ficha-actividad:active, .ficha-palabra:active {
+    transform: translateY(0) scale(.985);
+  }
+  .memoria-carta:active { transform: scale(.96); }
+  .pea-chip:active { transform: scale(.97); }
+}
+
+/* Cascada compacta en pantallas chicas: la entrada del contenido se
+   siente ágil (menor duración y stagger de 45→22 ms). */
+@media (max-width: 575.98px) {
+  .pantalla-contenido > * { animation-duration: 190ms; }
+  .pantalla-contenido > *:nth-child(1)  { animation-delay: 18ms; }
+  .pantalla-contenido > *:nth-child(2)  { animation-delay: 40ms; }
+  .pantalla-contenido > *:nth-child(3)  { animation-delay: 62ms; }
+  .pantalla-contenido > *:nth-child(4)  { animation-delay: 84ms; }
+  .pantalla-contenido > *:nth-child(5)  { animation-delay: 106ms; }
+  .pantalla-contenido > *:nth-child(6)  { animation-delay: 128ms; }
+  .pantalla-contenido > *:nth-child(7)  { animation-delay: 150ms; }
+  .pantalla-contenido > *:nth-child(8)  { animation-delay: 172ms; }
+  .pantalla-contenido > *:nth-child(n+9) { animation-delay: 194ms; }
+  .carga-pipo { width: 104px; height: 104px; }
+  .carga-titulo { font-size: clamp(1.35rem, 6.4vw, 1.8rem); }
+}
+
+/* Memoria: 3 columnas bajo 480px (B1 son 16 cartas; 4×4 se estrecha
+   demasiado) y alto de carta adecuado al dedo. */
+@media (max-width: 479.98px) {
+  .memo-tablero { --memo-cols: 3; }
+  .memoria-carta { min-height: 74px; }
+}
 
 /* --------------------------------------------------------------------------
    Movimiento reducido: el juego sigue, todo estático

@@ -180,6 +180,14 @@ PEA.pantallas.menu = (function () {
       }),
       PEA.ui.h("button", "btn btn-pea-ghost", {
         type: "button",
+        html: "<i class=\"bi bi-code-square\" aria-hidden=\"true\"></i> ¿Cómo está hecho?",
+        onclick: function () {
+          PEA.sonidos.reproducir("clic");
+          PEA.ui.navegar(PEA.pantallas.documentacion.mostrarDocumentacion);
+        },
+      }),
+      PEA.ui.h("button", "btn btn-pea-ghost", {
+        type: "button",
         html: "<i class=\"bi bi-box-arrow-right\" aria-hidden=\"true\"></i> Cerrar sesión",
         "aria-label": "Cerrar sesión y borrar tus puntos de esta pestaña",
         onclick: function () {
