@@ -1,0 +1,13 @@
+{
+  "name": "penguin-english-adventure-tests-web",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Suite E2E (Playwright) de la web de Penguin English Adventure — corre por file://, sin servidor.",
+  "type": "module",
+  "scripts": {
+    "test": "node suite.mjs"
+  },
+  "devDependencies": {
+    "playwright": "1.64.1"
+  }
+}

@@ -1,0 +1,3 @@
+# artefactos de diagnóstico (pantallazos de tests que fallaron) y dependencias
+node_modules/
+artefactos/
