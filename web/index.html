@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="es" data-bs-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Penguin English Adventure — aprende inglés con Pipo</title>
+  <meta name="description"
+        content="Juego para aprender vocabulario de inglés (CEFR A1–B1) con Pipo el pingüino: vocabulario, trivia, completar, ordenar y memoria.">
+  <meta name="theme-color" content="#000000">
+  <link rel="icon" type="image/png" href="assets/img/pinguino_128.png">
+
+  <!-- Cascarón 100% local: Bootstrap 5.3.8 + Bootstrap Icons 1.13.2 autoalojados
+       (assets/vendor/) — funciona por file:// sin internet ni servidor. -->
+  <link rel="stylesheet" href="assets/vendor/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/vendor/bootstrap-icons.min.css">
+
+  <!-- Fredoka porta la voz display del mundo polar (autoalojada, OFL) -->
+  <link rel="stylesheet" href="assets/vendor/fredoka.css">
+
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+
+  <!-- Encabezado persistente (jugar/HUD). El JS decide cuándo existe, como en Tk. -->
+  <header id="hud" class="hud" hidden></header>
+
+  <!-- El lienzo de pantallas: cada pantalla se pinta aquí. -->
+  <main id="pantalla" class="pantalla-opcion" tabindex="-1" aria-live="off"></main>
+
+  <noscript>
+    <p class="contenedor-noscript text-center my-5">
+      Este juego necesita JavaScript activado para funcionar.
+    </p>
+  </noscript>
+
+  <!-- Orden espejo del paquete Python: datos → reglas → utilidades → pantallas. -->
+  <script src="js/00-datos.js"></script>
+  <script src="js/01-niveles.js"></script>
+  <script src="js/02-estado.js"></script>
+  <script src="js/02b-media.js"></script>
+  <script src="js/03-sonidos.js"></script>
+  <script src="js/04-juegos.js"></script>
+  <script src="js/05-componentes.js"></script>
+  <script src="js/pantallas/inicio.js"></script>
+  <script src="js/pantallas/menu.js"></script>
+  <script src="js/pantallas/intro.js"></script>
+  <script src="js/pantallas/ayuda.js"></script>
+  <script src="js/pantallas/vocabulario.js"></script>
+  <script src="js/pantallas/trivia.js"></script>
+  <script src="js/pantallas/completar.js"></script>
+  <script src="js/pantallas/ordenar.js"></script>
+  <script src="js/pantallas/memoria.js"></script>
+  <script src="js/pantallas/resultado.js"></script>
+  <script src="js/06-main.js"></script>
+</body>
+</html>

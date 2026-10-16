@@ -1,0 +1,55 @@
+[build-system]
+requires = ["setuptools >= 77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "penguin-english-adventure"
+version = "1.0.0"
+description = "Juego educativo para aprender inglés con un pingüino llamado Pipo."
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+keywords = ["educativo", "ingles", "juego", "tkinter"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Topic :: Education",
+]
+dependencies = [
+    # pygame: audio portable y lienzo 2.5D (memoria/resultados).
+    "pygame>=2.5",
+]
+
+[project.optional-dependencies]
+dev = ["coverage>=7.0"]
+dist = ["pyinstaller>=6.0"]
+
+# Permite ejecutar el juego con el comando: penguin-english
+[project.scripts]
+penguin-english = "penguin_english.main:iniciar"
+
+[tool.setuptools]
+include-package-data = true
+packages = [
+    "penguin_english",
+    "penguin_english.datos",
+    "penguin_english.juegos",
+    "penguin_english.interfaz",
+    "penguin_english.utilidades",
+    "penguin_english.recursos",
+]
+
+[tool.setuptools.package-dir]
+"" = "src"
+"penguin_english.recursos" = "recursos"
+
+[tool.setuptools.package-data]
+"penguin_english.recursos" = ["**/*.png", "**/*.wav", "**/*.md"]
+
+[tool.coverage.run]
+source = ["penguin_english"]
+branch = true
+omit = ["*/tests/*"]
+
+[tool.coverage.report]
+show_missing = true
+skip_empty = true

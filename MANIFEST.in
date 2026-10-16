@@ -1,0 +1,4 @@
+recursive-include recursos *.png *.wav *.md
+include PRODUCT.md
+include DESIGN.md
+include README.md

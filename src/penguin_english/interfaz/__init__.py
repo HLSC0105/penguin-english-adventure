@@ -1,0 +1,1 @@
+"""Contiene las pantallas de la interfaz gráfica."""

@@ -1,0 +1,10 @@
+# Wine + Python 3.12 para Windows: PyInstaller produce un .exe real.
+FROM tobix/pywine:3.12
+
+ENV WINEDEBUG=-all
+WORKDIR /src
+
+RUN wine python -m pip install --disable-pip-version-check --upgrade pip \
+    && wine python -m pip install pyinstaller pygame
+
+CMD ["wine", "python", "-m", "PyInstaller", "--noconfirm", "penguin.spec"]

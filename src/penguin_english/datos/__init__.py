@@ -1,0 +1,1 @@
+"""Contiene los datos del juego: vocabulario, preguntas y mensajes."""

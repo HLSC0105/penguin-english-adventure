@@ -1,0 +1,34 @@
+# Archivos que no se comparten ni se suben a git
+
+# Entornos virtuales
+.venv/
+venv/
+env/
+
+# Caché de Python (bytecode)
+__pycache__/
+*.py[cod]
+
+# Metadatos de instalación (se regeneran con pip install -e .)
+*.egg-info/
+
+# Caché de pruebas
+.pytest_cache/
+.coverage
+
+# PyInstaller
+build/
+dist/
+
+# Archivos del sistema operativo
+.DS_Store
+Thumbs.db
+
+# Archivos comprimidos
+*.zip
+*.tar.gz
+
+# Basura de editores
+.idea/
+.vscode/
+*.swp

@@ -1,0 +1,1 @@
+"""Contiene la lógica de los juegos (sin interfaz gráfica)."""
