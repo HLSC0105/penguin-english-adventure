@@ -540,7 +540,20 @@ h1, h2, h3 { text-wrap: balance; }
   font-size: .88rem;
   --bs-btn-padding-y: .42rem;
   --bs-btn-padding-x: .8rem;
+  /* Icono y texto en fila con aire: en móvil el <i> quedaba pegado
+     al rótulo ("¿Cómo jugar?" / "¿Cómo está hecho?"). inline-flex +
+     gap resuelve el aire y el ajuste de línea por si el rótulo rompe. */
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
   transition: var(--ansi-elevacion);
+}
+
+/* El icono guardián del ghost también respira cuando el rótulo baja de
+   línea (esquina típica de la pila en móvil). */
+.btn-pea-ghost > i {
+  flex: none;
+  line-height: 1;
 }
 
 /* El ghost no compite con las tarjetas: solo respira un milímetro. */
