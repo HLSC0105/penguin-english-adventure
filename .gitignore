@@ -32,3 +32,15 @@ Thumbs.db
 .idea/
 .vscode/
 *.swp
+
+# Estado interno de skills/herramientas de agente (desarrollo, no producto)
+.impeccable/
+.superpowers/
+.opencode/
+
+# Dependencias y artefactos de la suite web E2E
+tests_web/node_modules/
+tests_web/artefactos/
+
+# Logs
+*.log
