@@ -332,42 +332,65 @@ def("10 · Ayuda: tres bloques (Actividades, Puntos, Niveles CEFR)", async ({ pa
 
 /* ═══════════════════════════ 5. DOCUMENTACIÓN ═══════════════════════════ */
 
-def("11 · Documentación: 8 módulos, tabla 7 filas, 5 conceptos y 4 capturas", async ({ page }) => {
+def("11 · Documentación extendida: 9 módulos, árbol, 2 tablas (13 filas), 18 tarjetas, repo y 9 capturas", async ({ page }) => {
   await page.getByRole("button", { name: /¿Cómo está hecho\?/ }).click();
   await esperarPantalla(page, "¿Cómo está hecho?", 3000);
   await asentar(page);
 
-  assertEq(await page.locator("#pantalla .doc-modulo").count(), 8,
-    "8 tarjetas de módulos");
-  assertEq(await page.locator("#pantalla .doc-modulo .doc-espejo").count(), 8,
+  /* El enlace al código fuente (arriba y al final). */
+  assertEq(await page.locator("#pantalla a.doc-cajon-enlace").count(), 2,
+    "2 cajones del repositorio (inicio y cierre)");
+  assert((await page.getAttribute("#pantalla a.doc-cajon-enlace", "href") || "")
+    .includes("github.com/HLSC0105/penguin-english-adventure"),
+    "el cajón apunta al repo correcto");
+
+  /* Estructura: 8 secciones numeradas. */
+  assertEq(await page.locator("#pantalla .titulo-seccion").count(), 8,
+    "8 secciones documentadas");
+  assertEq(await page.locator("#pantalla .doc-modulo").count(), 9,
+    "9 tarjetas de módulos (sumó rutas.py)");
+  assertEq(await page.locator("#pantalla .doc-modulo .doc-espejo").count(), 9,
     "cada módulo con su espejo 'Web →'");
 
-  const tabla = await page.evaluate(() => {
-    const filas = [...document.querySelectorAll("#pantalla .doc-tabla tbody tr")];
-    return {
-      n: filas.length,
-      celdasFila1: filas.length ? filas[0].children.length : 0,
-      cabeceras: [...document.querySelectorAll("#pantalla .doc-tabla thead th")].length,
-    };
-  });
-  assertEq(tabla.n, 7, "7 filas de equivalencias");
-  assertEq(tabla.celdasFila1, 3, "cada fila con sus 3 celdas");
-  assertEq(tabla.cabeceras, 3, "cabezal con 3 columnas");
+  /* El árbol del proyecto: monoespaciado y con las dos ramas clave. */
+  const arbol = await page.evaluate(() =>
+    (document.querySelector("#pantalla .doc-arbol")?.textContent || ""));
+  assert(arbol.includes("src/penguin_english/") && arbol.includes("web/"),
+    "árbol con el paquete y la web");
+  assertEq(await page.evaluate(() =>
+    (document.querySelector("#pantalla .doc-arbol")?.textContent || "").split("\n").length), 21,
+    "21 renglones en el árbol");
 
-  assertEq(await page.locator("#pantalla .doc-concepto").count(), 5, "5 conceptos");
+  /* Dos tablas: equivalencias (7 filas × 3 celdas) y métricas (6 × 2). */
+  const tablas = await page.evaluate(() =>
+    [...document.querySelectorAll("#pantalla .doc-tabla")].map((t) => ({
+      filas: t.querySelectorAll("tbody tr").length,
+      cabezas: t.querySelectorAll("thead th").length,
+    })));
+  assertEq(tablas.length, 2, "2 tablas (equivalencias y métricas)");
+  assertEq(tablas[0].filas, 7, "7 filas de equivalencias");
+  assertEq(tablas[0].cabezas, 3, "equivalencias con 3 columnas");
+  assertEq(tablas[1].filas, 6, "6 filas de métricas");
+  assertEq(tablas[1].cabezas, 2, "métricas con 2 columnas");
+
+  /* 18 tarjetas de texto: 6 conceptos + 6 decisiones + 6 pasos. */
+  assertEq(await page.locator("#pantalla .doc-concepto").count(), 18,
+    "6 conceptos + 6 decisiones + 6 pasos");
+  assertEq(await page.locator("#pantalla .doc-subgrupo").count(), 4,
+    "4 subgrupos de capturas (escritorio/tablet/móvil/arranque)");
 
   const capturas = await page.evaluate(() =>
     [...document.querySelectorAll("figure.doc-captura")].map((f) => ({
       tieneImg: !!f.querySelector("img"),
       caption: (f.querySelector("figcaption")?.textContent || "").trim(),
     })));
-  assertEq(capturas.length, 4, "4 <figure class='doc-captura'>");
+  assertEq(capturas.length, 9, "9 <figure class='doc-captura'>");
   assert(capturas.every((c) => c.tieneImg), "cada figura declara su <img>");
   assert(capturas.every((c) => c.caption.length > 0),
     "cada figura con <figcaption> no vacío");
-  /* NOTA: esas imágenes sabidamente NO existen en el repo (los tests
-     no piden que carguen; sus errores de consola van a la whitelist
-     documentada — ver helpers.auditarConsola y README). */
+  /* NOTA: las capturas SÍ existen ahora en web/assets/capturas/ (9 PNG
+     reales del build, con filtro de 4 errores iniciales resuelto); el
+     audit de consola sigue cubriendo cualquier 404 de assets. */
 
   await page.getByRole("button", { name: /Volver al menú/ }).click();
   await esperarPantalla(page, "Penguin English Adventure", 3000);

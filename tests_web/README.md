@@ -35,7 +35,7 @@ un servidor ni tocar nada de `web/`.
 | 04-06 | Inicio / HUD | nombre vacío → "Escribe tu nombre para continuar."; chips A1/A2/B1; nombre válido → menú; HUD con Jugador/Puntos/Aciertos/Nivel |
 | 07-09 | Menú | 5 fichas con los detalles del nivel, barra "0 de 5", y las acciones ¿Cómo jugar?, ¿Cómo está hecho? y Cerrar sesión |
 | 10 | Ayuda | 3 bloques (Actividades, Puntos, Niveles CEFR) |
-| 11 | Documentación | 8 tarjetas de módulos con su espejo "Web →", tabla de equivalencias de 7 filas, 5 conceptos y 4 `<figure class="doc-captura">` con `<figcaption>` |
+| 11 | Documentación extendida | cajón del repositorio GitHub (×2, arriba y al cierre), 8 secciones, 9 tarjetas de módulos con su espejo "Web →", árbol del proyecto (21 renglones), 2 tablas (7 equivalencias + 6 métricas), 18 tarjetas (6 conceptos + 6 decisiones + 6 pasos), 4 subgrupos y 9 `<figure class="doc-captura">` reales (`web/assets/capturas/`, cargan de verdad) con `<figcaption>` |
 | 12-14 | Vocabulario | 20 categorías con conteo que suma 255 (A2); "Animales" paginado 4 por página hasta la última, con imagen/OpenMoji + inglés/español/nivel/ejemplo; "Volver al listado" SOLO en la última página; los puntos del HUD quedan intactos |
 | 15-16 | Trivia completa | 10 preguntas respondidas con clics reales; feedback con `.esta-correcta` + `.pulso-acierto` y `.quieto` en las neutras; pantalla final con 4 líneas de resultado y confeti (`#confeti`); los Puntos del HUD suben |
 | 17 | Completar completa | 8 rondas con `.letra-celda.hueco`, 3 letras por ronda y feedback con "La palabra completa es: …" |
