@@ -193,7 +193,6 @@ function terminar(): void {
 }
 
 function iniciar(): void {
-  console.log("[pea-memoria] iniciar, pantalla=", document.body.dataset.pantalla, "isla=", !!document.querySelector("[data-isla-memoria]"));
   if (document.body.dataset.pantalla !== "memoria") return;
   const raiz = document.querySelector<HTMLElement>("[data-isla-memoria]");
   if (!raiz) return;

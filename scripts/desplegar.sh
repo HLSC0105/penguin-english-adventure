@@ -36,6 +36,9 @@ esac
 
 WORK="$(mktemp -d)"
 cp -r "$ORIGEN"/. "$WORK"/
+# GitHub Pages corre Jekyll por defecto y EXCLUYE carpetas que empiezan
+# con "_" (como _astro/ del build de Astro): .nojekyll lo desactiva.
+touch "$WORK/.nojekyll"
 git init -q -b gh-pages "$WORK"
 git -C "$WORK" add -A
 git -C "$WORK" commit -q -m "Despliegue: versión $VERSION ($(date '+%Y-%m-%d %H:%M'))"

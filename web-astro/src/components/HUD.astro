@@ -3,7 +3,14 @@
    vive en el Layout con transition:persist: el navegador lo MANTIENE
    entre páginas (el slider y el tema no parpadean — ventaja real del
    ClientRouter). Los datos los pinta src/scripts/hud.ts en cada carga. */
-const { mostrarMenu = true } = Astro.props;
+/* El botón "Menú" del HUD lo controla el script de sync (el HUD lleva
+   transition:persist: su marcado se congela en la primera página donde
+   montó — la VISIBILIDAD por página es trabajo del runtime, no del
+   servidor). En /menu/ se oculta, como el escritorio. */
+interface Props {
+  mostrarMenu?: boolean;
+}
+const { mostrarMenu: _sinUso } = Astro.props;   /* compat: ignorado */
 import { ruta } from "../lib/rutas";
 ---
 <header id="hud" class="hud" transition:persist="hud">
@@ -43,12 +50,10 @@ import { ruta } from "../lib/rutas";
         <i class="bi bi-brightness-high" aria-hidden="true"></i>
         <span data-hud="etiqueta-tema">Modo claro</span>
       </button>
-      {mostrarMenu && (
-        <a class="btn-pea-ghost" href={ruta("menu/")}>
-          <i class="bi bi-list" aria-hidden="true"></i>
-          <span>Menú</span>
-        </a>
-      )}
+      <a class="btn-pea-ghost" href={ruta("menu/")} data-hud="menu-link">
+        <i class="bi bi-list" aria-hidden="true"></i>
+        <span>Menú</span>
+      </a>
     </div>
   </div>
 </header>

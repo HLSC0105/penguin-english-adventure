@@ -13,14 +13,12 @@ interface Props {
   titulo: string;
   descripcion?: string;
   hud?: boolean;
-  mostrarMenu?: boolean;
   pantalla?: string;   /* data-pantalla del body: la usan las islands */
 }
 const {
   titulo,
   descripcion = "Juego para aprender vocabulario de inglés (CEFR A1–B1) con Pipo el pingüino.",
   hud = false,
-  mostrarMenu = true,
   pantalla = "",
 } = Astro.props;
 ---
@@ -38,7 +36,7 @@ const {
   <ClientRouter />
 </head>
 <body data-pantalla={pantalla}>
-  {hud && <HUD mostrarMenu={mostrarMenu} />}
+  {hud && <HUD />}
   <main id="pantalla" tabindex="-1">
     <slot />
   </main>
@@ -115,6 +113,9 @@ const {
       if (aviso) aviso.hidden = audioDisponible();
       const cajaVolumen = document.querySelector('[data-hud="volumen"]') as HTMLElement | null;
       if (cajaVolumen) cajaVolumen.hidden = !audioDisponible();
+      /* El botón Menú: visible en todas las rutas MENOS en el menú. */
+      const enlaceMenu = document.querySelector('[data-hud="menu-link"]') as HTMLElement | null;
+      if (enlaceMenu) enlaceMenu.hidden = document.body.dataset.pantalla === "menu";
     }
 
     alCambiarSinSonido(sincronizarHud);
