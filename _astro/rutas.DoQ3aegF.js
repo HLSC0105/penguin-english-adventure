@@ -1,0 +1,1 @@
+function e(e){return(`/penguin-english-adventure`.endsWith(`/`)?`/penguin-english-adventure`:`/penguin-english-adventure/`)+e.replace(/^\//,``)}var t=e(`pinguino_128.png`),n=t=>e(`sonidos/${t}.wav`);export{n,e as r,t};
