@@ -155,6 +155,25 @@ input { caret-color: var(--tema-foco); }
 }
 .titulo-pantalla:focus, .titulo-pantalla:focus-visible { outline: none; }
 
+/* Superficies del navegador que el dibujo no toca: pertenecen al mundo. */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-thumb { background: var(--tema-borde); border-radius: 999px; }
+::-webkit-scrollbar-track { background: transparent; }
+* { scrollbar-width: thin; scrollbar-color: var(--tema-borde) transparent; }
+
+/* El título recibe foco programático al cambiar de pantalla: su anillo
+   permanente se lee como defecto; los controles mantienen el suyo. */
+h1, h2, h3 { text-wrap: balance; }
+
+.titulo-pantalla {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(1.6rem, 3.2vw, 2.25rem);
+  letter-spacing: .01em;
+  margin: 0;
+  text-align: center;
+}
+
 /* ==========================================================================
    Keyframes del motor (espejo de interfaz/animaciones.py)
    ========================================================================== */
@@ -283,7 +302,7 @@ input { caret-color: var(--tema-foco); }
 }
 .hud-rotulo { font-size: .78rem; color: var(--tema-texto-secundario); }
 .hud-valor { font-weight: 700; font-size: .93rem; position: relative; }
-.hud-valor-acento { color: var(--tema-acento); }
+.hud-valor-acento { color: var(--tema-acento-texto); }
 .hud-controles { display: flex; align-items: center; gap: .4rem; margin-left: auto; }
 .hud-volumen {
   display: flex;
@@ -958,37 +977,96 @@ input { caret-color: var(--tema-foco); }
   text-align: center;
   margin: 2.4rem 0 .6rem;
 }
-.doc-texto { font-size: .95rem; line-height: 1.65; }
+.doc-texto { margin: .45rem 0 0; font-size: .95rem; line-height: 1.62; }
 .doc-espejo {
   border-top: 1px solid var(--tema-borde);
   margin-top: .7rem;
   padding-top: .55rem;
-  color: var(--tema-acento);
+  color: var(--tema-acento-texto);
   font-weight: 600;
   font-size: .88rem;
 }
 .doc-modulo-titulo, .doc-concepto-titulo {
   font-family: var(--font-display);
   font-weight: 600;
-  font-size: 1.05rem;
+  font-size: 1.1rem;
+  line-height: 1.35;
   margin-bottom: .3rem;
 }
-.doc-tabla { width: 100%; border-collapse: collapse; font-size: .9rem; }
-.doc-tabla th, .doc-tabla td { border: 1px solid var(--tema-borde); padding: .5rem .65rem; vertical-align: top; text-align: left; }
+
+/* Las tarjetas del manual llevan su propio colchón: sin él el texto
+   toca el filete y la esquina redondeada come la primera línea. */
+.doc-modulo, .doc-concepto { padding: 1.05rem 1.2rem 1.1rem; }
+.doc-modulo + .doc-modulo,
+.doc-concepto + .doc-concepto { margin-top: .8rem; }
+
+/* La tabla vive en .table-responsive (única del juego, sólo acá): la
+   enmarco como tarjeta del mundo — filete, esquina y fondo de ficha.
+   Renglones con filete inferior (sin rejilla interna). El DOM del
+   espejo Astro trae <code> DENTRO del <td>: el estilo de celda va en
+   el td y los rótulos de columna se pintan desde la celda, no desde
+   el code. Monospace acá es contenido de código real, no disfraz. */
+.table-responsive {
+  border: 1px solid var(--tema-borde);
+  border-radius: .9rem;
+  background: color-mix(in srgb, var(--tema-tarjeta) 92%, transparent);
+}
+
+.doc-tabla { width: 100%; border-collapse: collapse; margin: 0; font-size: .88rem; }
+.doc-tabla th, .doc-tabla td { border: 0; padding: .65rem .75rem; vertical-align: top; text-align: left; }
 .doc-tabla thead th {
   background: var(--tema-panel);
   font-family: var(--font-display);
   font-weight: 600;
-  font-size: .92rem;
+  font-size: .78rem;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  color: var(--tema-texto-secundario);
+  border-bottom: 1px solid var(--tema-borde);
 }
+.doc-tabla thead th:first-child { border-radius: .9rem 0 0 0; }
+.doc-tabla thead th:last-child { border-radius: 0 .9rem 0 0; }
+.doc-tabla td { border-bottom: 1px solid var(--tema-borde); }
+.doc-tabla tr:last-child > td { border-bottom: 0; }
 .doc-tabla code {
   font-family: ui-monospace, "Cascadia Mono", Consolas, monospace;
   font-size: .8rem;
-  display: table-cell;
-  white-space: pre-wrap;
-  word-break: break-word;
+  color: var(--tema-texto);
+  white-space: normal;
+  overflow-wrap: anywhere;
 }
-.doc-celda-texto { color: var(--tema-texto-secundario); font-size: .85rem; }
+.doc-celda-texto { color: var(--tema-texto); font-size: .88rem; line-height: 1.55; }
+
+/* Móvil: la fila se apila como ficha (código → código → por qué), con
+   la etiqueta de columna como marcador pequeño; la tabla completa
+   queda para tablet y escritorio. Los rótulos se eligen por forma de
+   la tabla (:has): 3 celdas = equivalencias, 2 celdas = métricas. */
+@media (max-width: 575.98px) {
+  .doc-tabla tr { display: block; padding: .8rem 0 .55rem; border-bottom: 1px solid var(--tema-borde); }
+  .doc-tabla tr:last-child { border-bottom: 0; }
+  .doc-tabla thead { display: none; }
+  .doc-tabla td {
+    display: block;
+    width: auto;
+    border-bottom: 0;
+    padding: 0;
+    background: transparent;
+  }
+  .doc-tabla td + td { margin-top: .7rem; padding-top: .6rem; border-top: 1px dashed var(--tema-borde); }
+  .doc-tabla td::before {
+    display: block;
+    font-size: .66rem;
+    font-weight: 800;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--tema-texto-secundario);
+    margin-bottom: .2rem;
+  }
+  .doc-tabla:has(td:nth-child(3)) td:nth-child(1)::before { content: "Tkinter:"; }
+  .doc-tabla:has(td:nth-child(3)) td:nth-child(2)::before { content: "Web:"; }
+  .doc-tabla:not(:has(td:nth-child(3))) td:nth-child(1)::before { content: "Indicador:"; }
+  .doc-tabla:not(:has(td:nth-child(3))) td:nth-child(2)::before { content: "Qué significa:"; }
+}
 .doc-arbol {
   background: var(--tema-panel);
   border: 1px solid var(--tema-borde);
@@ -1038,6 +1116,7 @@ input { caret-color: var(--tema-foco); }
    Utilidades comunes del mundo
    ========================================================================== */
 .seccion { margin-top: 1.55rem; }
+.seccion-acto { margin-top: 2.2rem; }
 .marco {
   max-width: 1040px;
   margin-inline: auto;
@@ -1045,9 +1124,15 @@ input { caret-color: var(--tema-foco); }
 }
 .medida { max-width: 68ch; margin-inline: auto; }
 .texto-secundario { color: var(--tema-texto-secundario); }
-.texto-acento { color: var(--tema-acento); }
+/* El acento en TEXTO corre por la derivada legible (72/28 en claro). */
+.texto-acento { color: var(--tema-acento-texto); }
 .texto-acento-texto { color: var(--tema-acento-texto); }
 #confeti { display: block; width: 100%; height: 128px; }
+
+/* Líneas del resumen (resultado): el peso y el color semántico los
+   llevan los spans que la isla pinta (row-gap va inline). */
+.linea { font-size: .98rem; }
+.linea-acento { color: var(--tema-acento-texto); font-weight: 600; }
 .pie-creditos {
   text-align: center;
   color: var(--tema-texto-secundario);
@@ -1061,11 +1146,75 @@ input { caret-color: var(--tema-foco); }
    Móvil y tablet
    ========================================================================== */
 @media (hover: none) {
-  .btn-pea:hover, .btn-opcion:hover, .btn-letra:hover,
-  .btn-categoria:hover, .pea-chip:hover, .memoria-carta:hover,
-  .ficha-palabra:hover, .ficha-actividad:hover {
+  /* El hover-lift es de MOUSE: en pantallas táctiles el :hover de
+     Safari/iOS queda pegado tras el tap ("hover sticky"). Neutralizo
+     el hover COMPLETO (transform, sombra, fondo y filete) con la MISMA
+     especificidad de cada regla base (paridad de :not): sin esa
+     paridad el neutral pierde y el lift pegado sigue vivo. */
+  .btn-pea:hover {
     transform: none;
+    background: var(--tema-boton);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .14),
+                0 10px 22px -14px var(--tema-sombra);
   }
+  .btn-pea-acento:hover {
+    background: var(--tema-acento);
+    color: var(--tema-sobre-acento);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .14),
+                0 10px 22px -14px var(--tema-sombra);
+  }
+  .btn-opcion:hover:not(:disabled), .btn-letra:hover:not(:disabled),
+  .btn-categoria:hover {
+    transform: none;
+    background: var(--tema-tarjeta);
+    border-color: var(--tema-borde);
+    box-shadow: var(--elev-1), var(--anillo-tarjeta);
+  }
+  .ficha-actividad:hover:not(:disabled) {
+    transform: none;
+    background: var(--tema-tarjeta);
+    border-color: var(--tema-borde);
+    box-shadow: var(--elev-2), var(--anillo-tarjeta);
+  }
+  .ficha-actividad.completada:hover:not(:disabled) {
+    border-color: color-mix(in srgb, var(--tema-correcto) 60%, var(--tema-borde));
+  }
+  .memoria-carta:hover:not(:disabled):not(.resuelta):not(.volteada) {
+    transform: none;
+    box-shadow: var(--elev-2), var(--anillo-tarjeta);
+  }
+  .ficha-palabra:hover {
+    transform: none;
+    box-shadow: var(--elev-2), var(--anillo-tarjeta);
+  }
+  .pea-chip:hover:not(.activa) {
+    transform: none;
+    background: var(--tema-tarjeta);
+    box-shadow: var(--elev-1);
+  }
+  .doc-cajon-enlace:hover {
+    transform: none;
+    box-shadow: var(--elev-2), var(--anillo-tarjeta);
+  }
+
+  /* Objetivo táctil ≥44px (WCAG 2.5.8 / Apple HIG): primarios, ghost,
+     chips, el slider del HUD y los enlaces del pie. */
+  .btn-pea, .btn-pea-ghost, .pea-chip {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .hud-volumen input[type="range"] { height: 44px; width: 110px; }
+  .pie-creditos a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 0 .6rem;
+  }
+
+  /* Presión táctil: compresión clara al tocar (equivale al hover del
+     escritorio; sin ella una tarjeta no responde al dedo). */
   .btn-pea:active { transform: translateY(0) scale(.96); }
   .btn-opcion:active, .btn-letra:active, .btn-categoria:active {
     transform: translateY(0) scale(.97);
@@ -1073,7 +1222,7 @@ input { caret-color: var(--tema-foco); }
   .ficha-actividad:active, .ficha-palabra:active { transform: translateY(0) scale(.985); }
   .memoria-carta:active { transform: scale(.96); }
   .pea-chip:active { transform: scale(.97); }
-  .btn-pea-ghost, .pea-chip { min-height: 44px; }
+  .btn-pea-ghost:active { transform: scale(.96); }
 }
 
 @media (max-width: 575.98px) {
@@ -1114,6 +1263,13 @@ input { caret-color: var(--tema-foco); }
     transition-duration: .01ms !important;
     scroll-behavior: auto !important;
   }
+  /* Los pseudo-elementos del View Transition viven fuera del árbol del
+     documento: el selector universal no los alcanza — congelarlos
+     aparte para que la navegación sea instantánea. */
+  ::view-transition-old(root), ::view-transition-new(root) {
+    animation-duration: 0s !important;
+    animation-delay: 0s !important;
+  }
 }
 
 /* ==========================================================================
@@ -1124,4 +1280,23 @@ input { caret-color: var(--tema-foco); }
 }
 ::view-transition-new(root) {
   animation: entrar-hijo 260ms var(--ease-salida) both;
+}
+
+/* ---------- velo del cambio de tema (espejo de fundir_fondo) ----------
+   Los gradientes del suelo no interpolan; el velo de hielo tapa el
+   salto mientras las variables cambian, y se desvanece. Solo durante
+   el flip (clase .tema-flip en <html>, la añade el click handler del
+   Layout, 360 ms). */
+html.tema-flip::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  pointer-events: none;
+  background: radial-gradient(
+    120% 100% at 50% 40%,
+    rgba(219, 234, 254, .35) 0%,
+    rgba(148, 197, 245, .18) 34%,
+    transparent 72%);
+  animation: velo-tema 340ms var(--ease-salida) both;
 }

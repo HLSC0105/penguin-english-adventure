@@ -10,7 +10,7 @@ import {
 } from "../lib/datos";
 import {
   actividadCompletada, progresoPorcentaje, leerNivel, cerrarSesion,
-  establecerNivel, leerActividades, type Nivel,
+  establecerNivel, leerActividades,
 } from "../lib/estado";
 import { nivelValido } from "../lib/datos";
 import { reproducir } from "../lib/sonidos";

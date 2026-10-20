@@ -33,6 +33,21 @@ const {
   <link rel="icon" type="image/png" href={ruta("pinguino_128.png")} />
   <link rel="stylesheet" href={ruta("vendor/icons.css")} />
   <link rel="stylesheet" href={ruta("vendor/fredoka.css")} />
+  <script is:inline>
+    /* Tema ANTES de la primera pintura: el HTML estático nace
+       data-tema="oscuro" y, sin esto, un jugador con «claro» guardado
+       ve un destello oscuro en cada carga dura. El atributo lo
+       repiten el before-swap y el page-load; aquí sólo arranca antes.
+       sessionStorage puede fallar (modo privado): try/catch y quedamos
+       en oscuro, igual que estado.ts. */
+    try {
+      if (sessionStorage.getItem("pea.tema") === "claro") {
+        document.documentElement.setAttribute("data-tema", "claro");
+        const meta = document.querySelector('meta[name="theme-color"]');
+        if (meta) meta.setAttribute("content", "#E8F1FA");
+      }
+    } catch { /* modo privado: oscuro por defecto */ }
+  </script>
   <ClientRouter />
 </head>
 <body data-pantalla={pantalla}>
@@ -48,6 +63,9 @@ const {
     /* ---------- tema: aplicar + velo polar (fundir_fondo) ---------- */
     function aplicarTema(tema: "claro" | "oscuro"): void {
       document.documentElement.setAttribute("data-tema", tema);
+      /* el canto del navegador acompaña al tema (barra móvil) */
+      const meta = document.querySelector('meta[name="theme-color"]');
+      if (meta) meta.setAttribute("content", tema === "claro" ? "#E8F1FA" : "#000000");
     }
     document.addEventListener("astro:before-swap", () => {
       /* La sesión (sessionStorage) sobrevive; el atributo del tema lo
