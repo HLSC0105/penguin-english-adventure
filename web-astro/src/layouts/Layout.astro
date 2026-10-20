@@ -124,6 +124,9 @@ const {
       precargarSonidos();
       sincronizarHud();
     });
+    /* Las islands anuncian cambios de puntos EN VIVO (tras responder);
+       el HUD repinta sin esperar a la siguiente navegación. */
+    document.addEventListener("pea:hud", sincronizarHud);
 
     /* ---------- splash: SOLO en carga dura (no en view transitions) ---------- */
     let primeraCargaDura = true;

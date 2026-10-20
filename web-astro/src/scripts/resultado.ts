@@ -3,7 +3,7 @@
    ánimo) sorteado de MENSAJES_PIPO; líneas del resumen y confeti
    continuo hasta "Volver al menú". */
 import { MENSAJES_PIPO } from "../lib/datos";
-import { leerPuntos, leerNombre, leerTema } from "../lib/estado";
+import { leerPuntos } from "../lib/estado";
 import { confeti } from "../lib/confeti";
 import { RUTA_PIPO, ruta } from "../lib/rutas";
 
@@ -90,16 +90,20 @@ function volver(): HTMLElement {
   boton.innerHTML = "<i class=\"bi bi-arrow-left\" aria-hidden=\"true\"></i> Volver al menú";
   boton.addEventListener("click", () => {
     reproducirClic();
-    location.href = ruta("menu/");
+    /* por RUTA con View Transition: una carga dura aquí volvería a
+       disparar el splash (el resultado es parte del juego, no un boot) */
+    navigate(ruta("menu/"));
   });
   caja.append(boton);
   return caja;
 }
 
-/* import diferido del sonido: el click del botón Volver */
+/* imports diferidos: el sonido del clic y la navegación por ruta */
 function reproducirClic(): void {
   import("../lib/sonidos").then(({ reproducir }) => reproducir("clic"));
 }
+
+import { navigate } from "astro:transitions/client";
 
 pintar();
 document.addEventListener("astro:page-load", pintar);

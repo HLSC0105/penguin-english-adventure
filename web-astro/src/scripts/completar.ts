@@ -77,6 +77,7 @@ function pintar(): void {
 function responder(letra: string): void {
   const esCorrecta = letra === ronda.pregunta.correcta;
   const ganados = sumarRespuesta(esCorrecta);
+  document.dispatchEvent(new CustomEvent("pea:hud"));
   reproducir(esCorrecta ? "correcto" : "error");
   ronda = {
     ...ronda,
@@ -138,6 +139,7 @@ function siguiente(): void {
   }
   completarActividad("completar");
   sumarBonificacion();
+  document.dispatchEvent(new CustomEvent("pea:hud"));
   reproducir("ganar");
   sessionStorage.setItem("pea.resultado", JSON.stringify({
     titulo: "¡Completar palabra terminado!",

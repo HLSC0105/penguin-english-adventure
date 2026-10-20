@@ -83,6 +83,7 @@ function responder(opcion: string): void {
   const pregunta = partida.preguntas[partida.indice];
   const esCorrecta = validarRespuesta(pregunta, opcion);
   const ganados = sumarRespuesta(esCorrecta);
+  document.dispatchEvent(new CustomEvent("pea:hud"));
   reproducir(esCorrecta ? "correcto" : "error");
   partida = {
     ...partida,
@@ -140,6 +141,7 @@ function siguiente(total: number): void {
      se sumara tras un repinte, se duplicaría — misma regla del escritorio). */
   completarActividad("trivia");
   sumarBonificacion();
+  document.dispatchEvent(new CustomEvent("pea:hud"));
   reproducir("ganar");
   sessionStorage.setItem("pea.resultado", JSON.stringify({
     titulo: "¡Trivia completada!",

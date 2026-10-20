@@ -139,6 +139,7 @@ function evaluarParejas(): void {
 
   if (esPareja) {
     sumarRespuesta(true);
+    document.dispatchEvent(new CustomEvent("pea:hud"));
     reproducir("correcto");
     partida.parejas += 1;
     [primera, segunda].forEach((tarjeta) => {
@@ -155,6 +156,7 @@ function evaluarParejas(): void {
   }
 
   sumarRespuesta(false);
+  document.dispatchEvent(new CustomEvent("pea:hud"));
   reproducir("error");
   partida.esperando = true;
   refrescarTextos();
@@ -180,6 +182,7 @@ function reponer(pendientes: number[]): void {
 function terminar(): void {
   completarActividad("memoria");
   sumarBonificacion();
+  document.dispatchEvent(new CustomEvent("pea:hud"));
   reproducir("ganar");
   /* Paridad de Tk: el "respuestas" del resultado son los intentos. */
   sessionStorage.setItem("pea.resultado", JSON.stringify({

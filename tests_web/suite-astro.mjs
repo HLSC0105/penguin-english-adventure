@@ -301,22 +301,15 @@ def("10 · Ayuda (/ayuda/): tres bloques (Actividades, Puntos, Niveles CEFR)", a
   assert(cuerpo.includes("Aprender vocabulario: mira las palabras"), "manual: vocabulario");
   assert(cuerpo.includes("Cada respuesta correcta vale 10 puntos"), "manual: puntos");
 
-  /* BUG CONOCIDO #1 (documentado en README/report, NO parcheado): la
-     island de ayuda construye el src del Pipo con
-     new URL(import.meta.env.BASE_URL, ...) SIN normalizar el slash —
-     sale ".../penguin-english-adventurepinguino_128.png" → 404 y la
-     imagen de Pipo se ve rota SOLO en /ayuda/. La suite verifica el
-     bug tal cual está (si se corrige, este aserto avisa de actualizar
-     el test) y consume su rastro de consola. */
+  /* El Pipo de /ayuda/ ya sale NORMALIZADO (bug #1 corregido: el src
+     viene de RUTA_PIPO en lib/rutas.ts — misma técnica que el resto del
+     sitio) y su pedido NO deja rastro de 404 en consola. */
   const srcPipoAyuda = await page.evaluate(() =>
     document.querySelector('[data-pipo-aleatorio] img')?.getAttribute("src") || "");
-  assert(srcPipoAyuda.includes("penguin-english-adventurepinguino_128.png"),
-    "BUG conocido #1: el Pipo de /ayuda/ pide la URL mangled (era: " +
-    srcPipoAyuda + ")");
-  const rastro404 = consumirErroresConocidos(estado,
-    "penguin-english-adventurepinguino_128.png");
-  assert(rastro404.length >= 1,
-    "BUG conocido #1: el pedido roto quedó registrado (404 + console error)");
+  assertEq(srcPipoAyuda, "/penguin-english-adventure/pinguino_128.png",
+    "src del Pipo normalizado con el slash final");
+  assert(!consumirErroresConocidos(estado, "pinguino_128.png").some((e) =>
+    e.includes("penguin-english-adventurepinguino")), "sin 404 del Pipo de ayuda");
 
   await page.getByRole("link", { name: /Volver al menú/ }).click();
   await page.waitForURL((u) => u.pathname.endsWith("/menu/"));

@@ -51,7 +51,11 @@ const BLOQUES: Array<[string, string[]]> = [
   </div>
 </Layout>
 <script>
-  /* sorteo del mensaje de Pipo por visita (como mensaje_pipo en Tk) */
+  /* sorteo del mensaje de Pipo por visita (como mensaje_pipo en Tk).
+     El src del pingüino va por la MISMA normalización que el resto del
+     sitio (RUTA_PIPO de lib/rutas) — concatenar BASE_URL a mano rompió
+     el slash final y la imagen daba 404. */
+  import { RUTA_PIPO } from "../lib/rutas";
   document.addEventListener("astro:page-load", () => {
     if (document.body.dataset.pantalla !== "ayuda") return;
     const caja = document.querySelector<HTMLElement>("[data-pipo-aleatorio]");
@@ -60,7 +64,7 @@ const BLOQUES: Array<[string, string[]]> = [
     const mensajes = JSON.parse(caja.dataset.mensajes ?? "[]") as string[];
     const elegido = mensajes[Math.floor(Math.random() * mensajes.length)] ?? "";
     caja.className = "pipo seccion";
-    caja.innerHTML = `<img class="pipo-foto" src="${new URL(import.meta.env.BASE_URL, location.href)}pinguino_128.png" alt="Pipo, el pingüino" width="128" /><div class="burbuja"></div>`;
+    caja.innerHTML = `<img class="pipo-foto" src="${RUTA_PIPO}" alt="Pipo, el pingüino" width="128" /><div class="burbuja"></div>`;
     (caja.querySelector(".burbuja") as HTMLElement).textContent = elegido;
   });
 </script>

@@ -95,6 +95,7 @@ function entrada(): void {
     }
     const esCorrecta = validarPalabra(intento, ronda.palabra.original);
     sumarRespuesta(esCorrecta);
+    document.dispatchEvent(new CustomEvent("pea:hud"));
     reproducir(esCorrecta ? "correcto" : "error");
     ronda = {
       ...ronda,
@@ -157,6 +158,7 @@ function siguiente(): void {
   }
   completarActividad("ordenar");
   sumarBonificacion();
+  document.dispatchEvent(new CustomEvent("pea:hud"));
   reproducir("ganar");
   sessionStorage.setItem("pea.resultado", JSON.stringify({
     titulo: "¡Ordenar palabra terminado!",
