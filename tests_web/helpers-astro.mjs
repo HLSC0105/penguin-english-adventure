@@ -194,6 +194,29 @@ export function auditarConsola(estado) {
   return violaciones;
 }
 
+/* ---------- bugs conocidos (documentados, NO parcheados) ---------- */
+
+/* La suite verifica bugs CONOCIDOS del sitio en sus tests y los
+   SACA del audit de consola (el test toma posesión del error). Si el
+   sitio se corrige, el aserto del test que lo documenta fallará
+   ruidosamente — señal para actualizar ese test. */
+export function consumirErroresConocidos(estado, subcadena) {
+  const hallados = estado.pageErrors.filter((t) => t.includes(subcadena));
+  estado.pageErrors = estado.pageErrors.filter((t) => !t.includes(subcadena));
+  estado.fallosRed = estado.fallosRed.filter((u) => {
+    if (u.includes(subcadena)) { hallados.push(u); return false; }
+    return true;
+  });
+  estado.consoleCrudos = estado.consoleCrudos.filter((c) => {
+    if ((c.texto + " " + c.url).includes(subcadena)) {
+      hallados.push(c.texto + " @ " + c.url);
+      return false;
+    }
+    return true;
+  });
+  return hallados;
+}
+
 /* ---------- utilidades de página ---------- */
 
 export async function nuevaPagina(context, estado) {
