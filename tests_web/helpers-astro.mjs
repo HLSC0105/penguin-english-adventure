@@ -278,7 +278,20 @@ export async function hudDato(page, rotulo) {
 }
 
 export async function hudPuntos(page) {
-  const bruto = await hudDato(page, "Puntos:");
+  /* El valor puede tener el chip "+N" como HIJO durante ~950 ms tras
+     una navegación que sumó puntos: se lee SOLO el primer nodo de
+     texto (el número), nunca el texto concatenado con el chip. */
+  const bruto = await page.evaluate(() => {
+    for (const dato of document.querySelectorAll(".hud-dato")) {
+      const l = dato.querySelector(".hud-rotulo");
+      const v = dato.querySelector(".hud-valor");
+      if (l && v && l.textContent.trim() === "Puntos:") {
+        const numero = v.firstChild?.textContent ?? v.textContent;
+        return numero.trim();
+      }
+    }
+    return null;
+  });
   const n = Number.parseInt((bruto || "").replace(/[^\d-]/g, ""), 10);
   return Number.isNaN(n) ? -1 : n;
 }

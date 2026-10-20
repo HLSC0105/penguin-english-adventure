@@ -1,12 +1,14 @@
 /* Island del vocabulario (espejo de vocabulario.py): estudio, no examen.
    Categorías con conteo o fichas de palabra paginadas 4×página; la
-   navegación viaja por la URL (?categoria=X&pagina=N) — refresh/back
-   del navegador quedan coherentes (ventaja de rutas reales). */
+   navegación interna es pushState + popstate (la island repinta sin
+   recargar — el navigate() del router descarta la query) y la URL
+   queda coherente: refresh/back del navegador re-pintan igual. */
 import { navigate } from "astro:transitions/client";
 import { categoriasDelNivel, CONSTANTES, type Palabra } from "../lib/datos";
 import { leerNivel, establecerNivel } from "../lib/estado";
 import { nivelValido, type Nivel } from "../lib/datos";
 import { reproducir } from "../lib/sonidos";
+import { ruta } from "../lib/rutas";
 
 let imagenes: Record<string, string> = {};
 
@@ -51,6 +53,13 @@ function nodo(tag: string, clase: string, texto: string): HTMLElement {
   return el;
 }
 
+function navegarVocabulario(parte: string): void {
+  /* pushState + repintar: la island manda su propia URL (query completa)
+     sin salir del documento; popstate re-pinta en back/forward. */
+  history.pushState({}, "", ruta(parte));
+  pintarSegunUrl();
+}
+
 function pintarCategorias(raiz: HTMLElement): void {
   const nivel = leerNivel();
   const categorias = categoriasDelNivel(nivel);
@@ -70,7 +79,7 @@ function pintarCategorias(raiz: HTMLElement): void {
     );
     boton.addEventListener("click", () => {
       reproducir("clic");
-      navigate(ruta(`vocabulario/?categoria=${encodeURIComponent(nombre)}`));
+      navegarVocabulario(`vocabulario/?categoria=${encodeURIComponent(nombre)}`);
     });
     fila.append(boton);
   }
@@ -96,7 +105,7 @@ function pintarPalabras(raiz: HTMLElement, categoria: string, paginaParam: strin
     anterior.setAttribute("aria-label", "Página anterior");
     anterior.addEventListener("click", () => {
       reproducir("clic");
-      navigate(ruta(`vocabulario/?categoria=${encodeURIComponent(categoria)}&pagina=${pagina}`));
+      navegarVocabulario(`vocabulario/?categoria=${encodeURIComponent(categoria)}&pagina=${pagina}`);
     });
     nav.append(anterior);
   }
@@ -107,7 +116,7 @@ function pintarPalabras(raiz: HTMLElement, categoria: string, paginaParam: strin
     siguiente.setAttribute("aria-label", "Página siguiente");
     siguiente.addEventListener("click", () => {
       reproducir("clic");
-      navigate(ruta(`vocabulario/?categoria=${encodeURIComponent(categoria)}&pagina=${pagina + 2}`));
+      navegarVocabulario(`vocabulario/?categoria=${encodeURIComponent(categoria)}&pagina=${pagina + 2}`);
     });
     nav.append(siguiente);
   }
@@ -127,7 +136,7 @@ function pintarPalabras(raiz: HTMLElement, categoria: string, paginaParam: strin
     volver.setAttribute("aria-label", "Volver al listado de categorías");
     volver.addEventListener("click", () => {
       reproducir("clic");
-      navigate(ruta("vocabulario/"));
+      navegarVocabulario("vocabulario/");
     });
     const caja = nodo("div", "flex justify-center mt-3", "");
     caja.append(volver);
@@ -155,6 +164,22 @@ function iniciar(): void {
   if (categoria) pintarPalabras(raiz, categoria, pagina);
   else pintarCategorias(raiz);
 }
+
+function pintarSegunUrl(): void {
+  /* la lógica de iniciar sin los registros: repintar la isla según URL */
+  const raiz = document.querySelector<HTMLElement>("[data-isla-vocabulario]");
+  if (!raiz) return;
+  raiz.replaceChildren();
+  const url = new URL(location.href);
+  const nivelUrl = url.searchParams.get("nivel");
+  if (nivelUrl && nivelValido(nivelUrl)) establecerNivel(nivelUrl as Nivel);
+  const categoria = url.searchParams.get("categoria");
+  const pagina = url.searchParams.get("pagina") ?? "1";
+  if (categoria) pintarPalabras(raiz, categoria, pagina);
+  else pintarCategorias(raiz);
+}
+
+window.addEventListener("popstate", pintarSegunUrl);
 
 iniciar();
 document.addEventListener("astro:page-load", iniciar);
