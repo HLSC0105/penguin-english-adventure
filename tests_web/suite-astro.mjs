@@ -33,7 +33,7 @@ import {
   fichasMenu, detalleDe, textoPipo, assertPipoClave,
   textoVeredicto, lineasResultado, textoProgreso, textoContadorMemoria,
   abrirJuego, abrirVocabularioDesdeMenu, volverAlMenu, volverDeResultado,
-  recuperarMenu,
+  recuperarMenu, irAlInicio,
   palabrasDeCategoriaAstro,
   leerTableroMemoriaAstro, voltearCarta,
   asertarResultado, resumenSuite, asertosLogrados,
@@ -108,7 +108,9 @@ def("02 · Splash: el clic a ~700 ms lo salta", async ({ page }) => {
 
 def("03 · Splash: con reduced-motion no se monta, y la navegación interna (View Transition) NO lo repite", async ({ page }) => {
   /* Observador que cuenta TODO montaje del velo, instalado antes de la
-     recarga (los eventos de una carga dura pueden ganarle al polling). */
+     recarga (los eventos de una carga dura pueden ganarle al polling).
+     Se observa `document` (válido desde document-start; documentElement
+     aún no existe ahí). */
   await page.addInitScript(() => {
     window.__peaVeilMontajes = 0;
     new MutationObserver((mutaciones) => {
@@ -121,7 +123,7 @@ def("03 · Splash: con reduced-motion no se monta, y la navegación interna (Vie
           }
         }
       }
-    }).observe(document.documentElement, { childList: true, subtree: true });
+    }).observe(document, { childList: true, subtree: true });
   });
 
   /* A) recarga con reduced-motion: el velo NO se monta (diseño Astro:
@@ -149,7 +151,7 @@ def("03 · Splash: con reduced-motion no se monta, y la navegación interna (Vie
   assertEq(await page.evaluate(() => window.__peaVeilMontajes), 0,
     "ningún montaje del velo durante la navegación interna (login → menú)");
 
-  await page.locator("#hud").getByRole("link", { name: /¿Cómo jugar\?/ }).click();
+  await page.locator("[data-isla-menu] a[href$='/ayuda/']").click();
   await page.waitForURL((u) => u.pathname.endsWith("/ayuda/"));
   await esperarPantalla(page, "¿Cómo jugar?", 3000);
   await asentar(page);
@@ -161,9 +163,8 @@ def("03 · Splash: con reduced-motion no se monta, y la navegación interna (Vie
 /* ═══════════════════════════ 2. INICIO ═══════════════════════════ */
 
 def("04 · Inicio (/): nombre vacío → mensaje y sin navegación", async ({ page }) => {
-  await recargarLimpio(page);
-  await saltarSplash(page);
-  await esperarPantalla(page, "Penguin English Adventure", 2500);
+  /* En ASTRO la recarga cae en la RUTA actual: ir a inicio a propósito. */
+  await irAlInicio(page);
 
   const hud = await hudAtributos(page);
   assert(hud.oculto, "el HUD no existe (está oculto) en el inicio");
@@ -181,12 +182,14 @@ def("04 · Inicio (/): nombre vacío → mensaje y sin navegación", async ({ pa
   assertEq((await page.locator("#pantalla .texto-secundario").first()
     .textContent()).trim(), "¡Aprende inglés con un pingüino!",
     "seguimos en el inicio (no navegó)");
-  assert(page.url().endsWith("/penguin-english-adventure/") ||
-    page.url().endsWith("/penguin-english-adventure"),
+  assert(page.url().replace(/\/+$/, "").endsWith(PATH_BASE) ||
+    new URL(page.url()).pathname.replace(/\/+$/, "") === PATH_BASE,
     "la URL sigue siendo / (el envío vacío no navega)");
 });
 
 def("05 · Inicio: chips de nivel (A2 por defecto; A1 se elige) + nombre → /menu/", async ({ page }) => {
+  /* arranque propio: inicio virgen (no depende del final del test 04) */
+  await irAlInicio(page);
   const chipA1 = page.locator("form button[data-nivel='A1']");
   const chipA2 = page.locator("form button[data-nivel='A2']");
   assertEq(await page.locator("form button[data-nivel]").count(), 3,

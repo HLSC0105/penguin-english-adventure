@@ -99,6 +99,9 @@ function iniciar(): void {
   if (!raiz || raiz.dataset.iniciado === "1") return;
   raiz.dataset.iniciado = "1";
 
+  /* el mapa de imágenes optimizadas PRIMERO: las fichas lo consumen */
+  mapaimagenes = JSON.parse(raiz.dataset.imagenes ?? "{}");
+
   /* progreso (barra + texto) */
   const barra = raiz.querySelector<HTMLElement>("[data-progreso-relleno]");
   if (barra) barra.style.setProperty("--lleno", String(progresoPorcentaje() / 100));
@@ -118,9 +121,6 @@ function iniciar(): void {
     compactas.append(col);
     col.append(ficha(clave));
   });
-
-  /* mapa de imágenes optimizadas en build (data-imagenes JSON) */
-  mapaimagenes = JSON.parse(raiz.dataset.imagenes ?? "{}");
 
   /* chips de nivel: el activo marca acento; cambiar navega (repaint) */
   const chips = raiz.querySelectorAll<HTMLButtonElement>(".pea-chip[data-nivel-menu]");

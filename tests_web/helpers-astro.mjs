@@ -422,18 +422,20 @@ export async function volverDeResultado(page) {
    carga dura del inicio → sin splash → login → menú en A2. Sirve para
    que un fallo se reporte una vez y no arrastre por cascada. */
 export async function recuperarMenu(page) {
-  await recargarLimpio(page);
-  await saltarSplash(page);
-  /* recargarLimpio limpió la sesión: forzar el inicio por URL */
-  await page.goto(BASE_URL, { waitUntil: "domcontentloaded" });
-  await saltarSplash(page);
-  await esperarPantalla(page, "Penguin English Adventure", 3000);
+  await irAlInicio(page);
   await page.locator("input[aria-label='Tu nombre']").fill("Sara QA");
   await page.getByRole("button", { name: /Comenzar/ }).click();
   await esperarMenuNivel(page, "A2", 6000);
-  await page.locator("[data-isla-menu] button[data-nivel-menu='A2']").click()
-    .catch(() => {});
-  await esperarMenuNivel(page, "A2", 6000);
+}
+
+/* Ir a la pantalla de inicio en estado VIRGEN: en Astro la recarga cae
+   en la ruta ACTUAL, así que "limpiar y volver a /" es un goto real
+   (carga dura → splash → saltar). */
+export async function irAlInicio(page) {
+  await limpiarEstado(page).catch(() => {});
+  await page.goto(BASE_URL, { waitUntil: "domcontentloaded" });
+  await saltarSplash(page);
+  await esperarPantalla(page, "Penguin English Adventure", 3000);
 }
 
 /* ---------- tablero de memoria (derivado del tablero VIVO) ---------- */
