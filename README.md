@@ -10,6 +10,30 @@ aprendiendo los conceptos básicos con PSeInt.
 
 ---
 
+## 🌐 Las dos versiones web
+
+| | `web-astro/` (la publicada) | `web/` (así empezó — documentación viva) |
+|---|---|---|
+| Modelo | Rutas reales (`/menu/`, `/trivia/`…) + View Transitions | SPA de un documento con pantallas pintadas por JS |
+| Datos | `src/data/*.json` incrustados EN BUILD (validados con Zod) | `web/js/00-datos.js` emitido para runtime |
+| Imágenes | OpenMoji → **webp optimizado por `astro:assets`** | PNG 618px tal cual |
+| JS por página | Solo las islands del juego activo (y hud/tema/splash) | Toda la app en cada visita |
+| Cómo jugar | https://hlsc0105.github.io/penguin-english-adventure/ | Doble clic en `web/index.html` (offline, pendrive) |
+| Por qué existe | La evolución: rendimiento + componentes modernos | Enseña una web SIN herramientas; no se elimina |
+
+**Desplegar una u otra** (misma URL, contenido distinto):
+
+```bash
+scripts/desplegar.sh astro      # (por defecto) publica web-astro/dist
+scripts/desplegar.sh vanilla    # publica web/ — vuelve la versión de pendrive
+```
+
+La construcción de la versión Astro está narrada paso a paso en
+**`docs/astro/00-instalacion.md` … `09-despliegue.md`**, y dentro del
+sitio en la pantalla *¿Cómo está hecho?* (sección "La versión Astro").
+
+---
+
 ## 1. ¿Qué es el proyecto?
 
 Es una aplicación que se ejecuta en la computadora (sin internet) y que

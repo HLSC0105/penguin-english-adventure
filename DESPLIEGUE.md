@@ -1,12 +1,54 @@
-# Despliegue de la versión web — Penguin English Adventure
+# Despliegue de Penguin English Adventure — GitHub Pages
 
-La web es un sitio **estático autocontenido** (`web/`, sin build, sin
-backend). Necesita solo un servidor HTTP. Tres caminos, del más súbito
-al más duradero. Todo es **gratis**.
+Dos versiones del juego viven en este repo y **se publican en la misma
+URL** con un conmutador. La rama huérfana `gh-pages` SIEMPRE contiene el
+sitio servido:
+
+**https://hlsc0105.github.io/penguin-english-adventure/**
+
+## Conmutador: desplegar una u otra versión
+
+```bash
+scripts/desplegar.sh astro      # (por defecto) bun build en web-astro/ → dist
+scripts/desplegar.sh vanilla    # la versión offline web/ (doble clic, pendrive)
+```
+
+- Requiere gh autenticado una sola vez: `gh auth login --web` (la sesión
+  vive en el keyring; no hay tokens en el repo).
+- Cada push a `gh-pages` incluye `.nojekyll` (OBLIGATORIO: sin él, el
+  Jekyll de Pages excluye `_astro/` y el sitio Astro queda sin CSS/JS).
+- El mensaje de cada commit de `gh-pages` dice qué versión y cuándo
+  desplegó (historia auditable).
+
+## La versión Astro (web-astro/)
+
+1. Construir: `cd web-astro && bun install && bun run build`
+2. Probar local: `bun run preview` → http://localhost:4321/penguin-english-adventure/
+3. Datos: `python scripts/astro_exportar.py` (desde la venv) — regenera
+   `src/data/*.json` tras editar el paquete Python.
+4. Suite: `cd tests_web && ASTRO_BASE=... node suite-astro.mjs` (25 tests).
+
+## La versión vanilla (web/) — "así empezó", documentación viva
+
+Se conserva intacta como material académico: una web completa SIN build,
+SIN frameworks y SIN servidor (funciona por file://). Ver
+`docs/DOCUMENTACION.md` y la propia pantalla de documentación del sitio.
+
+## Camino 0 — Sin instalar NADA: doble clic (vanilla)
+
+La carpeta `web/` es autocontenida: copia la carpeta (o `PenguinEnglish-web.zip`)
+a cualquier computadora y **doble clic en `web/index.html`** — no necesita
+Python, servidor ni internet (Bootstrap/Icons/Fredoka autoalojados en
+`web/assets/vendor/`).
+
+## Caminos de publicación (historia: como se desplegó la vanilla antes)
+
+1. **Netlify Drop**: arrastra la carpeta en <https://app.netlify.com/drop>.
+2. **Netlify CLI anónimo**: `npx netlify-cli deploy --allow-anonymous --dir web --no-build`
+   (URL temporal que hay que reclamar en 60 min).
+3. **GitHub Pages** (la usada): la rama `gh-pages` con el conmutador de arriba.
 
 ---
-
-## Camino 0 — Sin instalar NADA: doble clic ⭐ (recomendado para jugar)
 
 **La carpeta `web/` es 100% independiente**: no necesita Python, ni
 servidor, ni internet, ni instalar nada.
