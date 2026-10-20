@@ -146,7 +146,7 @@ se leen del repo: `web-astro/src/data/*.json`.
 | 03 | Splash reducido + View Transitions | con `prefers-reduced-motion` el velo NO se monta (diseño Astro); y con motion normal, la navegación interna (login → menú → documentación) NO lo repite — verificado con un MutationObserver instalado antes de la recarga |
 | 04-06 | Inicio / HUD | nombre vacío → "Escribe tu nombre para continuar." y sin navegar; 3 chips con A2 por defecto; nombre válido → `/menu/` con HUD Jugador/Puntos/Aciertos/Nivel |
 | 07-09 | Menú | 5 fichas con detalles por nivel (A1: 149 palabras/8 preguntas/6/6/4 parejas; A2: 255/10/8/8/6; B1: 309/12/10/10/8), progreso "X de 5 (Y%)" y las tres acciones del pie |
-| 10 | Ayuda | 3 bloques (Actividades, Puntos, Niveles CEFR) — y documenta el BUG #1 (ver abajo) |
+| 10 | Ayuda | 3 bloques (Actividades, Puntos, Niveles CEFR) — y verifica el src del Pipo normalizado (bug #1 corregido) |
 | 11 | Documentación | 2 cajones del repo, 9 secciones (con "La versión Astro"), 9 módulos con espejo, árbol (21 renglones), 2 tablas (7+6 filas), 24 tarjetas, 4 subgrupos y 9 capturas |
 | 12-14 | Vocabulario | 20 categorías con conteo que suma 255 (A2); "Animales" 4 por página con clics reales (pushState) hasta la última, "Volver al listado" SOLO al final; deep-link `?categoria=Animales&pagina=2` repinta igual; los puntos del HUD intactos |
 | 15-16 | Trivia completa | 10 preguntas con clics reales; feedback `.esta-correcta`/`.pulso-acierto`/`.quieto`; resultado con 4 líneas y confeti; HUD subió; menú "1 de 5 (20%)" con check |
