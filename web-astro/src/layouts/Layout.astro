@@ -1,0 +1,159 @@
+---
+/* El cascarón de todas las páginas (espejo de main.py + componentes.py).
+   Cabeza: tokens/metas/vendor + ClientRouter (View Transitions entre
+   rutas). Cuerpo: HUD persistente (transition:persist) + el slot.
+   Los tres módulos globales (hud · tema · splash) viven aquí y son
+   el ÚNICO JS que cargan las páginas estáticas. */
+import "../styles/global.css";
+import { ClientRouter } from "astro:transitions";
+import HUD from "../components/HUD.astro";
+import { ruta } from "../lib/rutas";
+
+interface Props {
+  titulo: string;
+  descripcion?: string;
+  hud?: boolean;
+  mostrarMenu?: boolean;
+  pantalla?: string;   /* data-pantalla del body: la usan las islands */
+}
+const {
+  titulo,
+  descripcion = "Juego para aprender vocabulario de inglés (CEFR A1–B1) con Pipo el pingüino.",
+  hud = false,
+  mostrarMenu = true,
+  pantalla = "",
+} = Astro.props;
+---
+<!doctype html>
+<html lang="es" data-tema="oscuro">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{titulo} — Penguin English Adventure</title>
+  <meta name="description" content={descripcion} />
+  <meta name="theme-color" content="#000000" />
+  <link rel="icon" type="image/png" href={ruta("pinguino_128.png")} />
+  <link rel="stylesheet" href={ruta("vendor/icons.css")} />
+  <link rel="stylesheet" href={ruta("vendor/fredoka.css")} />
+  <ClientRouter />
+</head>
+<body data-pantalla={pantalla}>
+  {hud && <HUD mostrarMenu={mostrarMenu} />}
+  <main id="pantalla" tabindex="-1">
+    <slot />
+  </main>
+
+  <script>
+    import { precargar as precargarSonidos, audioDisponible, establecerVolumen, alCambiarSinSonido } from "../lib/sonidos";
+    import { leerTema, escribirTema, leerNombre, leerPuntos, porcentajeAciertos, leerNivel } from "../lib/estado";
+
+    /* ---------- tema: aplicar + velo polar (fundir_fondo) ---------- */
+    function aplicarTema(tema: "claro" | "oscuro"): void {
+      document.documentElement.setAttribute("data-tema", tema);
+    }
+    document.addEventListener("astro:before-swap", () => {
+      /* La sesión (sessionStorage) sobrevive; el atributo del tema lo
+         repinta el nuevo HTML: alinearlo ANTES del swap. */
+      aplicarTema(leerTema());
+    });
+
+    document.addEventListener("click", (evento) => {
+      const objetivo = (evento.target as HTMLElement).closest("[data-accion]");
+      if (!objetivo) return;
+      const accion = objetivo.getAttribute("data-accion");
+      if (accion === "tema") {
+        const nuevo: "claro" | "oscuro" = leerTema() === "claro" ? "oscuro" : "claro";
+        escribirTema(nuevo);
+        aplicarTema(nuevo);
+        const raiz = document.documentElement;
+        raiz.classList.add("tema-flip");
+        window.setTimeout(() => raiz.classList.remove("tema-flip"), 360);
+        sincronizarHud();
+      }
+    });
+    document.addEventListener("input", (evento) => {
+      const objetivo = evento.target as HTMLInputElement;
+      if (objetivo.matches('[data-accion="volumen"]')) {
+        establecerVolumen(Number(objetivo.value) / 100);
+      }
+    });
+
+    /* ---------- HUD: pintar los datos de la sesión en cada carga ---------- */
+    let puntoAnterior: number | null = null;
+
+    function sincronizarHud(): void {
+      const nombre = document.querySelector('[data-hud="nombre"]');
+      if (!nombre) return;   /* página sin HUD (inicio) */
+      (nombre as HTMLElement).textContent = leerNombre();
+      const puntos = document.querySelector('[data-hud="puntos"]') as HTMLElement | null;
+      const nuevos = leerPuntos();
+      if (puntos) {
+        puntos.textContent = String(nuevos);
+        if (puntoAnterior !== null && nuevos > puntoAnterior) {
+          const chip = document.createElement("span");
+          chip.className = "chip-puntos";
+          chip.setAttribute("aria-hidden", "true");
+          chip.textContent = "+" + (nuevos - puntoAnterior);
+          puntos.append(chip);
+          puntos.classList.add("puntos-subieron");
+          window.setTimeout(() => { chip.remove(); puntos.classList.remove("puntos-subieron"); }, 950);
+        }
+      }
+      puntoAnterior = nuevos;
+      const aciertos = document.querySelector('[data-hud="aciertos"]') as HTMLElement | null;
+      if (aciertos) aciertos.textContent = porcentajeAciertos() + "%";
+      const nivel = document.querySelector('[data-hud="nivel"]') as HTMLElement | null;
+      if (nivel) nivel.textContent = leerNivel();
+      const etiquetaTema = document.querySelector('[data-hud="etiqueta-tema"]') as HTMLElement | null;
+      const oscuro = leerTema() === "oscuro";
+      if (etiquetaTema) etiquetaTema.textContent = oscuro ? "Modo claro" : "Modo oscuro";
+      const icono = document.querySelector('[data-accion="tema"] i') as HTMLElement | null;
+      if (icono) icono.className = "bi " + (oscuro ? "bi-brightness-high" : "bi-moon-stars");
+      const volumen = document.querySelector('[data-accion="volumen"]') as HTMLInputElement | null;
+      if (volumen) volumen.value = String(50);
+      const aviso = document.querySelector('[data-hud="aviso"]') as HTMLElement | null;
+      if (aviso) aviso.hidden = audioDisponible();
+      const cajaVolumen = document.querySelector('[data-hud="volumen"]') as HTMLElement | null;
+      if (cajaVolumen) cajaVolumen.hidden = !audioDisponible();
+    }
+
+    alCambiarSinSonido(sincronizarHud);
+    document.addEventListener("astro:page-load", () => {
+      aplicarTema(leerTema());
+      precargarSonidos();
+      sincronizarHud();
+    });
+
+    /* ---------- splash: SOLO en carga dura (no en view transitions) ---------- */
+    let primeraCargaDura = true;
+    document.addEventListener("astro:page-load", async () => {
+      if (!primeraCargaDura) return;
+      primeraCargaDura = false;
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+      const velos = document.createElement("div");
+      velos.className = "pea-carga";
+      velos.setAttribute("role", "status");
+      velos.setAttribute("aria-label", "Cargando Penguin English Adventure");
+      const base = import.meta.env.BASE_URL.endsWith("/") ? import.meta.env.BASE_URL : import.meta.env.BASE_URL + "/";
+      velos.innerHTML = `
+        <div class="carga-pipo"><img src="${base}pinguino_128.png" alt="Pipo, el pingüino" /></div>
+        <h1 class="carga-titulo">Penguin English Adventure</h1>
+        <p class="carga-subtitulo">Aprende inglés con un pingüino · CEFR A1–B1</p>
+        <div class="barra-progreso carga-barra" aria-hidden="true"><div class="relleno carga-relleno" style="--lleno:0"></div></div>
+        <p class="carga-pista">Toca para saltar</p>`;
+      document.body.append(velos);
+      let saltable = false;
+      window.setTimeout(() => { saltable = true; }, 500);
+      function terminar(): void {
+        if (!velos.isConnected) return;
+        velos.classList.add("carga-muriendo");
+        window.setTimeout(() => velos.remove(), 340);
+      }
+      velos.addEventListener("pointerdown", () => { if (saltable) terminar(); });
+      velos.addEventListener("keydown", () => { if (saltable) terminar(); });
+      window.setTimeout(terminar, 2200);
+    });
+  </script>
+</body>
+</html>

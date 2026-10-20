@@ -1,0 +1,29 @@
+---
+/* Ficha de actividad del menú (espejo de mostrar_actividades): tarjeta
+   clicable con nombre, icono, detalle por nivel y el check de
+   completada (pop elástico). Es un <a> real: navegación por ruta con
+   View Transition incluida. */
+interface Props {
+  href: string;
+  nombre: string;
+  detalle: string;
+  icono?: string;
+  completada?: boolean;
+  ariaExtra?: string;
+}
+const { href, nombre, detalle, icono, completada = false, ariaExtra } = Astro.props;
+import { ruta } from "../lib/rutas";
+---
+<a class={`ficha-actividad${completada ? " completada" : ""}`}
+   href={href}
+   aria-label={`${nombre}${completada ? ", ya completada" : ""}, ${detalle}${ariaExtra ? " · " + ariaExtra : ""}`}>
+  <span class="ficha-nombre">
+    {icono && <i class={`bi ${icono}`} aria-hidden="true"></i>}
+    <span>{nombre}</span>
+    {completada && (
+      <i class="bi bi-check2-circle ficha-hecha" aria-hidden="true" title="Actividad completada"></i>
+    )}
+  </span>
+  <span class="ficha-detalle block">{detalle}</span>
+  <slot />
+</a>

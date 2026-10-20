@@ -1,0 +1,34 @@
+---
+/* Intro por actividad (espejo de interfaz/intro.py): Pipo explica ESA
+   actividad y "Empezar" lleva a su página de juego. Cinco páginas
+   estáticas pre-renderizadas con getStaticPaths — el contenido viene
+   de data/intros.json (emitido del Python real en build). */
+import Layout from "../../layouts/Layout.astro";
+import PipoBurbuja from "../../components/PipoBurbuja.astro";
+import { INTROS } from "../../lib/datos";
+import { ruta } from "../../lib/rutas";
+
+export function getStaticPaths() {
+  return Object.keys(INTROS).map((clave) => ({ params: { actividad: clave } }));
+}
+const { actividad } = Astro.params;
+const datos = INTROS[actividad!];
+---
+<Layout titulo={datos.titulo} hud pantalla="intro">
+  <div class="marco pantalla-cascada">
+    <h1 class="titulo-pantalla text-center" tabindex="-1">{datos.titulo}</h1>
+    <p class="text-center texto-secundario mb-0">Antes de empezar, esto es lo que vas a hacer:</p>
+
+    <PipoBurbuja mensaje={datos.pipo} ancho="560px" />
+
+    <div class="seccion flex flex-wrap justify-center gap-2">
+      <a class="btn-pea btn-pea-acento" href={ruta(`${actividad}/`)}
+         aria-label={`Empezar ${datos.titulo}`}>
+        <i class="bi bi-play" aria-hidden="true"></i> Empezar
+      </a>
+      <a class="btn-pea-ghost" href={ruta("menu/")}>
+        <i class="bi bi-arrow-left" aria-hidden="true"></i> Volver al menú
+      </a>
+    </div>
+  </div>
+</Layout>

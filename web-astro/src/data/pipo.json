@@ -1,0 +1,46 @@
+{
+ "mensajes": {
+  "saludo": [
+   "¡Hola! Soy Pipo, tu pingüino amigo.",
+   "¡Vamos a aprender inglés!",
+   "Escucha con atención y verás qué fácil es."
+  ],
+  "correcto": [
+   "¡Muy bien!",
+   "¡Excelente trabajo!",
+   "¡Eres un campeón!",
+   "¡Sigue así!"
+  ],
+  "incorrecto": [
+   "Inténtalo nuevamente.",
+   "Ya casi lo tienes.",
+   "No te rindas, ¡tú puedes!"
+  ],
+  "felicitaciones": [
+   "¡Terminaste la actividad!",
+   "¡Muy buen trabajo!",
+   "¡Lo lograste!"
+  ],
+  "perfecto": [
+   "¡PERFECTO! ¡Todas las respuestas correctas!",
+   "¡Increíble! No fallaste ninguna."
+  ],
+  "animo": [
+   "Practicar más te ayudará a mejorar.",
+   "¡No te preocupes! Aprendemos practicando."
+  ],
+  "despedida": [
+   "¡Hasta pronto! Sigue practicando.",
+   "¡Nos vemos! Practica mucho."
+  ],
+  "ayuda": [
+   "Lee cada pregunta con calma.",
+   "Si no sabes una respuesta, piensa en la palabra.",
+   "¡Cada intento te hace aprender más!"
+  ],
+  "nivel": [
+   "A1 es lo básico del día a día. A2 ya es el aula. B1 te deja hablar con más independencia.",
+   "Elige el nivel que se parezca a tu inglés de ahora. Siempre puedes cambiarlo."
+  ]
+ }
+}

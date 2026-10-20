@@ -1,0 +1,21 @@
+---
+/* Juego de memoria (espejo de interfaz/memoria.py): parejas palabra-
+   imagen con volteo 3D CSS. La island (src/scripts/memoria.ts) arma el
+   tablero al azar del nivel y conduce la partida sin destruir el DOM
+   (las clases .volteada/.resuelta mutan en sitio, como el lienzo de
+   pygame que no se recrea en cada volteo). */
+import Layout from "../layouts/Layout.astro";
+import { mapaDeImagenes } from "../lib/imagenes";
+import { ruta } from "../lib/rutas";
+
+const imagenes = await mapaDeImagenes();
+---
+<Layout titulo="Juego de memoria" hud pantalla="memoria">
+  <div class="marco pantalla-cascada">
+    <h1 class="titulo-pantalla text-center" tabindex="-1">Juego de memoria</h1>
+    <div data-isla-memoria data-imagenes={JSON.stringify(imagenes)}></div>
+  </div>
+</Layout>
+<script>
+  import "../scripts/memoria";
+</script>

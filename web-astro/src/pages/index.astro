@@ -1,0 +1,40 @@
+---
+/* Pantalla de inicio (espejo de interfaz/inicio.py): Pipo saluda y el
+   jugador escribe su nombre y elige nivel. La island (src/scripts/
+   inicio.ts) valida el nombre vacío y navega al menú por ruta real —
+   sin recargar el documento (View Transition incluida). */
+import Layout from "../layouts/Layout.astro";
+import PipoBurbuja from "../components/PipoBurbuja.astro";
+import { NIVELES } from "../lib/datos";
+---
+<Layout titulo="Penguin English Adventure" hud={false} pantalla="inicio">
+  <div class="marco pantalla-cascada">
+    <h1 class="titulo-pantalla text-center" tabindex="-1">Penguin English Adventure</h1>
+    <p class="text-center texto-secundario mt-1">¡Aprende inglés con un pingüino!</p>
+
+    <PipoBurbuja
+      mensaje="¡Hola! Soy Pipo. Escribe tu nombre, elige tu nivel y comencemos a aprender."
+    />
+
+    <div class="seccion-acto mx-auto text-center" style="max-width:22rem;">
+      <h2 class="font-semibold" style="font-size:1.1rem;">¿Cómo te llamas?</h2>
+      <form id="form-inicio" class="mx-auto" novalidate autocomplete="off">
+        <input class="pea-input w-full mb-2" type="text" placeholder="Tu nombre"
+               maxlength="24" aria-label="Tu nombre" autocomplete="off" />
+        <div class="error-mensaje" data-error></div>
+        <div class="flex flex-wrap items-baseline justify-center gap-2 mt-1 mb-3">
+          <span class="texto-secundario">Nivel CEFR</span>
+          {NIVELES.map((nivel) => (
+            <button class="pea-chip" type="button" data-nivel={nivel}>{nivel}</button>
+          ))}
+        </div>
+        <button class="btn-pea btn-pea-acento w-full" type="submit">
+          <i class="bi bi-play" aria-hidden="true"></i> ¡Comenzar!
+        </button>
+      </form>
+    </div>
+  </div>
+</Layout>
+<script>
+  import "../scripts/inicio";
+</script>

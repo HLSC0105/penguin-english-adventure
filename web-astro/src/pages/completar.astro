@@ -1,0 +1,16 @@
+---
+/* Completar palabra (espejo de interfaz/completar.py): la palabra con
+   hueco en celdas y tres botones de letra; la island conduce rondas
+   (regla B1 de hueco sin inicial resuelta en juegos.ts). */
+import Layout from "../layouts/Layout.astro";
+import { ruta } from "../lib/rutas";
+---
+<Layout titulo="Completar palabra" hud pantalla="completar">
+  <div class="marco">
+    <h1 class="titulo-pantalla text-center" tabindex="-1">Completar palabra</h1>
+    <div id="juego" data-isla-completar></div>
+  </div>
+</Layout>
+<script>
+  import "../scripts/completar";
+</script>

@@ -1,0 +1,2211 @@
+{
+ "meta": {
+  "total": 309,
+  "categorias": 20
+ },
+ "categorias": {
+  "Animales": [
+   {
+    "ingles": "dog",
+    "espanol": "perro",
+    "imagen": "1F415.png",
+    "ejemplo": "I have a dog.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "cat",
+    "espanol": "gato",
+    "imagen": "1F408.png",
+    "ejemplo": "My cat is black.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "fish",
+    "espanol": "pez",
+    "imagen": "1F41F.png",
+    "ejemplo": "The fish swims.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "bird",
+    "espanol": "pájaro",
+    "imagen": "1F426.png",
+    "ejemplo": "The bird sings.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "lion",
+    "espanol": "león",
+    "imagen": "1F981.png",
+    "ejemplo": "The lion is big.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "elephant",
+    "espanol": "elefante",
+    "imagen": "1F418.png",
+    "ejemplo": "The elephant has a long nose.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "horse",
+    "espanol": "caballo",
+    "imagen": "1F40E.png",
+    "ejemplo": "The horse runs fast.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "sheep",
+    "espanol": "oveja",
+    "imagen": "1F411.png",
+    "ejemplo": "The sheep is white.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "cow",
+    "espanol": "vaca",
+    "imagen": "1F404.png",
+    "ejemplo": "The cow gives milk.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "rabbit",
+    "espanol": "conejo",
+    "imagen": "1F407.png",
+    "ejemplo": "The rabbit is fast.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "turtle",
+    "espanol": "tortuga",
+    "imagen": "1F422.png",
+    "ejemplo": "The turtle is slow.",
+    "nivel": "A2"
+   },
+   {
+    "ingles": "monkey",
+    "espanol": "mono",
+    "imagen": "1F412.png",
+    "ejemplo": "The monkey eats a banana.",
+    "nivel": "A2"
+   },
+   {
+    "ingles": "bear",
+    "espanol": "oso",
+    "imagen": "1F43B.png",
+    "ejemplo": "The bear lives in the forest.",
+    "nivel": "A2"
+   },
+   {
+    "ingles": "tiger",
+    "espanol": "tigre",
+    "imagen": "1F405.png",
+    "ejemplo": "The tiger has stripes.",
+    "nivel": "A2"
+   },
+   {
+    "ingles": "frog",
+    "espanol": "rana",
+    "imagen": "1F438.png",
+    "ejemplo": "The frog jumps.",
+    "nivel": "A2"
+   },
+   {
+    "ingles": "butterfly",
+    "espanol": "mariposa",
+    "imagen": "1F98B.png",
+    "ejemplo": "The butterfly is on the flower.",
+    "nivel": "A2"
+   },
+   {
+    "ingles": "whale",
+    "espanol": "ballena",
+    "imagen": "1F40B.png",
+    "ejemplo": "The whale is the largest animal.",
+    "nivel": "B1"
+   },
+   {
+    "ingles": "eagle",
+    "espanol": "águila",
+    "imagen": "1F985.png",
+    "ejemplo": "The eagle flies high.",
+    "nivel": "B1"
+   },
+   {
+    "ingles": "wolf",
+    "espanol": "lobo",
+    "imagen": "1F43A.png",
+    "ejemplo": "The wolf hunts at night.",
+    "nivel": "B1"
+   },
+   {
+    "ingles": "dolphin",
+    "espanol": "delfín",
+    "imagen": "1F42C.png",
+    "ejemplo": "The dolphin is intelligent.",
+    "nivel": "B1"
+   }
+  ],
+  "Colores": [
+   {
+    "ingles": "red",
+    "espanol": "rojo",
+    "imagen": "1F534.png",
+    "ejemplo": "The apple is red.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "blue",
+    "espanol": "azul",
+    "imagen": "1F535.png",
+    "ejemplo": "The sky is blue.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "green",
+    "espanol": "verde",
+    "imagen": "1F7E2.png",
+    "ejemplo": "The grass is green.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "yellow",
+    "espanol": "amarillo",
+    "imagen": "1F7E1.png",
+    "ejemplo": "The banana is yellow.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "navy",
+    "espanol": "azul marino",
+    "imagen": "1F535.png",
+    "ejemplo": "The navy shirt is dark.",
+    "nivel": "B1"
+   },
+   {
+    "ingles": "purple",
+    "espanol": "morado",
+    "imagen": "1F7E3.png",
+    "ejemplo": "My shirt is purple.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "pink",
+    "espanol": "rosado",
+    "imagen": "1F338.png",
+    "ejemplo": "The flower is pink.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "black",
+    "espanol": "negro",
+    "imagen": "26AB.png",
+    "ejemplo": "The cat is black.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "white",
+    "espanol": "blanco",
+    "imagen": "26AA.png",
+    "ejemplo": "The snow is white.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "brown",
+    "espanol": "marrón",
+    "imagen": "1F7E4.png",
+    "ejemplo": "The dog is brown.",
+    "nivel": "A2"
+   },
+   {
+    "ingles": "gray",
+    "espanol": "gris",
+    "imagen": "26AA.png",
+    "ejemplo": "The cloud is gray.",
+    "nivel": "A2"
+   },
+   {
+    "ingles": "gold",
+    "espanol": "dorado",
+    "imagen": "1F947.png",
+    "ejemplo": "The ring is gold.",
+    "nivel": "B1"
+   }
+  ],
+  "Frutas": [
+   {
+    "ingles": "apple",
+    "espanol": "manzana",
+    "imagen": "1F34E.png",
+    "ejemplo": "I eat an apple.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "banana",
+    "espanol": "plátano",
+    "imagen": "1F34C.png",
+    "ejemplo": "The monkey eats a banana.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "orange",
+    "espanol": "naranja",
+    "imagen": "1F34A.png",
+    "ejemplo": "I drink orange juice.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "grape",
+    "espanol": "uva",
+    "imagen": "1F347.png",
+    "ejemplo": "Grapes are sweet.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "strawberry",
+    "espanol": "fresa",
+    "imagen": "1F353.png",
+    "ejemplo": "I love strawberries.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "watermelon",
+    "espanol": "sandía",
+    "imagen": "1F349.png",
+    "ejemplo": "The watermelon is big.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "pear",
+    "espanol": "pera",
+    "imagen": "1F350.png",
+    "ejemplo": "The pear is green.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "lemon",
+    "espanol": "limón",
+    "imagen": "1F34B.png",
+    "ejemplo": "The lemon is sour.",
+    "nivel": "A2"
+   },
+   {
+    "ingles": "peach",
+    "espanol": "durazno",
+    "imagen": "1F351.png",
+    "ejemplo": "The peach is soft.",
+    "nivel": "A2"
+   },
+   {
+    "ingles": "mango",
+    "espanol": "mango",
+    "imagen": "1F96D.png",
+    "ejemplo": "The mango is sweet.",
+    "nivel": "A2"
+   },
+   {
+    "ingles": "cherry",
+    "espanol": "cereza",
+    "imagen": "1F352.png",
+    "ejemplo": "Cherries are red.",
+    "nivel": "A2"
+   },
+   {
+    "ingles": "pineapple",
+    "espanol": "piña",
+    "imagen": "1F34D.png",
+    "ejemplo": "Pineapple is tropical.",
+    "nivel": "A2"
+   },
+   {
+    "ingles": "coconut",
+    "espanol": "coco",
+    "imagen": "1F965.png",
+    "ejemplo": "There is water in the coconut.",
+    "nivel": "B1"
+   },
+   {
+    "ingles": "avocado",
+    "espanol": "aguacate",
+    "imagen": "1F951.png",
+    "ejemplo": "I put avocado on toast.",
+    "nivel": "B1"
+   }
+  ],
+  "Números": [
+   {
+    "ingles": "one",
+    "espanol": "uno",
+    "imagen": "0031-FE0F-20E3.png",
+    "ejemplo": "I have one pencil.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "two",
+    "espanol": "dos",
+    "imagen": "0032-FE0F-20E3.png",
+    "ejemplo": "I have two eyes.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "three",
+    "espanol": "tres",
+    "imagen": "0033-FE0F-20E3.png",
+    "ejemplo": "There are three cats.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "four",
+    "espanol": "cuatro",
+    "imagen": "0034-FE0F-20E3.png",
+    "ejemplo": "The dog has four legs.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "five",
+    "espanol": "cinco",
+    "imagen": "0035-FE0F-20E3.png",
+    "ejemplo": "I have five fingers.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "six",
+    "espanol": "seis",
+    "imagen": "0036-FE0F-20E3.png",
+    "ejemplo": "There are six eggs.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "seven",
+    "espanol": "siete",
+    "imagen": "0037-FE0F-20E3.png",
+    "ejemplo": "There are seven days in a week.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "eight",
+    "espanol": "ocho",
+    "imagen": "0038-FE0F-20E3.png",
+    "ejemplo": "I have eight crayons.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "nine",
+    "espanol": "nueve",
+    "imagen": "0039-FE0F-20E3.png",
+    "ejemplo": "She is nine years old.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "ten",
+    "espanol": "diez",
+    "imagen": "1F51F.png",
+    "ejemplo": "I can count to ten.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "eleven",
+    "espanol": "once",
+    "imagen": "1F522.png",
+    "ejemplo": "Eleven comes after ten.",
+    "nivel": "A2"
+   },
+   {
+    "ingles": "twelve",
+    "espanol": "doce",
+    "imagen": "1F522.png",
+    "ejemplo": "There are twelve months.",
+    "nivel": "A2"
+   },
+   {
+    "ingles": "thirteen",
+    "espanol": "trece",
+    "imagen": "1F522.png",
+    "ejemplo": "Thirteen is an unlucky number for some people.",
+    "nivel": "A2"
+   },
+   {
+    "ingles": "fourteen",
+    "espanol": "catorce",
+    "imagen": "1F522.png",
+    "ejemplo": "He is fourteen years old.",
+    "nivel": "A2"
+   },
+   {
+    "ingles": "fifteen",
+    "espanol": "quince",
+    "imagen": "1F522.png",
+    "ejemplo": "The class starts at fifteen past eight.",
+    "nivel": "A2"
+   },
+   {
+    "ingles": "twenty",
+    "espanol": "veinte",
+    "imagen": "1F522.png",
+    "ejemplo": "There are twenty students.",
+    "nivel": "A2"
+   },
+   {
+    "ingles": "thirty",
+    "espanol": "treinta",
+    "imagen": "1F522.png",
+    "ejemplo": "My mother is thirty-five.",
+    "nivel": "A2"
+   },
+   {
+    "ingles": "hundred",
+    "espanol": "cien",
+    "imagen": "1F4AF.png",
+    "ejemplo": "A century has one hundred years.",
+    "nivel": "B1"
+   },
+   {
+    "ingles": "thousand",
+    "espanol": "mil",
+    "imagen": "1F4B0.png",
+    "ejemplo": "The town has a thousand people.",
+    "nivel": "B1"
+   },
+   {
+    "ingles": "million",
+    "espanol": "millón",
+    "imagen": "1F4B0.png",
+    "ejemplo": "A million is a very large number.",
+    "nivel": "B1"
+   }
+  ],
+  "Familia": [
+   {
+    "ingles": "mother",
+    "espanol": "mamá",
+    "imagen": "1F469.png",
+    "ejemplo": "My mother cooks.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "father",
+    "espanol": "papá",
+    "imagen": "1F468.png",
+    "ejemplo": "My father works.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "sister",
+    "espanol": "hermana",
+    "imagen": "1F467.png",
+    "ejemplo": "My sister plays.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "brother",
+    "espanol": "hermano",
+    "imagen": "1F466.png",
+    "ejemplo": "My brother runs.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "baby",
+    "espanol": "bebé",
+    "imagen": "1F476.png",
+    "ejemplo": "The baby sleeps.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "grandmother",
+    "espanol": "abuela",
+    "imagen": "1F475.png",
+    "ejemplo": "My grandmother is kind.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "grandfather",
+    "espanol": "abuelo",
+    "imagen": "1F474.png",
+    "ejemplo": "My grandfather reads.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "family",
+    "espanol": "familia",
+    "imagen": "1F46A.png",
+    "ejemplo": "I love my family.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "uncle",
+    "espanol": "tío",
+    "imagen": "1F468.png",
+    "ejemplo": "My uncle lives in the city.",
+    "nivel": "A2"
+   },
+   {
+    "ingles": "aunt",
+    "espanol": "tía",
+    "imagen": "1F469.png",
+    "ejemplo": "My aunt is a teacher.",
+    "nivel": "A2"
+   },
+   {
+    "ingles": "cousin",
+    "espanol": "primo",
+    "imagen": "1F9D1.png",
+    "ejemplo": "My cousin is my age.",
+    "nivel": "A2"
+   },
+   {
+    "ingles": "son",
+    "espanol": "hijo",
+    "imagen": "1F466.png",
+    "ejemplo": "Their son is five.",
+    "nivel": "A2"
+   },
+   {
+    "ingles": "daughter",
+    "espanol": "hija",
+    "imagen": "1F467.png",
+    "ejemplo": "Their daughter studies English.",
+    "nivel": "A2"
+   },
+   {
+    "ingles": "parents",
+    "espanol": "padres",
+    "imagen": "1F46A.png",
+    "ejemplo": "My parents help me.",
+    "nivel": "A2"
+   },
+   {
+    "ingles": "husband",
+    "espanol": "esposo",
+    "imagen": "1F468.png",
+    "ejemplo": "Her husband is a doctor.",
+    "nivel": "B1"
+   },
+   {
+    "ingles": "wife",
+    "espanol": "esposa",
+    "imagen": "1F469.png",
+    "ejemplo": "His wife works at the hospital.",
+    "nivel": "B1"
+   }
+  ],
+  "Partes del cuerpo": [
+   {
+    "ingles": "eyes",
+    "espanol": "ojos",
+    "imagen": "1F440.png",
+    "ejemplo": "I see with my eyes.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "ear",
+    "espanol": "oído",
+    "imagen": "1F442.png",
+    "ejemplo": "I listen with my ear.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "nose",
+    "espanol": "nariz",
+    "imagen": "1F443.png",
+    "ejemplo": "I smell with my nose.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "mouth",
+    "espanol": "boca",
+    "imagen": "1F444.png",
+    "ejemplo": "I eat with my mouth.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "hand",
+    "espanol": "mano",
+    "imagen": "270B.png",
+    "ejemplo": "I write with my hand.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "foot",
+    "espanol": "pie",
+    "imagen": "1F9B6.png",
+    "ejemplo": "I walk with my foot.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "tooth",
+    "espanol": "diente",
+    "imagen": "1F9B7.png",
+    "ejemplo": "I brush my tooth.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "head",
+    "espanol": "cabeza",
+    "imagen": "1F9D1.png",
+    "ejemplo": "I have a hat on my head.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "hair",
+    "espanol": "pelo",
+    "imagen": "1F9B1.png",
+    "ejemplo": "Her hair is long.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "arm",
+    "espanol": "brazo",
+    "imagen": "1F4AA.png",
+    "ejemplo": "I raise my arm.",
+    "nivel": "A2"
+   },
+   {
+    "ingles": "leg",
+    "espanol": "pierna",
+    "imagen": "1F9B5.png",
+    "ejemplo": "My left leg hurts.",
+    "nivel": "A2"
+   },
+   {
+    "ingles": "finger",
+    "espanol": "dedo",
+    "imagen": "1F448.png",
+    "ejemplo": "I have five fingers.",
+    "nivel": "A2"
+   },
+   {
+    "ingles": "knee",
+    "espanol": "rodilla",
+    "imagen": "1F9B5.png",
+    "ejemplo": "He fell on his knee.",
+    "nivel": "A2"
+   },
+   {
+    "ingles": "heart",
+    "espanol": "corazón",
+    "imagen": "2764.png",
+    "ejemplo": "My heart beats fast.",
+    "nivel": "A2"
+   },
+   {
+    "ingles": "shoulder",
+    "espanol": "hombro",
+    "imagen": "1F4AA.png",
+    "ejemplo": "The bag is on my shoulder.",
+    "nivel": "B1"
+   },
+   {
+    "ingles": "stomach",
+    "espanol": "estómago",
+    "imagen": "1F37D.png",
+    "ejemplo": "My stomach is full.",
+    "nivel": "B1"
+   }
+  ],
+  "Objetos": [
+   {
+    "ingles": "book",
+    "espanol": "libro",
+    "imagen": "1F4D6.png",
+    "ejemplo": "I read a book.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "house",
+    "espanol": "casa",
+    "imagen": "1F3E0.png",
+    "ejemplo": "My house is big.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "car",
+    "espanol": "carro",
+    "imagen": "1F697.png",
+    "ejemplo": "My father drives a car.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "clock",
+    "espanol": "reloj",
+    "imagen": "1F552.png",
+    "ejemplo": "The clock is on the wall.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "key",
+    "espanol": "llave",
+    "imagen": "1F511.png",
+    "ejemplo": "This is the key.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "pencil",
+    "espanol": "lápiz",
+    "imagen": "270F.png",
+    "ejemplo": "I write with a pencil.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "computer",
+    "espanol": "computadora",
+    "imagen": "1F4BB.png",
+    "ejemplo": "I play on the computer.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "table",
+    "espanol": "mesa",
+    "imagen": "1FA91.png",
+    "ejemplo": "The book is on the table.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "chair",
+    "espanol": "silla",
+    "imagen": "1FA91.png",
+    "ejemplo": "Please sit on the chair.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "window",
+    "espanol": "ventana",
+    "imagen": "1FA9F.png",
+    "ejemplo": "Open the window.",
+    "nivel": "A2"
+   },
+   {
+    "ingles": "door",
+    "espanol": "puerta",
+    "imagen": "1F6AA.png",
+    "ejemplo": "Close the door.",
+    "nivel": "A2"
+   },
+   {
+    "ingles": "bag",
+    "espanol": "bolso",
+    "imagen": "1F45C.png",
+    "ejemplo": "My bag is heavy.",
+    "nivel": "A2"
+   },
+   {
+    "ingles": "bottle",
+    "espanol": "botella",
+    "imagen": "1F37E.png",
+    "ejemplo": "The bottle is full of water.",
+    "nivel": "A2"
+   },
+   {
+    "ingles": "cup",
+    "espanol": "taza",
+    "imagen": "2615.png",
+    "ejemplo": "I drink tea from a cup.",
+    "nivel": "A2"
+   },
+   {
+    "ingles": "lamp",
+    "espanol": "lámpara",
+    "imagen": "1F4A1.png",
+    "ejemplo": "Turn on the lamp.",
+    "nivel": "B1"
+   },
+   {
+    "ingles": "mirror",
+    "espanol": "espejo",
+    "imagen": "1FA9E.png",
+    "ejemplo": "I look at myself in the mirror.",
+    "nivel": "B1"
+   }
+  ],
+  "Profesiones": [
+   {
+    "ingles": "doctor",
+    "espanol": "médico",
+    "imagen": "1F9D1-200D-2695-FE0F.png",
+    "ejemplo": "The doctor helps people.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "teacher",
+    "espanol": "profesor",
+    "imagen": "1F9D1-200D-1F3EB.png",
+    "ejemplo": "The teacher explains the lesson.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "pilot",
+    "espanol": "piloto",
+    "imagen": "1F9D1-200D-2708-FE0F.png",
+    "ejemplo": "The pilot flies a plane.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "artist",
+    "espanol": "artista",
+    "imagen": "1F3A8.png",
+    "ejemplo": "The artist paints.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "musician",
+    "espanol": "músico",
+    "imagen": "1F3B5.png",
+    "ejemplo": "The musician plays music.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "firefighter",
+    "espanol": "bombero",
+    "imagen": "1F9D1-200D-1F692.png",
+    "ejemplo": "The firefighter saves people.",
+    "nivel": "A2"
+   },
+   {
+    "ingles": "astronaut",
+    "espanol": "astronauta",
+    "imagen": "1F9D1-200D-1F680.png",
+    "ejemplo": "The astronaut travels to space.",
+    "nivel": "A2"
+   },
+   {
+    "ingles": "chef",
+    "espanol": "cocinero",
+    "imagen": "1F9D1-200D-1F373.png",
+    "ejemplo": "The chef cooks in a restaurant.",
+    "nivel": "A2"
+   },
+   {
+    "ingles": "farmer",
+    "espanol": "granjero",
+    "imagen": "1F9D1-200D-1F33E.png",
+    "ejemplo": "The farmer grows vegetables.",
+    "nivel": "A2"
+   },
+   {
+    "ingles": "nurse",
+    "espanol": "enfermero",
+    "imagen": "1FA7A.png",
+    "ejemplo": "The nurse works at night.",
+    "nivel": "A2"
+   },
+   {
+    "ingles": "engineer",
+    "espanol": "ingeniero",
+    "imagen": "1F527.png",
+    "ejemplo": "The engineer designs bridges.",
+    "nivel": "B1"
+   },
+   {
+    "ingles": "scientist",
+    "espanol": "científico",
+    "imagen": "1F9D1-200D-1F52C.png",
+    "ejemplo": "The scientist does an experiment.",
+    "nivel": "B1"
+   },
+   {
+    "ingles": "journalist",
+    "espanol": "periodista",
+    "imagen": "1F4F0.png",
+    "ejemplo": "The journalist writes the news.",
+    "nivel": "B1"
+   },
+   {
+    "ingles": "officer",
+    "espanol": "oficial",
+    "imagen": "1F46E.png",
+    "ejemplo": "The police officer helps us.",
+    "nivel": "A2"
+   }
+  ],
+  "Días de la semana": [
+   {
+    "ingles": "Monday",
+    "espanol": "lunes",
+    "imagen": "1F4C5.png",
+    "ejemplo": "I go to school on Monday.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "Tuesday",
+    "espanol": "martes",
+    "imagen": "1F4C5.png",
+    "ejemplo": "We play soccer on Tuesday.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "Wednesday",
+    "espanol": "miércoles",
+    "imagen": "1F4C5.png",
+    "ejemplo": "I study English on Wednesday.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "Thursday",
+    "espanol": "jueves",
+    "imagen": "1F4C5.png",
+    "ejemplo": "We read on Thursday.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "Friday",
+    "espanol": "viernes",
+    "imagen": "1F4C5.png",
+    "ejemplo": "I am happy on Friday.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "Saturday",
+    "espanol": "sábado",
+    "imagen": "1F4C5.png",
+    "ejemplo": "I play on Saturday.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "Sunday",
+    "espanol": "domingo",
+    "imagen": "1F4C5.png",
+    "ejemplo": "We rest on Sunday.",
+    "nivel": "A1"
+   }
+  ],
+  "Meses del año": [
+   {
+    "ingles": "January",
+    "espanol": "enero",
+    "imagen": "1F4C6.png",
+    "ejemplo": "January is the first month.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "February",
+    "espanol": "febrero",
+    "imagen": "1F4C6.png",
+    "ejemplo": "February is cold.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "March",
+    "espanol": "marzo",
+    "imagen": "1F4C6.png",
+    "ejemplo": "March is windy.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "April",
+    "espanol": "abril",
+    "imagen": "1F4C6.png",
+    "ejemplo": "It rains in April.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "May",
+    "espanol": "mayo",
+    "imagen": "1F4C6.png",
+    "ejemplo": "May has many flowers.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "June",
+    "espanol": "junio",
+    "imagen": "1F4C6.png",
+    "ejemplo": "June is warm.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "July",
+    "espanol": "julio",
+    "imagen": "1F4C6.png",
+    "ejemplo": "I swim in July.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "August",
+    "espanol": "agosto",
+    "imagen": "1F4C6.png",
+    "ejemplo": "August is a holiday month.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "September",
+    "espanol": "septiembre",
+    "imagen": "1F4C6.png",
+    "ejemplo": "School starts in September.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "October",
+    "espanol": "octubre",
+    "imagen": "1F4C6.png",
+    "ejemplo": "October has Halloween.",
+    "nivel": "A2"
+   },
+   {
+    "ingles": "November",
+    "espanol": "noviembre",
+    "imagen": "1F4C6.png",
+    "ejemplo": "November is rainy.",
+    "nivel": "A2"
+   },
+   {
+    "ingles": "December",
+    "espanol": "diciembre",
+    "imagen": "1F4C6.png",
+    "ejemplo": "December is the last month.",
+    "nivel": "A1"
+   }
+  ],
+  "Escuela": [
+   {
+    "ingles": "school",
+    "espanol": "escuela",
+    "imagen": "1F3EB.png",
+    "ejemplo": "I go to school every day.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "student",
+    "espanol": "estudiante",
+    "imagen": "1F9D1.png",
+    "ejemplo": "She is a good student.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "classroom",
+    "espanol": "salón",
+    "imagen": "1F4DA.png",
+    "ejemplo": "The classroom is quiet.",
+    "nivel": "A2"
+   },
+   {
+    "ingles": "notebook",
+    "espanol": "cuaderno",
+    "imagen": "1F4D3.png",
+    "ejemplo": "I write in my notebook.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "homework",
+    "espanol": "tarea",
+    "imagen": "1F4DD.png",
+    "ejemplo": "I do my homework after lunch.",
+    "nivel": "A2"
+   },
+   {
+    "ingles": "exam",
+    "espanol": "examen",
+    "imagen": "1F4C4.png",
+    "ejemplo": "The exam is on Friday.",
+    "nivel": "A2"
+   },
+   {
+    "ingles": "library",
+    "espanol": "biblioteca",
+    "imagen": "1F4DA.png",
+    "ejemplo": "I study in the library.",
+    "nivel": "A2"
+   },
+   {
+    "ingles": "dictionary",
+    "espanol": "diccionario",
+    "imagen": "1F4D5.png",
+    "ejemplo": "Look up the word in the dictionary.",
+    "nivel": "A2"
+   },
+   {
+    "ingles": "lesson",
+    "espanol": "lección",
+    "imagen": "1F4D6.png",
+    "ejemplo": "Today's lesson is about verbs.",
+    "nivel": "A2"
+   },
+   {
+    "ingles": "grade",
+    "espanol": "nota",
+    "imagen": "1F31F.png",
+    "ejemplo": "I got a good grade.",
+    "nivel": "A2"
+   },
+   {
+    "ingles": "university",
+    "espanol": "universidad",
+    "imagen": "1F3EB.png",
+    "ejemplo": "She wants to go to university.",
+    "nivel": "B1"
+   },
+   {
+    "ingles": "scholarship",
+    "espanol": "beca",
+    "imagen": "1F393.png",
+    "ejemplo": "He received a scholarship.",
+    "nivel": "B1"
+   },
+   {
+    "ingles": "subject",
+    "espanol": "materia",
+    "imagen": "1F4D0.png",
+    "ejemplo": "Math is my favourite subject.",
+    "nivel": "B1"
+   },
+   {
+    "ingles": "blackboard",
+    "espanol": "pizarra",
+    "imagen": "1F4CB.png",
+    "ejemplo": "The teacher writes on the blackboard.",
+    "nivel": "A2"
+   },
+   {
+    "ingles": "ruler",
+    "espanol": "regla",
+    "imagen": "1F4CF.png",
+    "ejemplo": "Draw a line with a ruler.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "eraser",
+    "espanol": "borrador",
+    "imagen": "1F9F9.png",
+    "ejemplo": "I need an eraser.",
+    "nivel": "A1"
+   }
+  ],
+  "Casa": [
+   {
+    "ingles": "kitchen",
+    "espanol": "cocina",
+    "imagen": "1F373.png",
+    "ejemplo": "We cook in the kitchen.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "bedroom",
+    "espanol": "habitación",
+    "imagen": "1F6CF.png",
+    "ejemplo": "My bedroom is small.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "bathroom",
+    "espanol": "baño",
+    "imagen": "1F6C1.png",
+    "ejemplo": "The bathroom is clean.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "garden",
+    "espanol": "jardín",
+    "imagen": "1F33F.png",
+    "ejemplo": "There are flowers in the garden.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "floor",
+    "espanol": "piso",
+    "imagen": "1F9F1.png",
+    "ejemplo": "The cat sleeps on the floor.",
+    "nivel": "A2"
+   },
+   {
+    "ingles": "wall",
+    "espanol": "pared",
+    "imagen": "1F5BC.png",
+    "ejemplo": "There is a picture on the wall.",
+    "nivel": "A2"
+   },
+   {
+    "ingles": "fridge",
+    "espanol": "nevera",
+    "imagen": "1F9CA.png",
+    "ejemplo": "The milk is in the fridge.",
+    "nivel": "A2"
+   },
+   {
+    "ingles": "bed",
+    "espanol": "cama",
+    "imagen": "1F6CF.png",
+    "ejemplo": "I go to bed at ten.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "sofa",
+    "espanol": "sofá",
+    "imagen": "1F6CB.png",
+    "ejemplo": "We sit on the sofa.",
+    "nivel": "A2"
+   },
+   {
+    "ingles": "stairs",
+    "espanol": "escaleras",
+    "imagen": "1F9F3.png",
+    "ejemplo": "The bedroom is up the stairs.",
+    "nivel": "A2"
+   },
+   {
+    "ingles": "garage",
+    "espanol": "garaje",
+    "imagen": "1F697.png",
+    "ejemplo": "The car is in the garage.",
+    "nivel": "A2"
+   },
+   {
+    "ingles": "balcony",
+    "espanol": "balcón",
+    "imagen": "1F3E0.png",
+    "ejemplo": "I read on the balcony.",
+    "nivel": "B1"
+   },
+   {
+    "ingles": "attic",
+    "espanol": "ático",
+    "imagen": "1F3E0.png",
+    "ejemplo": "Old boxes are in the attic.",
+    "nivel": "B1"
+   },
+   {
+    "ingles": "basement",
+    "espanol": "sótano",
+    "imagen": "1F3E0.png",
+    "ejemplo": "The basement is dark.",
+    "nivel": "B1"
+   },
+   {
+    "ingles": "roof",
+    "espanol": "techo",
+    "imagen": "1F3D8.png",
+    "ejemplo": "Rain falls on the roof.",
+    "nivel": "B1"
+   },
+   {
+    "ingles": "neighbour",
+    "espanol": "vecino",
+    "imagen": "1F91D.png",
+    "ejemplo": "Our neighbour is friendly.",
+    "nivel": "B1"
+   }
+  ],
+  "Clima": [
+   {
+    "ingles": "sun",
+    "espanol": "sol",
+    "imagen": "2600.png",
+    "ejemplo": "The sun is bright.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "rain",
+    "espanol": "lluvia",
+    "imagen": "1F327.png",
+    "ejemplo": "I don't like the rain.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "cloud",
+    "espanol": "nube",
+    "imagen": "2601.png",
+    "ejemplo": "There is a cloud in the sky.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "snow",
+    "espanol": "nieve",
+    "imagen": "1F328.png",
+    "ejemplo": "The snow is cold.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "wind",
+    "espanol": "viento",
+    "imagen": "1F32C.png",
+    "ejemplo": "The wind is strong today.",
+    "nivel": "A2"
+   },
+   {
+    "ingles": "storm",
+    "espanol": "tormenta",
+    "imagen": "26C8.png",
+    "ejemplo": "The storm was loud.",
+    "nivel": "A2"
+   },
+   {
+    "ingles": "hot",
+    "espanol": "caliente",
+    "imagen": "1F525.png",
+    "ejemplo": "It is hot in summer.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "cold",
+    "espanol": "frío",
+    "imagen": "2744.png",
+    "ejemplo": "It is cold in winter.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "warm",
+    "espanol": "cálido",
+    "imagen": "1F321.png",
+    "ejemplo": "June is warm.",
+    "nivel": "A2"
+   },
+   {
+    "ingles": "weather",
+    "espanol": "clima",
+    "imagen": "26C5.png",
+    "ejemplo": "The weather is nice today.",
+    "nivel": "A2"
+   },
+   {
+    "ingles": "forecast",
+    "espanol": "pronóstico",
+    "imagen": null,
+    "ejemplo": "The forecast says rain.",
+    "nivel": "B1"
+   },
+   {
+    "ingles": "humidity",
+    "espanol": "humedad",
+    "imagen": "1F4A7.png",
+    "ejemplo": "The humidity is high.",
+    "nivel": "B1"
+   },
+   {
+    "ingles": "drought",
+    "espanol": "sequía",
+    "imagen": "1F335.png",
+    "ejemplo": "The drought lasted months.",
+    "nivel": "B1"
+   },
+   {
+    "ingles": "thunder",
+    "espanol": "trueno",
+    "imagen": "26A1.png",
+    "ejemplo": "I heard thunder last night.",
+    "nivel": "B1"
+   }
+  ],
+  "Ropa": [
+   {
+    "ingles": "shirt",
+    "espanol": "camisa",
+    "imagen": "1F455.png",
+    "ejemplo": "My shirt is blue.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "pants",
+    "espanol": "pantalones",
+    "imagen": "1F456.png",
+    "ejemplo": "These pants are new.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "dress",
+    "espanol": "vestido",
+    "imagen": "1F457.png",
+    "ejemplo": "She wears a red dress.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "shoes",
+    "espanol": "zapatos",
+    "imagen": "1F45F.png",
+    "ejemplo": "My shoes are black.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "hat",
+    "espanol": "sombrero",
+    "imagen": "1F3A9.png",
+    "ejemplo": "He has a hat.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "coat",
+    "espanol": "abrigo",
+    "imagen": "1F9E5.png",
+    "ejemplo": "Wear a coat; it is cold.",
+    "nivel": "A2"
+   },
+   {
+    "ingles": "jacket",
+    "espanol": "chaqueta",
+    "imagen": "1F9E5.png",
+    "ejemplo": "I left my jacket at school.",
+    "nivel": "A2"
+   },
+   {
+    "ingles": "socks",
+    "espanol": "medias",
+    "imagen": "1F9E6.png",
+    "ejemplo": "I can't find my socks.",
+    "nivel": "A2"
+   },
+   {
+    "ingles": "scarf",
+    "espanol": "bufanda",
+    "imagen": "1F9E3.png",
+    "ejemplo": "The scarf is warm.",
+    "nivel": "A2"
+   },
+   {
+    "ingles": "gloves",
+    "espanol": "guantes",
+    "imagen": "1F9E4.png",
+    "ejemplo": "Put on your gloves.",
+    "nivel": "A2"
+   },
+   {
+    "ingles": "skirt",
+    "espanol": "falda",
+    "imagen": "1F457.png",
+    "ejemplo": "The skirt is yellow.",
+    "nivel": "A2"
+   },
+   {
+    "ingles": "sweater",
+    "espanol": "suéter",
+    "imagen": "1F9E5.png",
+    "ejemplo": "This sweater is too big.",
+    "nivel": "A2"
+   },
+   {
+    "ingles": "uniform",
+    "espanol": "uniforme",
+    "imagen": "1F454.png",
+    "ejemplo": "Students wear a uniform.",
+    "nivel": "B1"
+   },
+   {
+    "ingles": "raincoat",
+    "espanol": "impermeable",
+    "imagen": "2614.png",
+    "ejemplo": "Take a raincoat if it rains.",
+    "nivel": "B1"
+   }
+  ],
+  "Comida": [
+   {
+    "ingles": "bread",
+    "espanol": "pan",
+    "imagen": "1F35E.png",
+    "ejemplo": "I eat bread for breakfast.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "milk",
+    "espanol": "leche",
+    "imagen": "1F95B.png",
+    "ejemplo": "I drink milk.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "cheese",
+    "espanol": "queso",
+    "imagen": "1F9C0.png",
+    "ejemplo": "The cheese is yellow.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "egg",
+    "espanol": "huevo",
+    "imagen": "1F95A.png",
+    "ejemplo": "I had an egg.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "rice",
+    "espanol": "arroz",
+    "imagen": "1F35A.png",
+    "ejemplo": "We eat rice with chicken.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "chicken",
+    "espanol": "pollo",
+    "imagen": "1F357.png",
+    "ejemplo": "Chicken is my favourite food.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "soup",
+    "espanol": "sopa",
+    "imagen": "1F372.png",
+    "ejemplo": "The soup is hot.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "salad",
+    "espanol": "ensalada",
+    "imagen": "1F957.png",
+    "ejemplo": "I want a salad.",
+    "nivel": "A2"
+   },
+   {
+    "ingles": "pizza",
+    "espanol": "pizza",
+    "imagen": "1F355.png",
+    "ejemplo": "We share a pizza.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "cake",
+    "espanol": "torta",
+    "imagen": "1F370.png",
+    "ejemplo": "The cake is for my birthday.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "chocolate",
+    "espanol": "chocolate",
+    "imagen": "1F36B.png",
+    "ejemplo": "Chocolate is sweet.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "water",
+    "espanol": "agua",
+    "imagen": "1F4A7.png",
+    "ejemplo": "Please give me some water.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "juice",
+    "espanol": "jugo",
+    "imagen": "1F9C3.png",
+    "ejemplo": "Orange juice is fresh.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "breakfast",
+    "espanol": "desayuno",
+    "imagen": "1F373.png",
+    "ejemplo": "Breakfast is at seven.",
+    "nivel": "A2"
+   },
+   {
+    "ingles": "dinner",
+    "espanol": "cena",
+    "imagen": "1F37D.png",
+    "ejemplo": "Dinner is the last meal.",
+    "nivel": "A2"
+   },
+   {
+    "ingles": "hungry",
+    "espanol": "hambriento",
+    "imagen": "1F37D.png",
+    "ejemplo": "I am hungry.",
+    "nivel": "A2"
+   },
+   {
+    "ingles": "thirsty",
+    "espanol": "sediento",
+    "imagen": "1F4A7.png",
+    "ejemplo": "She is thirsty.",
+    "nivel": "A2"
+   },
+   {
+    "ingles": "recipe",
+    "espanol": "receta",
+    "imagen": "1F4D3.png",
+    "ejemplo": "This recipe is easy to follow.",
+    "nivel": "B1"
+   },
+   {
+    "ingles": "ingredient",
+    "espanol": "ingrediente",
+    "imagen": "1F9C2.png",
+    "ejemplo": "Salt is an important ingredient.",
+    "nivel": "B1"
+   }
+  ],
+  "Viajes": [
+   {
+    "ingles": "airport",
+    "espanol": "aeropuerto",
+    "imagen": "1F6EB.png",
+    "ejemplo": "We wait at the airport.",
+    "nivel": "A2"
+   },
+   {
+    "ingles": "ticket",
+    "espanol": "boleto",
+    "imagen": "1F39F.png",
+    "ejemplo": "I bought a train ticket.",
+    "nivel": "A2"
+   },
+   {
+    "ingles": "passport",
+    "espanol": "pasaporte",
+    "imagen": "1FAAA.png",
+    "ejemplo": "Don't forget your passport.",
+    "nivel": "A2"
+   },
+   {
+    "ingles": "train",
+    "espanol": "tren",
+    "imagen": "1F686.png",
+    "ejemplo": "The train is late.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "bus",
+    "espanol": "bus",
+    "imagen": "1F68C.png",
+    "ejemplo": "I take the bus to school.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "plane",
+    "espanol": "avión",
+    "imagen": "2708.png",
+    "ejemplo": "The plane flies to Madrid.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "hotel",
+    "espanol": "hotel",
+    "imagen": "1F3E8.png",
+    "ejemplo": "We stay at a hotel.",
+    "nivel": "A2"
+   },
+   {
+    "ingles": "map",
+    "espanol": "mapa",
+    "imagen": "1F5FA.png",
+    "ejemplo": "Look at the map.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "luggage",
+    "espanol": "equipaje",
+    "imagen": "1F9F3.png",
+    "ejemplo": "My luggage is heavy.",
+    "nivel": "B1"
+   },
+   {
+    "ingles": "city",
+    "espanol": "ciudad",
+    "imagen": "1F3D9.png",
+    "ejemplo": "Bogotá is a big city.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "country",
+    "espanol": "país",
+    "imagen": "1F30D.png",
+    "ejemplo": "Colombia is my country.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "island",
+    "espanol": "isla",
+    "imagen": "1F3DD.png",
+    "ejemplo": "They visit an island.",
+    "nivel": "A2"
+   },
+   {
+    "ingles": "beach",
+    "espanol": "playa",
+    "imagen": "1F3D6.png",
+    "ejemplo": "We swim at the beach.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "journey",
+    "espanol": "viaje",
+    "imagen": "1F697.png",
+    "ejemplo": "The journey took five hours.",
+    "nivel": "B1"
+   },
+   {
+    "ingles": "border",
+    "espanol": "frontera",
+    "imagen": "1F6A7.png",
+    "ejemplo": "We crossed the border in the morning.",
+    "nivel": "B1"
+   }
+  ],
+  "Verbos": [
+   {
+    "ingles": "have",
+    "espanol": "tener",
+    "imagen": "1F91D.png",
+    "ejemplo": "I have a book.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "go",
+    "espanol": "ir",
+    "imagen": "1F6B6.png",
+    "ejemplo": "I go to school.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "eat",
+    "espanol": "comer",
+    "imagen": "1F374.png",
+    "ejemplo": "We eat breakfast.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "play",
+    "espanol": "jugar",
+    "imagen": "26BD.png",
+    "ejemplo": "They play soccer.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "read",
+    "espanol": "leer",
+    "imagen": "1F4D6.png",
+    "ejemplo": "She reads every night.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "write",
+    "espanol": "escribir",
+    "imagen": "270F.png",
+    "ejemplo": "I write in English.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "run",
+    "espanol": "correr",
+    "imagen": "1F3C3.png",
+    "ejemplo": "He can run fast.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "swim",
+    "espanol": "nadar",
+    "imagen": "1F3CA.png",
+    "ejemplo": "I swim in July.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "study",
+    "espanol": "estudiar",
+    "imagen": "1F4DA.png",
+    "ejemplo": "We study English.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "work",
+    "espanol": "trabajar",
+    "imagen": "1F4BC.png",
+    "ejemplo": "My father works.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "live",
+    "espanol": "vivir",
+    "imagen": "1F3E0.png",
+    "ejemplo": "I live in a small town.",
+    "nivel": "A2"
+   },
+   {
+    "ingles": "want",
+    "espanol": "querer",
+    "imagen": "1F64F.png",
+    "ejemplo": "I want some water.",
+    "nivel": "A2"
+   },
+   {
+    "ingles": "need",
+    "espanol": "necesitar",
+    "imagen": "2757.png",
+    "ejemplo": "You need a pencil.",
+    "nivel": "A2"
+   },
+   {
+    "ingles": "make",
+    "espanol": "hacer",
+    "imagen": "1F6E0.png",
+    "ejemplo": "They make a cake.",
+    "nivel": "A2"
+   },
+   {
+    "ingles": "take",
+    "espanol": "tomar",
+    "imagen": "1F45C.png",
+    "ejemplo": "Take the bus.",
+    "nivel": "A2"
+   },
+   {
+    "ingles": "speak",
+    "espanol": "hablar",
+    "imagen": "1F5E3.png",
+    "ejemplo": "I speak a little English.",
+    "nivel": "A2"
+   },
+   {
+    "ingles": "listen",
+    "espanol": "escuchar",
+    "imagen": "1F442.png",
+    "ejemplo": "Please listen to the teacher.",
+    "nivel": "A2"
+   },
+   {
+    "ingles": "think",
+    "espanol": "pensar",
+    "imagen": "1F914.png",
+    "ejemplo": "I think it is a good idea.",
+    "nivel": "B1"
+   },
+   {
+    "ingles": "find",
+    "espanol": "encontrar",
+    "imagen": "1F50D.png",
+    "ejemplo": "I cannot find my keys.",
+    "nivel": "B1"
+   },
+   {
+    "ingles": "become",
+    "espanol": "volverse",
+    "imagen": "1F331.png",
+    "ejemplo": "She wants to become a doctor.",
+    "nivel": "B1"
+   },
+   {
+    "ingles": "decide",
+    "espanol": "decidir",
+    "imagen": "1F91D.png",
+    "ejemplo": "We decided to stay home.",
+    "nivel": "B1"
+   }
+  ],
+  "Adjetivos": [
+   {
+    "ingles": "big",
+    "espanol": "grande",
+    "imagen": "1F4D0.png",
+    "ejemplo": "The house is big.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "small",
+    "espanol": "pequeño",
+    "imagen": "1F90F.png",
+    "ejemplo": "The cat is small.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "happy",
+    "espanol": "feliz",
+    "imagen": "1F60A.png",
+    "ejemplo": "I am happy today.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "sad",
+    "espanol": "triste",
+    "imagen": "1F622.png",
+    "ejemplo": "He looks sad.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "new",
+    "espanol": "nuevo",
+    "imagen": "1F195.png",
+    "ejemplo": "I have a new bag.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "old",
+    "espanol": "viejo",
+    "imagen": "1F4DC.png",
+    "ejemplo": "This book is old.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "fast",
+    "espanol": "rápido",
+    "imagen": "1F4A8.png",
+    "ejemplo": "The horse is fast.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "slow",
+    "espanol": "lento",
+    "imagen": "1F422.png",
+    "ejemplo": "The turtle is slow.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "beautiful",
+    "espanol": "hermoso",
+    "imagen": "1F33A.png",
+    "ejemplo": "The garden is beautiful.",
+    "nivel": "A2"
+   },
+   {
+    "ingles": "difficult",
+    "espanol": "difícil",
+    "imagen": "2753.png",
+    "ejemplo": "This exam is difficult.",
+    "nivel": "A2"
+   },
+   {
+    "ingles": "easy",
+    "espanol": "fácil",
+    "imagen": "1F44D.png",
+    "ejemplo": "The first lesson is easy.",
+    "nivel": "A2"
+   },
+   {
+    "ingles": "strong",
+    "espanol": "fuerte",
+    "imagen": "1F4AA.png",
+    "ejemplo": "The wind is strong.",
+    "nivel": "A2"
+   },
+   {
+    "ingles": "weak",
+    "espanol": "débil",
+    "imagen": "1F637.png",
+    "ejemplo": "I feel weak after the race.",
+    "nivel": "A2"
+   },
+   {
+    "ingles": "busy",
+    "espanol": "ocupado",
+    "imagen": "1F4CB.png",
+    "ejemplo": "The teacher is busy.",
+    "nivel": "A2"
+   },
+   {
+    "ingles": "quiet",
+    "espanol": "silencioso",
+    "imagen": "1F910.png",
+    "ejemplo": "The library is quiet.",
+    "nivel": "A2"
+   },
+   {
+    "ingles": "loud",
+    "espanol": "ruidoso",
+    "imagen": "1F50A.png",
+    "ejemplo": "The music is too loud.",
+    "nivel": "A2"
+   },
+   {
+    "ingles": "careful",
+    "espanol": "cuidadoso",
+    "imagen": "26A0.png",
+    "ejemplo": "Be careful with the hot soup.",
+    "nivel": "B1"
+   },
+   {
+    "ingles": "expensive",
+    "espanol": "caro",
+    "imagen": "1F4B0.png",
+    "ejemplo": "That hotel is expensive.",
+    "nivel": "B1"
+   },
+   {
+    "ingles": "dangerous",
+    "espanol": "peligroso",
+    "imagen": "26A0.png",
+    "ejemplo": "The storm is dangerous.",
+    "nivel": "B1"
+   }
+  ],
+  "Naturaleza": [
+   {
+    "ingles": "tree",
+    "espanol": "árbol",
+    "imagen": "1F333.png",
+    "ejemplo": "The bird is in the tree.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "flower",
+    "espanol": "flor",
+    "imagen": "1F338.png",
+    "ejemplo": "The flower is pink.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "river",
+    "espanol": "río",
+    "imagen": "1F30A.png",
+    "ejemplo": "The river is long.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "mountain",
+    "espanol": "montaña",
+    "imagen": "26F0.png",
+    "ejemplo": "The mountain is high.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "forest",
+    "espanol": "bosque",
+    "imagen": "1F332.png",
+    "ejemplo": "The bear lives in the forest.",
+    "nivel": "A2"
+   },
+   {
+    "ingles": "ocean",
+    "espanol": "océano",
+    "imagen": "1F30A.png",
+    "ejemplo": "The ocean is deep.",
+    "nivel": "A2"
+   },
+   {
+    "ingles": "stone",
+    "espanol": "piedra",
+    "imagen": "1FAA8.png",
+    "ejemplo": "There is a stone on the path.",
+    "nivel": "A2"
+   },
+   {
+    "ingles": "grass",
+    "espanol": "pasto",
+    "imagen": "1F33F.png",
+    "ejemplo": "The grass is green.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "leaf",
+    "espanol": "hoja",
+    "imagen": "1F343.png",
+    "ejemplo": "The leaf fell from the tree.",
+    "nivel": "A2"
+   },
+   {
+    "ingles": "moon",
+    "espanol": "luna",
+    "imagen": "1F319.png",
+    "ejemplo": "The moon is bright tonight.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "star",
+    "espanol": "estrella",
+    "imagen": "2B50.png",
+    "ejemplo": "I can see a star.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "valley",
+    "espanol": "valle",
+    "imagen": "1F3D4.png",
+    "ejemplo": "The village is in the valley.",
+    "nivel": "B1"
+   },
+   {
+    "ingles": "horizon",
+    "espanol": "horizonte",
+    "imagen": "1F307.png",
+    "ejemplo": "The sun sets on the horizon.",
+    "nivel": "B1"
+   },
+   {
+    "ingles": "wildlife",
+    "espanol": "fauna",
+    "imagen": "1F98C.png",
+    "ejemplo": "The park protects wildlife.",
+    "nivel": "B1"
+   }
+  ],
+  "Tecnología": [
+   {
+    "ingles": "phone",
+    "espanol": "teléfono",
+    "imagen": "1F4F1.png",
+    "ejemplo": "My phone is on the table.",
+    "nivel": "A1"
+   },
+   {
+    "ingles": "internet",
+    "espanol": "internet",
+    "imagen": "1F310.png",
+    "ejemplo": "We use the internet at school.",
+    "nivel": "A2"
+   },
+   {
+    "ingles": "website",
+    "espanol": "sitio web",
+    "imagen": "1F310.png",
+    "ejemplo": "This website teaches English.",
+    "nivel": "A2"
+   },
+   {
+    "ingles": "password",
+    "espanol": "contraseña",
+    "imagen": "1F512.png",
+    "ejemplo": "Never share your password.",
+    "nivel": "A2"
+   },
+   {
+    "ingles": "screen",
+    "espanol": "pantalla",
+    "imagen": "1F5A5.png",
+    "ejemplo": "Look at the screen.",
+    "nivel": "A2"
+   },
+   {
+    "ingles": "keyboard",
+    "espanol": "teclado",
+    "imagen": "2328.png",
+    "ejemplo": "Type with the keyboard.",
+    "nivel": "A2"
+   },
+   {
+    "ingles": "mouse",
+    "espanol": "ratón",
+    "imagen": "1F5B1.png",
+    "ejemplo": "Click with the mouse.",
+    "nivel": "A2"
+   },
+   {
+    "ingles": "email",
+    "espanol": "correo",
+    "imagen": "1F4E7.png",
+    "ejemplo": "I sent an email to my teacher.",
+    "nivel": "A2"
+   },
+   {
+    "ingles": "download",
+    "espanol": "descarga",
+    "imagen": "1F4E5.png",
+    "ejemplo": "The download is slow.",
+    "nivel": "B1"
+   },
+   {
+    "ingles": "software",
+    "espanol": "software",
+    "imagen": "1F4BB.png",
+    "ejemplo": "The software needs an update.",
+    "nivel": "B1"
+   },
+   {
+    "ingles": "battery",
+    "espanol": "batería",
+    "imagen": "1F50B.png",
+    "ejemplo": "The battery is low.",
+    "nivel": "B1"
+   },
+   {
+    "ingles": "camera",
+    "espanol": "cámara",
+    "imagen": "1F4F7.png",
+    "ejemplo": "The camera takes good photos.",
+    "nivel": "A2"
+   },
+   {
+    "ingles": "robot",
+    "espanol": "robot",
+    "imagen": "1F916.png",
+    "ejemplo": "The robot can walk.",
+    "nivel": "B1"
+   },
+   {
+    "ingles": "network",
+    "espanol": "red",
+    "imagen": "1F310.png",
+    "ejemplo": "The school network is down.",
+    "nivel": "B1"
+   }
+  ]
+ }
+}

@@ -42,5 +42,10 @@ Thumbs.db
 tests_web/node_modules/
 tests_web/artefactos/
 
+# Proyecto Astro (la versión desplegada en Pages)
+web-astro/node_modules/
+web-astro/dist/
+web-astro/.astro/
+
 # Logs
 *.log

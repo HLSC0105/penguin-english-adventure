@@ -1,0 +1,77 @@
+---
+/* Ayuda (espejo de interfaz/ayuda.py): manual estático en tres bloques
+   dentro de una tarjeta. El mensaje de Pipo se sortea en cada visita
+   (script mínimo) para conservar el random.choice del escritorio. */
+import Layout from "../layouts/Layout.astro";
+import PipoBurbuja from "../components/PipoBurbuja.astro";
+import { MENSAJES_PIPO } from "../lib/datos";
+import { ruta } from "../lib/rutas";
+
+const BLOQUES: Array<[string, string[]]> = [
+  ["Actividades", [
+    "1. Aprender vocabulario: mira las palabras y sus imágenes.",
+    "2. Trivia: responde preguntas de opción múltiple.",
+    "3. Completar palabra: elige la letra que falta.",
+    "4. Ordenar palabra: escribe la palabra con sus letras desordenadas.",
+    "5. Juego de memoria: encuentra cada palabra con su imagen.",
+  ]],
+  ["Puntos", [
+    "Cada respuesta correcta vale 10 puntos y, al terminar una",
+    "actividad, ganas 20 puntos de bonificación. El progreso está",
+    "en la barra del menú.",
+  ]],
+  ["Niveles CEFR", [
+    "A1: palabras del día a día. A2: escuela, casa y clima.",
+    "B1: ideas más abstractas y collocations. El nivel más alto",
+    "incluye el vocabulario de los anteriores (filtro acumulativo).",
+  ]],
+];
+---
+<Layout titulo="¿Cómo jugar?" hud pantalla="ayuda">
+  <div class="marco pantalla-cascada">
+    <h1 class="titulo-pantalla text-center" tabindex="-1">¿Cómo jugar?</h1>
+    <p class="text-center texto-secundario mt-1">El manual corto de Penguin English Adventure</p>
+
+    <div data-pipo-aleatorio data-clave="ayuda" data-mensajes={JSON.stringify(MENSAJES_PIPO.ayuda)}></div>
+
+    <div class="pea-tarjeta seccion medida mx-auto">
+      {BLOQUES.map(([titulo, lineas]) => (
+        <div class="bloque-ayuda">
+          <h3>{titulo}</h3>
+          {lineas.map((linea) => <p>{linea}</p>)}
+        </div>
+      ))}
+    </div>
+
+    <div class="seccion flex justify-center">
+      <a class="btn-pea" href={ruta("menu/")}>
+        <i class="bi bi-arrow-left" aria-hidden="true"></i> Volver al menú
+      </a>
+    </div>
+  </div>
+</Layout>
+<script>
+  /* sorteo del mensaje de Pipo por visita (como mensaje_pipo en Tk) */
+  document.addEventListener("astro:page-load", () => {
+    if (document.body.dataset.pantalla !== "ayuda") return;
+    const caja = document.querySelector<HTMLElement>("[data-pipo-aleatorio]");
+    if (!caja || caja.dataset.hecho === "1") return;
+    caja.dataset.hecho = "1";
+    const mensajes = JSON.parse(caja.dataset.mensajes ?? "[]") as string[];
+    const elegido = mensajes[Math.floor(Math.random() * mensajes.length)] ?? "";
+    caja.className = "pipo seccion";
+    caja.innerHTML = `<img class="pipo-foto" src="${new URL(import.meta.env.BASE_URL, location.href)}pinguino_128.png" alt="Pipo, el pingüino" width="128" /><div class="burbuja"></div>`;
+    (caja.querySelector(".burbuja") as HTMLElement).textContent = elegido;
+  });
+</script>
+<style>
+  .bloque-ayuda { padding: 1rem 1.2rem 1.05rem; }
+  .bloque-ayuda h3 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.02rem;
+    color: var(--tema-acento-texto);
+    margin: 0 0 .35rem;
+  }
+  .bloque-ayuda p { margin: 0; font-size: .93rem; line-height: 1.55; }
+</style>

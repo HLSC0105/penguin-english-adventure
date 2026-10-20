@@ -1,0 +1,12 @@
+---
+/* Pipo y su burbuja (espejo de crear_pipo). La imagen vive en public/
+   (estática, ya decidido: el pingüino de UI no necesita optimización).
+   La burbuja respira en ámbar al montarse (keyframe respirar-burbuja). */
+interface Props { mensaje: string; ancho?: string }
+const { mensaje, ancho } = Astro.props;
+import { RUTA_PIPO } from "../lib/rutas";
+---
+<div class="pipo seccion">
+  <img class="pipo-foto" src={RUTA_PIPO} alt="Pipo, el pingüino" width="128" decoding="sync" />
+  <div class="burbuja" style={ancho ? `max-width:${ancho}` : undefined}>{mensaje}</div>
+</div>

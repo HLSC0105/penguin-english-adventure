@@ -1,0 +1,12 @@
+---
+/* Barra de progreso (espejo de crear_barra_progreso): hundida en la
+   superficie, con relleno luminoso, barrido de brillo y transición
+   scaleX. --lleno es la fracción 0..1 que la island actualiza. */
+interface Props { porcentaje: number }
+const { porcentaje } = Astro.props;
+const lleno = Math.max(0, Math.min(100, porcentaje)) / 100;
+---
+<div class="barra-progreso" role="progressbar" aria-valuenow={Math.round(porcentaje)}
+     aria-valuemin="0" aria-valuemax="100">
+  <div class="relleno" style={`--lleno:${lleno}`}></div>
+</div>

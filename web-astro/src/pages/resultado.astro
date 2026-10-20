@@ -1,0 +1,17 @@
+---
+/* Resultado (espejo de interfaz/resultado.py): resumen de una actividad
+   terminada. La island (src/scripts/resultado.ts) lee el resumen que el
+   juego guardó en la sesión, elige el mensaje de Pipo por umbral y
+   lanza el confeti continuo. La bonificación YA está sumada: si se
+   sumara aquí, alternar el tema la duplicaría (mismo orden que Tk). */
+import Layout from "../layouts/Layout.astro";
+import { ruta } from "../lib/rutas";
+---
+<Layout titulo="Resultado" hud pantalla="resultado">
+  <div class="marco">
+    <div id="resumen" data-isla-resultado data-constantes-bonificacion="20"></div>
+  </div>
+</Layout>
+<script>
+  import "../scripts/resultado";
+</script>

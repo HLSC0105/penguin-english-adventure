@@ -1,0 +1,71 @@
+---
+/* Menú principal (espejo de interfaz/menu.py): cinco actividades, progreso
+   y selector CEFR. El cascarón es ESTÁTICO; los detalles por nivel y la
+   barra los pinta src/scripts/menu.ts con los datos tipados del build.
+   El mapa de imágenes optimizadas viaja como data-* (JSON del build). */
+import Layout from "../layouts/Layout.astro";
+import PipoBurbuja from "../components/PipoBurbuja.astro";
+import { MENSAJES_PIPO, NIVELES } from "../lib/datos";
+import { mapaDeImagenes } from "../lib/imagenes";
+import { ruta } from "../lib/rutas";
+
+const saludo = MENSAJES_PIPO.saludo[
+  Math.floor(Math.random() * MENSAJES_PIPO.saludo.length)
+];
+const imagenes = await mapaDeImagenes();
+---
+<Layout titulo="Menú" hud mostrarMenu={false} pantalla="menu">
+  <div class="marco pantalla-cascada">
+    <h1 class="titulo-pantalla text-center" tabindex="-1">Penguin English Adventure</h1>
+    <p class="text-center texto-secundario mt-1">Aprende inglés con Pipo</p>
+
+    <PipoBurbuja mensaje={saludo} />
+
+    <div data-isla-menu data-imagenes={JSON.stringify(imagenes)}>
+      <div class="seccion flex flex-wrap items-center justify-center gap-2">
+        <span class="texto-secundario">Tu nivel de inglés</span>
+        {NIVELES.map((nivel) => (
+          <button class="pea-chip" type="button" data-nivel-menu={nivel}
+                  aria-pressed="false">{nivel}</button>
+        ))}
+      </div>
+
+      <div class="seccion mx-auto" style="max-width:430px;">
+        <div class="barra-progreso" role="progressbar" aria-valuenow="0"
+             aria-valuemin="0" aria-valuemax="100" data-progreso>
+          <div class="relleno" data-progreso-relleno style="--lleno:0"></div>
+        </div>
+        <p class="text-center texto-secundario fuente-num mt-2 mb-0" data-progreso-texto></p>
+      </div>
+
+      <div class="seccion">
+        <div class="grid gap-3" style="grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));">
+          <div data-ficha-destacada></div>
+          <div class="grid gap-3" style="grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));" data-fichas-compactas></div>
+        </div>
+      </div>
+
+      <div class="seccion flex flex-wrap justify-center gap-2">
+        <a class="btn-pea-ghost" href={ruta("ayuda/")}>
+          <i class="bi bi-question-circle" aria-hidden="true"></i> ¿Cómo jugar?
+        </a>
+        <a class="btn-pea-ghost" href={ruta("como-esta-hecho/")}>
+          <i class="bi bi-code-square" aria-hidden="true"></i> ¿Cómo está hecho?
+        </a>
+        <button class="btn-pea-ghost" type="button" data-accion="salir"
+                aria-label="Cerrar sesión y borrar tus puntos de esta pestaña">
+          <i class="bi bi-box-arrow-right" aria-hidden="true"></i> Cerrar sesión
+        </button>
+      </div>
+
+      <p class="pie-creditos">
+        Emojis: OpenMoji (licencia abierta) ·
+        <a href={ruta("ATRIBUCIONES.md")}>ATRIBUCIONES.md</a> ·
+        <a href="https://github.com/HLSC0105/penguin-english-adventure" target="_blank" rel="noopener noreferrer">código fuente</a>
+      </p>
+    </div>
+  </div>
+</Layout>
+<script>
+  import "../scripts/menu";
+</script>

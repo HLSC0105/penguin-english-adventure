@@ -1,0 +1,34 @@
+{
+ "niveles": [
+  "A1",
+  "A2",
+  "B1"
+ ],
+ "nivelPorDefecto": "A2",
+ "parametros": {
+  "A1": {
+   "trivia": 8,
+   "completar": 6,
+   "ordenar": 6,
+   "memoriaParejas": 4,
+   "esperaFlipMs": 1100,
+   "huecoInicialPermitido": true
+  },
+  "A2": {
+   "trivia": 10,
+   "completar": 8,
+   "ordenar": 8,
+   "memoriaParejas": 6,
+   "esperaFlipMs": 900,
+   "huecoInicialPermitido": true
+  },
+  "B1": {
+   "trivia": 12,
+   "completar": 10,
+   "ordenar": 10,
+   "memoriaParejas": 8,
+   "esperaFlipMs": 650,
+   "huecoInicialPermitido": false
+  }
+ }
+}

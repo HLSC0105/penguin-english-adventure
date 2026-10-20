@@ -1,0 +1,84 @@
+{
+ "parejas": [
+  {
+   "ingles": "DOG",
+   "imagen": "1F415.png",
+   "nivel": "A1"
+  },
+  {
+   "ingles": "CAT",
+   "imagen": "1F408.png",
+   "nivel": "A1"
+  },
+  {
+   "ingles": "APPLE",
+   "imagen": "1F34E.png",
+   "nivel": "A1"
+  },
+  {
+   "ingles": "BANANA",
+   "imagen": "1F34C.png",
+   "nivel": "A1"
+  },
+  {
+   "ingles": "CAR",
+   "imagen": "1F697.png",
+   "nivel": "A1"
+  },
+  {
+   "ingles": "HOUSE",
+   "imagen": "1F3E0.png",
+   "nivel": "A1"
+  },
+  {
+   "ingles": "BOOK",
+   "imagen": "1F4D6.png",
+   "nivel": "A1"
+  },
+  {
+   "ingles": "FISH",
+   "imagen": "1F41F.png",
+   "nivel": "A1"
+  },
+  {
+   "ingles": "HORSE",
+   "imagen": "1F40E.png",
+   "nivel": "A2"
+  },
+  {
+   "ingles": "LION",
+   "imagen": "1F981.png",
+   "nivel": "A2"
+  },
+  {
+   "ingles": "DOCTOR",
+   "imagen": "1F9D1-200D-2695-FE0F.png",
+   "nivel": "A2"
+  },
+  {
+   "ingles": "PILOT",
+   "imagen": "1F9D1-200D-2708-FE0F.png",
+   "nivel": "A2"
+  },
+  {
+   "ingles": "ELEPHANT",
+   "imagen": "1F418.png",
+   "nivel": "B1"
+  },
+  {
+   "ingles": "ASTRONAUT",
+   "imagen": "1F9D1-200D-1F680.png",
+   "nivel": "B1"
+  },
+  {
+   "ingles": "FIREFIGHTER",
+   "imagen": "1F9D1-200D-1F692.png",
+   "nivel": "B1"
+  },
+  {
+   "ingles": "COMPUTER",
+   "imagen": "1F4BB.png",
+   "nivel": "B1"
+  }
+ ]
+}

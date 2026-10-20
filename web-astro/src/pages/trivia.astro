@@ -1,0 +1,17 @@
+---
+/* Trivia (espejo de interfaz/trivia.py): la island (src/scripts/
+   trivia.ts) recibe las preguntas de juegos.ts (opciones barajadas) y
+   conduce el estado por pantalla: responder → feedback coloreado →
+   Siguiente → … → resultado guardado en la sesión y ruta de resultado. */
+import Layout from "../layouts/Layout.astro";
+import { ruta } from "../lib/rutas";
+---
+<Layout titulo="Trivia" hud pantalla="trivia">
+  <div class="marco">
+    <h1 class="titulo-pantalla text-center" tabindex="-1">Trivia</h1>
+    <div id="juego" data-isla-trivia></div>
+  </div>
+</Layout>
+<script>
+  import "../scripts/trivia";
+</script>

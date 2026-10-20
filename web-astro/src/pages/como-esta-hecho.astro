@@ -1,0 +1,149 @@
+---
+/* La pantalla de documentación del sitio Astro (¿Cómo está hecho?):
+   100% ESTÁTICA — todo el contenido está pre-renderizado en build
+   (cero JS enviado). La imagen del Pipo es el único elemento vivo y
+   solo depende del src estático. */
+import Layout from "../layouts/Layout.astro";
+import PipoBurbuja from "../components/PipoBurbuja.astro";
+import {
+  REPO, MODULOS, ARBOL, EQUIVALENCIAS, CONCEPTOS, ASTRO_NUEVO,
+  DECISIONES, METRICAS, PASOS, CAPTURAS,
+} from "../lib/docs";
+import { ruta } from "../lib/rutas";
+---
+<Layout titulo="¿Cómo está hecho?" hud pantalla="documentacion">
+  <div class="marco pantalla-cascada">
+    <h1 class="titulo-pantalla text-center" tabindex="-1">¿Cómo está hecho?</h1>
+    <p class="text-center texto-secundario mt-1">Documentación académica del proyecto: arquitectura, decisiones y evidencia</p>
+
+    <PipoBurbuja
+      mensaje="Aquí está todo el proyecto explicado: cómo el escritorio y las dos webs hablan el mismo idioma, qué decisiones tomé y cómo comprobarlo. Bienvenido al código."
+      ancho="560px"
+    />
+
+    <a class="pea-tarjeta doc-cajon-enlace seccion" href={REPO} target="_blank"
+       rel="noopener noreferrer"
+       aria-label="Abrir el repositorio del código fuente en GitHub (HLSC0105/penguin-english-adventure)">
+      <span class="flex items-center gap-3">
+        <i class="bi bi-github" aria-hidden="true" style="font-size:2rem; color:var(--tema-acento); flex:none;"></i>
+        <span>
+          <span class="block font-semibold">El código fuente completo está en GitHub</span>
+          <span class="block texto-secundario doc-mono">github.com/HLSC0105/penguin-english-adventure</span>
+        </span>
+      </span>
+    </a>
+
+    <h2 class="titulo-seccion">1. El mapa del código: Python ↔ Web</h2>
+    {MODULOS.map((modulo) => (
+      <div class="pea-tarjeta doc-modulo">
+        <h3 class="doc-modulo-titulo">{modulo.titulo}</h3>
+        <p class="doc-texto">{modulo.texto}</p>
+        <p class="doc-espejo">Web → {modulo.espejo}</p>
+      </div>
+    ))}
+
+    <h2 class="titulo-seccion">2. La anatomía del directorio</h2>
+    <pre class="doc-arbol">{ARBOL}</pre>
+
+    <h2 class="titulo-seccion">3. Tabla de equivalencias Tkinter ↔ Web</h2>
+    <div class="table-responsive">
+      <table class="doc-tabla">
+        <thead>
+          <tr><th>Tkinter (escritorio)</th><th>Web</th><th>Por qué es igual</th></tr>
+        </thead>
+        <tbody>
+          {EQUIVALENCIAS.map(([tk, web, porque]) => (
+            <tr>
+              <td><code>{tk}</code></td>
+              <td><code>{web}</code></td>
+              <td class="doc-celda-texto">{porque}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    <h2 class="titulo-seccion">4. Conceptos académicos clave</h2>
+    {CONCEPTOS.map(([titulo, texto]) => (
+      <div class="pea-tarjeta doc-concepto">
+        <h3 class="doc-concepto-titulo">{titulo}</h3>
+        <p class="doc-texto">{texto}</p>
+      </div>
+    ))}
+
+    <h2 class="titulo-seccion">5. La versión Astro: cómo y por qué</h2>
+    {ASTRO_NUEVO.map(([titulo, texto]) => (
+      <div class="pea-tarjeta doc-concepto">
+        <h3 class="doc-concepto-titulo">{titulo}</h3>
+        <p class="doc-texto">{texto}</p>
+      </div>
+    ))}
+
+    <h2 class="titulo-seccion">6. Decisiones de diseño y trade-offs</h2>
+    {DECISIONES.map(([titulo, texto]) => (
+      <div class="pea-tarjeta doc-concepto">
+        <h3 class="doc-concepto-titulo">{titulo}</h3>
+        <p class="doc-texto">{texto}</p>
+      </div>
+    ))}
+
+    <h2 class="titulo-seccion">7. Métricas y verificación</h2>
+    <div class="table-responsive">
+      <table class="doc-tabla">
+        <thead>
+          <tr><th>Indicador</th><th>Qué significa</th></tr>
+        </thead>
+        <tbody>
+          {METRICAS.map(([indicador, significado]) => (
+            <tr>
+              <td><code>{indicador}</code></td>
+              <td class="doc-celda-texto">{significado}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    <h2 class="titulo-seccion">8. Cómo reproducir y distribuir</h2>
+    {PASOS.map(([titulo, texto]) => (
+      <div class="pea-tarjeta doc-concepto">
+        <h3 class="doc-concepto-titulo">{titulo}</h3>
+        <p class="doc-texto doc-paso-texto">{texto}</p>
+      </div>
+    ))}
+
+    <h2 class="titulo-seccion">9. Capturas del producto</h2>
+    {CAPTURAS.map((grupo) => (
+      <div>
+        <h3 class="doc-subgrupo">{grupo.grupo}</h3>
+        <div class="grid gap-3" style="grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));">
+          {grupo.imagenes.map(([archivo, caption]) => (
+            <figure class="pea-tarjeta doc-captura">
+              <img class="doc-captura-img" src={ruta(`capturas/${archivo}`)}
+                   alt={caption} loading="lazy" decoding="async" />
+              <figcaption class="doc-caption">{caption}</figcaption>
+            </figure>
+          ))}
+        </div>
+      </div>
+    ))}
+
+    <a class="pea-tarjeta doc-cajon-enlace seccion" href={REPO} target="_blank"
+       rel="noopener noreferrer"
+       aria-label="Abrir el repositorio del código fuente en GitHub">
+      <span class="flex items-center gap-3">
+        <i class="bi bi-github" aria-hidden="true" style="font-size:2rem; color:var(--tema-acento); flex:none;"></i>
+        <span>
+          <span class="block font-semibold">El código fuente completo está en GitHub</span>
+          <span class="block texto-secundario doc-mono">github.com/HLSC0105/penguin-english-adventure</span>
+        </span>
+      </span>
+    </a>
+
+    <div class="seccion flex justify-center">
+      <a class="btn-pea" href={ruta("menu/")}>
+        <i class="bi bi-arrow-left" aria-hidden="true"></i> Volver al menú
+      </a>
+    </div>
+  </div>
+</Layout>

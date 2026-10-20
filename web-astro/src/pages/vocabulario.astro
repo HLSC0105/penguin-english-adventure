@@ -1,0 +1,19 @@
+---
+/* Vocabulario (espejo de interfaz/vocabulario.py): estudio, no examen —
+   sin puntos. La island (src/scripts/vocabulario.ts) lee los parámetros
+   de la URL (?categoria=X&página=N) y pinta el listado de categorías o
+   las fichas de palabra con las imágenes optimizadas en build. */
+import Layout from "../layouts/Layout.astro";
+import { mapaDeImagenes } from "../lib/imagenes";
+
+const imagenes = await mapaDeImagenes();
+---
+<Layout titulo="Aprender vocabulario" hud pantalla="vocabulario">
+  <div class="marco pantalla-cascada">
+    <h1 class="titulo-pantalla text-center" tabindex="-1">Aprender vocabulario</h1>
+    <div data-isla-vocabulario data-imagenes={JSON.stringify(imagenes)}></div>
+  </div>
+</Layout>
+<script>
+  import "../scripts/vocabulario";
+</script>

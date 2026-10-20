@@ -1,0 +1,1127 @@
+@import "tailwindcss";
+
+/* ==========================================================================
+   Penguin English Adventure — versión Astro + Tailwind v4
+   Los tokens son COPIA VERBATIM de interfaz/componentes.py
+   (TEMA_OSCURO / TEMA_CLARO): 20 llaves, ninguna paleta nueva. La técnica
+   de Tailwind v4: los tokens viven en variables de runtime por tema y
+   @theme inline los registra para las utilidades (bg-tarjeta, text-acento…)
+   — el cambio de tema se resuelve en runtime sin reescribir clases.
+   ========================================================================== */
+
+:root {
+  /* === TEMA_OSCURO (componentes.py) — noche polar por defecto === */
+  --tema-fondo: #000000;
+  --tema-panel: #0D0D0D;
+  --tema-tarjeta: #171717;
+  --tema-texto: #F1F5F9;
+  --tema-texto-secundario: #94A3B8;
+  --tema-boton: #1E3A8A;
+  --tema-boton-hover: #1D4ED8;
+  --tema-boton-texto: #FFFFFF;
+  --tema-acento: #FBBF24;
+  --tema-sobre-acento: #111111;
+  --tema-correcto: #22C55E;
+  --tema-incorrecto: #F87171;
+  --tema-barra-fondo: #1A1A1A;
+  --tema-barra-relleno: #FBBF24;
+  --tema-borde: #2A2A2A;
+  --tema-burbuja: #171717;
+  --tema-foco: #FBBF24;
+  --tema-sombra: rgba(0, 0, 0, .65);
+  --tema-acento-texto: var(--tema-acento);
+  /* El color derivado para texto pequeño sobre claro (AA) nace del acento
+     + texto mezclados — decisión de la ronda Impeccable, en ambos motores. */
+
+  /* === Sistema de elevación (premium) === */
+  --luces-canto: inset 0 1px 0 rgba(255, 255, 255, .07),
+                 inset 0 0 0 1px rgba(255, 255, 255, .02);
+  --elev-1: var(--luces-canto),
+            0 1px 2px rgba(0, 0, 0, .55),
+            0 3px 10px -4px rgba(30, 58, 138, .28);
+  --elev-2: var(--luces-canto),
+            0 4px 12px -2px rgba(0, 0, 0, .55),
+            0 14px 34px -12px rgba(30, 58, 138, .42);
+  --elev-3: var(--luces-canto),
+            0 8px 22px -6px rgba(0, 0, 0, .6),
+            0 30px 70px -18px rgba(30, 58, 138, .55);
+  --anillo-tarjeta: 0 0 0 1px var(--tema-borde);
+  --ansi-elevacion: transform 200ms cubic-bezier(.22, .9, .34, 1),
+                    box-shadow 200ms cubic-bezier(.22, .9, .34, 1);
+
+  /* === Suelo polar (el gradiente que da contraste a las sombras) === */
+  --suelo: radial-gradient(
+    115% 85% at 50% -10%,
+    rgba(30, 58, 138, .32) 0%,
+    rgba(13, 27, 62, .22) 32%,
+    rgba(0, 0, 0, 0) 68%);
+
+  --duracion-pantalla: 240ms;
+}
+
+html[data-tema="claro"] {
+  color-scheme: light;
+  /* === TEMA_CLARO (componentes.py) — hielo diurno === */
+  --tema-fondo: #E8F1FA;
+  --tema-panel: #FFFFFF;
+  --tema-tarjeta: #FFFFFF;
+  --tema-texto: #0F2744;
+  --tema-texto-secundario: #4A6580;
+  --tema-boton: #1E5AB8;
+  --tema-boton-hover: #2A6FD6;
+  --tema-boton-texto: #FFFFFF;
+  --tema-acento: #D97706;
+  --tema-sobre-acento: #111111;
+  --tema-correcto: #15803D;
+  --tema-incorrecto: #B91C1C;
+  --tema-barra-fondo: #C9DCF3;
+  --tema-barra-relleno: #D97706;
+  --tema-borde: #B7CCE4;
+  --tema-burbuja: #FFFFFF;
+  --tema-foco: #1E5AB8;
+  --tema-sombra: rgba(15, 39, 68, .22);
+  --tema-acento-texto: color-mix(in srgb, var(--tema-acento) 72%, var(--tema-texto));
+
+  --luces-canto: inset 0 1px 0 rgba(255, 255, 255, .85);
+  --elev-1: var(--luces-canto),
+            0 1px 2px rgba(15, 39, 68, .10),
+            0 4px 12px -4px rgba(15, 39, 68, .22);
+  --elev-2: var(--luces-canto),
+            0 3px 8px rgba(15, 39, 68, .10),
+            0 16px 36px -12px rgba(15, 39, 68, .35);
+  --elev-3: var(--luces-canto),
+            0 6px 16px -4px rgba(15, 39, 68, .14),
+            0 30px 60px -18px rgba(15, 39, 68, .45);
+  --suelo: radial-gradient(
+    115% 85% at 50% -10%,
+    rgba(255, 255, 255, .9) 0%,
+    rgba(240, 247, 255, .55) 34%,
+    rgba(255, 255, 255, 0) 70%);
+}
+
+/* Registro de tokens para las utilidades de Tailwind (inline: se leen
+   en runtime, así el tema alterna sin clases duplicadas). */
+@theme inline {
+  --color-fondo: var(--tema-fondo);
+  --color-panel: var(--tema-panel);
+  --color-tarjeta: var(--tema-tarjeta);
+  --color-texto: var(--tema-texto);
+  --color-texto-secundario: var(--tema-texto-secundario);
+  --color-boton: var(--tema-boton);
+  --color-boton-hover: var(--tema-boton-hover);
+  --color-boton-texto: var(--tema-boton-texto);
+  --color-acento: var(--tema-acento);
+  --color-acento-texto: var(--tema-acento-texto);
+  --color-sobre-acento: var(--tema-sobre-acento);
+  --color-correcto: var(--tema-correcto);
+  --color-incorrecto: var(--tema-incorrecto);
+  --color-borde: var(--tema-borde);
+  --color-burbuja: var(--tema-burbuja);
+  --color-foco: var(--tema-foco);
+  --font-display: "Fredoka", "Segoe UI", "DejaVu Sans", system-ui, sans-serif;
+  --font-cuerpo: "Segoe UI", "DejaVu Sans", system-ui, sans-serif;
+  --radius-tarjeta: 1.15rem;
+  --radius-boton: .7rem;
+  --ease-salida: cubic-bezier(.22, .9, .34, 1);
+}
+
+/* ==========================================================================
+   Base
+   ========================================================================== */
+
+body {
+  /* Suelo polar fijo (iOS-safe: pseudo-elemento del html, no attachment). */
+  background-color: var(--tema-fondo);
+  color: var(--tema-texto);
+  font-family: var(--font-cuerpo);
+  min-height: 100dvh;
+  -webkit-font-smoothing: antialiased;
+}
+html::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image: var(--suelo);
+}
+
+button, a, input { touch-action: manipulation; }
+input { caret-color: var(--tema-foco); }
+::selection { background: var(--tema-acento); color: var(--tema-sobre-acento); }
+:focus-visible {
+  outline: 2px solid var(--tema-foco);
+  outline-offset: 2px;
+}
+.titulo-pantalla:focus, .titulo-pantalla:focus-visible { outline: none; }
+
+/* ==========================================================================
+   Keyframes del motor (espejo de interfaz/animaciones.py)
+   ========================================================================== */
+
+@keyframes aparecer-titulo {
+  from { opacity: 0; transform: scale(.88) translateY(6px); }
+  60%  { transform: scale(1.015); }
+  to   { opacity: 1; transform: scale(1); }
+}
+@keyframes entrar-hijo {
+  from { opacity: 0; transform: translateY(10px); }
+}
+@keyframes pipo-flota {
+  0%, 100% { transform: translateY(6px); }
+  50%      { transform: translateY(-10px); }
+}
+@keyframes llenar-carga {
+  to { transform: scaleX(1); }
+}
+@keyframes salir-carga {
+  to { opacity: 0; transform: scale(1.02); }
+}
+@keyframes salir-pantalla {
+  to { opacity: 0; transform: translateY(-8px) scale(.985); }
+}
+@keyframes brillo-barrido {
+  from { transform: translateX(-130%) skewX(-18deg); }
+  to   { transform: translateX(230%) skewX(-18deg); }
+}
+@keyframes destello-verde {
+  0%, 100% { box-shadow: var(--elev-1), var(--anillo-tarjeta); }
+  50%      { box-shadow: 0 0 0 7px color-mix(in srgb, var(--tema-correcto) 34%, transparent),
+                         0 10px 26px -10px color-mix(in srgb, var(--tema-correcto) 55%, transparent),
+                         var(--elev-1); }
+}
+@keyframes pulso-acierto {
+  0% { transform: scale(1); }
+  45% { transform: scale(1.06); }
+  100% { transform: scale(1); }
+}
+@keyframes respirar-burbuja {
+  0%, 100% { border-color: var(--tema-borde); }
+  50%      { border-color: var(--tema-acento);
+             box-shadow: 0 0 0 3px color-mix(in srgb, var(--tema-acento) 22%, transparent),
+               0 2px 8px -3px var(--tema-sombra); }
+}
+@keyframes repartir-carta {
+  from { opacity: 0; transform: translateY(-54px) scale(.86) rotate(-6deg); }
+  to   { opacity: 1; transform: translateY(0) scale(1) rotate(0deg); }
+}
+@keyframes pop-check {
+  0%   { transform: scale(0) rotate(-30deg); opacity: 0; }
+  62%  { transform: scale(1.3) rotate(6deg); }
+  100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+@keyframes vuelo-puntos {
+  0%   { opacity: 0; transform: translateY(6px) scale(.8); }
+  25%  { opacity: 1; transform: translateY(-2px) scale(1.06); }
+  70%  { opacity: 1; transform: translateY(-16px) scale(1); }
+  100% { opacity: 0; transform: translateY(-26px) scale(.94); }
+}
+@keyframes latido-puntos {
+  0%, 100% { transform: scale(1); }
+  40%      { transform: scale(1.22); }
+}
+@keyframes velo-tema {
+  0%   { opacity: 0; }
+  22%  { opacity: .5; }
+  100% { opacity: 0; }
+}
+
+/* Cascada de entrada: cada hijo de la pantalla sube y aparece un paso
+   tras otro (título → Pipo → secciones). Con ClientRouter el DOM nuevo
+   remonta: los CSS animations se re-disparan solos en cada navegación. */
+.pantalla-cascada > * {
+  animation: entrar-hijo var(--duracion-pantalla) var(--ease-salida) both;
+}
+.pantalla-cascada > *:nth-child(1)  { animation-delay: 30ms; }
+.pantalla-cascada > *:nth-child(2)  { animation-delay: 75ms; }
+.pantalla-cascada > *:nth-child(3)  { animation-delay: 120ms; }
+.pantalla-cascada > *:nth-child(4)  { animation-delay: 165ms; }
+.pantalla-cascada > *:nth-child(5)  { animation-delay: 210ms; }
+.pantalla-cascada > *:nth-child(6)  { animation-delay: 255ms; }
+.pantalla-cascada > *:nth-child(7)  { animation-delay: 300ms; }
+.pantalla-cascada > *:nth-child(8)  { animation-delay: 345ms; }
+.pantalla-cascada > *:nth-child(9)  { animation-delay: 390ms; }
+.pantalla-cascada > *:nth-child(n+10) { animation-delay: 420ms; }
+
+/* ==========================================================================
+   HUD (encabezado persistente como pill flotante)
+   ========================================================================== */
+.hud {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  background: color-mix(in srgb, var(--tema-panel) 88%, transparent);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--tema-borde);
+  box-shadow: 0 12px 34px -20px color-mix(in srgb, var(--tema-boton) 55%, transparent),
+              0 2px 6px -3px var(--tema-sombra);
+}
+.hud-interior {
+  max-width: 1040px;
+  margin-inline: auto;
+  padding: .5rem clamp(.8rem, 3vw, 1.5rem);
+  display: flex;
+  align-items: center;
+  gap: .6rem .9rem;
+  flex-wrap: wrap;
+}
+.hud-estadisticas {
+  display: flex;
+  align-items: center;
+  gap: .45rem 1.1rem;
+  flex-wrap: wrap;
+  min-width: 0;
+  flex: 1;
+}
+.hud-dato {
+  display: inline-flex;
+  align-items: baseline;
+  gap: .35rem;
+  white-space: nowrap;
+  position: relative;
+}
+.hud-rotulo { font-size: .78rem; color: var(--tema-texto-secundario); }
+.hud-valor { font-weight: 700; font-size: .93rem; position: relative; }
+.hud-valor-acento { color: var(--tema-acento); }
+.hud-controles { display: flex; align-items: center; gap: .4rem; margin-left: auto; }
+.hud-volumen {
+  display: flex;
+  align-items: center;
+  gap: .3rem;
+}
+.hud-volumen input[type="range"] { width: 92px; accent-color: var(--tema-acento); }
+.aviso-sin-sonido {
+  display: inline-flex;
+  align-items: center;
+  gap: .3rem;
+  color: var(--tema-texto-secundario);
+  font-size: .78rem;
+}
+.fuente-num { font-variant-numeric: tabular-nums; }
+
+.chip-puntos {
+  position: absolute;
+  right: 0;
+  bottom: 105%;
+  color: var(--tema-correcto);
+  font-weight: 800;
+  font-size: .8rem;
+  pointer-events: none;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, .4);
+  animation: vuelo-puntos 850ms var(--ease-salida) both;
+}
+.puntos-subieron { display: inline-block; animation: latido-puntos 280ms var(--ease-salida) 1; }
+
+/* ==========================================================================
+   Botones (la UI entera pasa por aquí, como crear_boton en Tk)
+   ========================================================================== */
+.btn-pea {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+  background: var(--tema-boton);
+  color: var(--tema-boton-texto);
+  border: 0;
+  border-radius: var(--radius-boton);
+  font-weight: 600;
+  padding: .55rem 1.15rem;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .14),
+              0 10px 22px -14px var(--tema-sombra);
+  transition: var(--ansi-elevacion);
+  cursor: pointer;
+}
+.btn-pea:hover {
+  transform: translateY(-2px);
+  background: var(--tema-boton-hover);
+  box-shadow: 0 14px 30px -12px rgba(29, 78, 216, .55), var(--luces-canto);
+}
+.btn-pea:active { transform: translateY(0) scale(.97); }
+.btn-pea:disabled { opacity: .55; cursor: default; }
+
+.btn-pea-acento {
+  background: var(--tema-acento);
+  color: var(--tema-sobre-acento);
+}
+.btn-pea-acento:hover {
+  background: var(--tema-acento);
+  color: var(--tema-sobre-acento);
+  box-shadow: 0 14px 30px -12px color-mix(in srgb, var(--tema-acento) 55%, transparent),
+              var(--luces-canto);
+}
+
+.btn-pea-ghost {
+  background: transparent;
+  color: var(--tema-texto);
+  border: 1px solid var(--tema-borde);
+  font-size: .88rem;
+  padding: .42rem .8rem;
+  box-shadow: none;
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+}
+.btn-pea-ghost:hover:not(:disabled) {
+  background: var(--tema-tarjeta);
+  box-shadow: var(--elev-1);
+}
+.btn-pea-ghost > i { flex: none; line-height: 1; }
+
+/* Opciones de trivia/completar: tarjeta táctil grande, estados semánticos */
+.btn-opcion {
+  display: block;
+  width: 100%;
+  background: var(--tema-tarjeta);
+  color: var(--tema-texto);
+  border: 1px solid var(--tema-borde);
+  border-radius: .85rem;
+  font-weight: 600;
+  padding: .8rem 1rem;
+  text-align: center;
+  box-shadow: var(--elev-1), var(--anillo-tarjeta);
+  transition: var(--ansi-elevacion);
+  cursor: pointer;
+}
+.btn-opcion:hover:not(:disabled) {
+  transform: translateY(-3px);
+  background: var(--tema-panel);
+  border-color: var(--tema-foco);
+  box-shadow: var(--elev-3), var(--anillo-tarjeta);
+}
+.btn-opcion:active:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: var(--elev-2), var(--anillo-tarjeta);
+}
+.btn-opcion:disabled { cursor: default; box-shadow: var(--elev-1), var(--anillo-tarjeta); }
+.btn-opcion.quieto:disabled { opacity: .55; }
+.btn-opcion.esta-correcta:disabled {
+  background: var(--tema-correcto);
+  border-color: transparent;
+  color: #FFFFFF;
+  opacity: 1;
+}
+.btn-opcion.esta-incorrecta:disabled {
+  background: var(--tema-incorrecto);
+  border-color: transparent;
+  color: #FFFFFF;
+  opacity: 1;
+}
+.btn-opcion.pulso-acierto {
+  animation: pulso-acierto 480ms var(--ease-salida) 2,
+             destello-verde 480ms ease-in-out 2;
+}
+
+.btn-letra {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--tema-tarjeta);
+  color: var(--tema-texto);
+  border: 1px solid var(--tema-borde);
+  border-radius: .9rem;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.45rem;
+  min-width: 4rem;
+  min-height: 3.4rem;
+  box-shadow: var(--elev-1), var(--anillo-tarjeta);
+  transition: var(--ansi-elevacion);
+  cursor: pointer;
+}
+.btn-letra:hover:not(:disabled) {
+  transform: translateY(-3px) scale(1.03);
+  background: var(--tema-panel);
+  border-color: var(--tema-foco);
+  box-shadow: var(--elev-3), var(--anillo-tarjeta);
+}
+.btn-letra:active:not(:disabled) {
+  transform: translateY(-1px) scale(1.01);
+  box-shadow: var(--elev-2), var(--anillo-tarjeta);
+}
+.btn-letra.esta-correcta:disabled {
+  background: var(--tema-correcto);
+  border-color: transparent;
+  color: #FFFFFF;
+  opacity: 1;
+}
+.btn-letra.esta-incorrecta:disabled {
+  background: var(--tema-incorrecto);
+  border-color: transparent;
+  color: #FFFFFF;
+  opacity: 1;
+}
+
+/* ==========================================================================
+   Pipo: la imagen y su burbuja de diálogo
+   ========================================================================== */
+.pipo {
+  display: flex;
+  align-items: center;
+  gap: .95rem;
+  background: var(--tema-panel);
+  border: 1px solid var(--tema-borde);
+  border-radius: 1.05rem;
+  box-shadow: var(--elev-2), var(--anillo-tarjeta);
+  padding: .7rem .85rem;
+  max-width: 760px;
+  margin-inline: auto;
+}
+.pipo-foto, .pipo > img {
+  width: 92px;
+  height: 92px;
+  object-fit: contain;
+  flex: none;
+}
+.burbuja {
+  position: relative;
+  background: var(--tema-burbuja);
+  border: 1px solid var(--tema-borde);
+  box-shadow: 0 2px 8px -3px var(--tema-sombra);
+  border-radius: .95rem;
+  padding: .75rem 1rem;
+  font-size: .95rem;
+  line-height: 1.5;
+  flex: 1;
+  min-width: 0;
+  animation: respirar-burbuja 720ms var(--ease-salida) 2;
+}
+.burbuja::before, .burbuja::after {
+  content: "";
+  position: absolute;
+  left: -12px;
+  top: 24px;
+  width: 0;
+  height: 0;
+  border-style: solid;
+}
+.burbuja::before {
+  border-width: 10px 12px 10px 0;
+  border-color: transparent var(--tema-borde) transparent transparent;
+}
+.burbuja::after {
+  left: -8px;
+  border-width: 7px 8px 7px 0;
+  border-color: transparent var(--tema-burbuja) transparent transparent;
+}
+
+/* ==========================================================================
+   Nivel CEFR: pastillas
+   ========================================================================== */
+.pea-chip {
+  display: inline-flex;
+  align-items: center;
+  background: var(--tema-tarjeta);
+  color: var(--tema-texto-secundario);
+  border: 1px solid var(--tema-borde);
+  border-radius: 999px;
+  font-weight: 700;
+  padding: .35rem 1rem;
+  font-variant-numeric: tabular-nums;
+  box-shadow: var(--elev-1);
+  transition: var(--ansi-elevacion);
+  cursor: pointer;
+}
+.pea-chip:hover:not(.activa) {
+  transform: translateY(-2px);
+  background: var(--tema-panel);
+  color: var(--tema-texto);
+  box-shadow: var(--elev-2);
+}
+.pea-chip.activa {
+  background: var(--tema-acento);
+  color: var(--tema-sobre-acento);
+  border-color: transparent;
+  box-shadow: 0 3px 8px color-mix(in srgb, var(--tema-acento) 45%, transparent),
+              0 10px 24px -8px color-mix(in srgb, var(--tema-acento) 35%, transparent),
+              var(--luces-canto);
+}
+
+/* ==========================================================================
+   Barra de progreso: hundida, con relleno luminoso y barrido
+   ========================================================================== */
+.barra-progreso {
+  height: .72rem;
+  border: 1px solid var(--tema-borde);
+  border-radius: 999px;
+  background: var(--tema-barra-fondo);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, .35),
+              inset 0 -1px 0 rgba(255, 255, 255, .04);
+  overflow: hidden;
+  position: relative;
+}
+.barra-progreso > .relleno {
+  height: 100%;
+  width: 100%;
+  background: var(--tema-barra-relleno);
+  border-radius: inherit;
+  transform: scaleX(var(--lleno, 0));
+  transform-origin: 0 50%;
+  transition: transform 260ms var(--ease-salida);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .35),
+              0 1px 4px color-mix(in srgb, var(--tema-barra-relleno) 45%, transparent);
+  position: relative;
+}
+.barra-progreso > .relleno::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(100deg, transparent 30%, rgba(255, 255, 255, .5) 50%, transparent 70%);
+  transform: translateX(-130%) skewX(-18deg);
+  animation: brillo-barrido 850ms ease-out 260ms 1 both;
+  pointer-events: none;
+}
+
+/* ==========================================================================
+   Tarjetas y fichas
+   ========================================================================== */
+.pea-tarjeta {
+  background: var(--tema-tarjeta);
+  border: 1px solid var(--tema-borde);
+  border-radius: var(--radius-tarjeta);
+  box-shadow: var(--elev-2), var(--anillo-tarjeta);
+}
+
+.ficha-actividad {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: var(--tema-tarjeta);
+  color: var(--tema-texto);
+  border: 1px solid var(--tema-borde);
+  border-radius: var(--radius-tarjeta);
+  box-shadow: var(--elev-2), var(--anillo-tarjeta);
+  padding: 1rem 1.1rem;
+  position: relative;
+  transition: var(--ansi-elevacion);
+  cursor: pointer;
+}
+.ficha-actividad:hover:not(:disabled) {
+  transform: translateY(-4px);
+  background: var(--tema-panel);
+  border-color: var(--tema-foco);
+  box-shadow: var(--elev-3), var(--anillo-tarjeta),
+              0 0 0 1px color-mix(in srgb, var(--tema-foco) 30%, transparent);
+}
+.ficha-actividad:active:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: var(--elev-2), var(--anillo-tarjeta);
+}
+.ficha-actividad .ficha-nombre {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.12rem;
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+}
+.ficha-actividad .ficha-detalle {
+  color: var(--tema-texto-secundario);
+  font-size: .88rem;
+  margin-top: .3rem;
+  font-variant-numeric: tabular-nums;
+}
+.ficha-vocab { min-height: 132px; }
+.ficha-vocab .ficha-nombre { font-size: 1.3rem; }
+.ficha-muestras { display: flex; gap: .3rem; margin-top: .55rem; }
+.ficha-muestras img { width: 34px; height: 34px; object-fit: contain; border: 1px solid var(--tema-borde); border-radius: .5rem; padding: 2px; background: var(--tema-panel); }
+.ficha-actividad.completada {
+  border-color: color-mix(in srgb, var(--tema-correcto) 60%, var(--tema-borde));
+}
+.ficha-actividad .ficha-hecha {
+  position: absolute;
+  top: .85rem;
+  right: .9rem;
+  color: var(--tema-correcto);
+  font-size: 1rem;
+  animation: pop-check 300ms var(--ease-salida) both;
+}
+
+.ficha-palabra {
+  padding: 1rem .9rem .95rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  transition: var(--ansi-elevacion);
+}
+.ficha-palabra:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--elev-3), var(--anillo-tarjeta);
+}
+.ficha-palabra img {
+  width: 84px;
+  height: 84px;
+  object-fit: contain;
+  filter: drop-shadow(0 6px 10px rgba(0, 0, 0, .28));
+}
+.palabra-ingles {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.28rem;
+  letter-spacing: .02em;
+  text-transform: uppercase;
+  margin-top: .35rem;
+}
+.palabra-espanol { color: var(--tema-texto-secundario); font-size: .9rem; }
+.palabra-ejemplo {
+  font-size: .85rem;
+  color: var(--tema-acento-texto);
+  font-style: italic;
+  margin-top: .45rem;
+}
+.pea-mini {
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .04em;
+  color: var(--tema-acento-texto);
+  border: 1px solid var(--tema-acento);
+  border-radius: 999px;
+  padding: .1rem .55rem;
+}
+
+.btn-categoria {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: .6rem;
+  width: 100%;
+  background: var(--tema-tarjeta);
+  color: var(--tema-texto);
+  border: 1px solid var(--tema-borde);
+  border-radius: .85rem;
+  font-weight: 600;
+  padding: .7rem .95rem;
+  box-shadow: var(--elev-1), var(--anillo-tarjeta);
+  transition: var(--ansi-elevacion);
+  cursor: pointer;
+}
+.btn-categoria:hover {
+  transform: translateY(-3px);
+  background: var(--tema-panel);
+  border-color: var(--tema-foco);
+  box-shadow: var(--elev-3), var(--anillo-tarjeta);
+}
+.btn-categoria:active {
+  transform: translateY(-1px);
+  box-shadow: var(--elev-2), var(--anillo-tarjeta);
+}
+.btn-categoria .conteo {
+  font-size: .78rem;
+  color: var(--tema-texto-secundario);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ==========================================================================
+   Entrada de texto y celdas de letras
+   ========================================================================== */
+.pea-input {
+  background: var(--tema-panel);
+  color: var(--tema-texto);
+  border: 2px solid var(--tema-borde);
+  border-radius: .8rem;
+  padding: .6rem .95rem;
+  font-size: 1.05rem;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+  box-shadow: var(--elev-1);
+  transition: var(--ansi-elevacion);
+  max-width: 100%;
+}
+.pea-input:focus {
+  border-color: var(--tema-foco);
+  color: var(--tema-texto);
+  outline: none;
+  transform: translateY(-1px);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--tema-foco) 30%, transparent),
+              var(--elev-2);
+}
+.pea-input::placeholder { color: var(--tema-texto-secundario); }
+.error-mensaje { color: var(--tema-incorrecto); font-size: .9rem; min-height: 1.4rem; }
+
+.letras-mesa {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .55rem;
+  row-gap: .65rem;
+  justify-content: center;
+  margin-bottom: 1.35rem;
+}
+.letra-celda {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(1.25rem, 4.2vw, 1.9rem);
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.9em;
+  height: 1.5em;
+  background: var(--tema-tarjeta);
+  border: 1px solid var(--tema-borde);
+  border-radius: .55rem;
+  color: var(--tema-texto);
+  box-shadow: var(--elev-1);
+}
+.letra-celda.hueco {
+  color: var(--tema-acento);
+  border: 1.5px solid var(--tema-acento);
+  background: transparent;
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, .25),
+              inset 0 0 0 2px color-mix(in srgb, var(--tema-acento) 30%, transparent);
+}
+
+/* ==========================================================================
+   Memoria: cartas de baraja con volteo 3D (todo CSS)
+   ========================================================================== */
+.memo-tablero {
+  display: grid;
+  grid-template-columns: repeat(var(--memo-cols, 4), minmax(0, 1fr));
+  gap: .8rem;
+  max-width: 640px;
+  margin-inline: auto;
+}
+.memoria-carta {
+  perspective: 900px;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  aspect-ratio: 3 / 3.5;
+  outline-offset: 3px;
+  transform-origin: 50% 62%;
+  box-shadow: var(--elev-2), var(--anillo-tarjeta);
+  border-radius: .8rem;
+  transition: var(--ansi-elevacion);
+  animation: repartir-carta 300ms var(--ease-salida) both;
+  animation-delay: calc(min(var(--i, 0), 12) * 48ms);
+}
+.memoria-carta:hover:not(:disabled):not(.resuelta):not(.volteada) {
+  transform: translateY(-6px) scale(1.055) rotate(-2.5deg);
+  box-shadow: var(--elev-3),
+              0 0 0 1.5px color-mix(in srgb, var(--tema-acento) 38%, transparent),
+              var(--anillo-tarjeta);
+}
+.memoria-carta.volteada, .memoria-carta.resuelta {
+  box-shadow: var(--elev-1), var(--anillo-tarjeta);
+}
+.cara-envuelta {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 340ms var(--ease-salida);
+}
+.memoria-carta.volteada .cara-envuelta, .memoria-carta.resuelta .cara-envuelta {
+  transform: rotateY(180deg);
+}
+.cara {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border-radius: .8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.cara-trasera {
+  background:
+    radial-gradient(circle at 28% 22%, rgba(255, 255, 255, .12) 0%, transparent 52%),
+    repeating-linear-gradient(45deg, rgba(255, 255, 255, .06) 0 7px, transparent 7px 16px),
+    repeating-linear-gradient(-45deg, rgba(255, 255, 255, .06) 0 7px, transparent 7px 16px),
+    linear-gradient(160deg, #1E3A8A 0%, #1A2E68 55%, #10193F 100%);
+  border: 1px solid rgba(255, 255, 255, .16);
+}
+.cara-trasera .marca-trasera {
+  width: 44%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: linear-gradient(150deg, rgba(255, 255, 255, .28), rgba(255, 255, 255, .06) 55%, rgba(0, 0, 0, .18));
+  border: 1px solid rgba(255, 255, 255, .25);
+  color: #FDE68A;
+  text-shadow: 0 2px 3px rgba(0, 0, 0, .45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.55rem;
+  box-shadow: inset 0 2px 3px rgba(255, 255, 255, .28),
+              inset 0 -4px 8px rgba(0, 0, 0, .30),
+              0 3px 7px -2px rgba(0, 0, 0, .55);
+}
+.cara-frente {
+  background: var(--tema-tarjeta);
+  border: 1px solid var(--tema-borde);
+  transform: rotateY(180deg);
+  padding: .45rem;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .08);
+}
+.cara-frente .palabra-memo {
+  font-family: var(--font-display);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .02em;
+  font-size: clamp(.8rem, 2.4vw, 1.05rem);
+  text-align: center;
+  word-break: break-word;
+}
+.cara-frente .imagen-memo { max-width: 68%; max-height: 68%; object-fit: contain; filter: drop-shadow(0 5px 8px rgba(0, 0, 0, .22)); }
+.memoria-carta.resuelta .cara-frente { border-color: var(--tema-correcto); }
+.destello-pareja { animation: destello-verde 460ms ease-in-out 2; }
+
+/* ==========================================================================
+   Splash de carga
+   ========================================================================== */
+.pea-carga {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: var(--tema-fondo);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.1rem;
+  cursor: pointer;
+  animation: entrar-hijo 240ms var(--ease-salida) both;
+}
+.pea-carga::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: var(--suelo);
+}
+.carga-pipo {
+  width: 132px;
+  height: 132px;
+  position: relative;
+  animation: pipo-flota 2.6s ease-in-out infinite;
+}
+.carga-pipo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 10px 16px rgba(0, 0, 0, .45));
+}
+.carga-titulo {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(1.7rem, 5vw, 2.6rem);
+  letter-spacing: .02em;
+  margin: 0;
+  text-align: center;
+  animation: aparecer-titulo 460ms var(--ease-salida) both;
+  animation-delay: 250ms;
+}
+.carga-subtitulo {
+  color: var(--tema-texto-secundario);
+  font-size: .95rem;
+  margin: 0;
+  text-align: center;
+  animation: entrar-hijo 240ms var(--ease-salida) both;
+  animation-delay: 650ms;
+}
+.carga-barra {
+  width: min(300px, 62vw);
+  margin-top: .6rem;
+  animation: entrar-hijo 240ms var(--ease-salida) both;
+  animation-delay: 850ms;
+  position: relative;
+}
+.carga-relleno { transform: scaleX(0); transform-origin: 0 50%; animation: llenar-carga 1.85s cubic-bezier(.33, .8, .4, 1) 900ms forwards; }
+.carga-pista {
+  position: fixed;
+  bottom: 1.4rem;
+  color: var(--tema-texto-secundario);
+  font-size: .8rem;
+  margin: 0;
+  opacity: 0;
+  animation: entrar-hijo 240ms var(--ease-salida) both;
+  animation-delay: 500ms;
+}
+.pea-carga.carga-muriendo {
+  animation: salir-carga 340ms var(--ease-salida) both;
+  pointer-events: none;
+}
+
+/* ==========================================================================
+   Documentación (¿Cómo está hecho?)
+   ========================================================================== */
+.titulo-seccion {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.5rem;
+  text-align: center;
+  margin: 2.4rem 0 .6rem;
+}
+.doc-texto { font-size: .95rem; line-height: 1.65; }
+.doc-espejo {
+  border-top: 1px solid var(--tema-borde);
+  margin-top: .7rem;
+  padding-top: .55rem;
+  color: var(--tema-acento);
+  font-weight: 600;
+  font-size: .88rem;
+}
+.doc-modulo-titulo, .doc-concepto-titulo {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.05rem;
+  margin-bottom: .3rem;
+}
+.doc-tabla { width: 100%; border-collapse: collapse; font-size: .9rem; }
+.doc-tabla th, .doc-tabla td { border: 1px solid var(--tema-borde); padding: .5rem .65rem; vertical-align: top; text-align: left; }
+.doc-tabla thead th {
+  background: var(--tema-panel);
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: .92rem;
+}
+.doc-tabla code {
+  font-family: ui-monospace, "Cascadia Mono", Consolas, monospace;
+  font-size: .8rem;
+  display: table-cell;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+.doc-celda-texto { color: var(--tema-texto-secundario); font-size: .85rem; }
+.doc-arbol {
+  background: var(--tema-panel);
+  border: 1px solid var(--tema-borde);
+  border-radius: .8rem;
+  padding: .95rem 1.05rem;
+  overflow-x: auto;
+  font-family: ui-monospace, "Cascadia Mono", Consolas, monospace;
+  font-size: .8rem;
+  line-height: 1.6;
+  color: var(--tema-texto);
+  box-shadow: var(--elev-1), var(--anillo-tarjeta);
+  white-space: pre;
+}
+.doc-cajon-enlace {
+  display: block;
+  text-decoration: none;
+  color: var(--tema-texto);
+  padding: .85rem 1.05rem;
+  transition: var(--ansi-elevacion);
+}
+.doc-cajon-enlace:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--elev-3), var(--anillo-tarjeta);
+}
+.doc-cajon-enlace .doc-mono {
+  font-family: ui-monospace, "Cascadia Mono", Consolas, monospace;
+  font-size: .82rem;
+  word-break: break-all;
+}
+.doc-subgrupo {
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: var(--tema-texto);
+  font-size: 1.02rem;
+  text-align: center;
+  margin: 1.4rem 0 .2rem;
+}
+.doc-captura { margin: 0; overflow: hidden; }
+.doc-captura-img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 10; object-fit: cover; }
+.doc-caption { padding: .6rem .8rem .7rem; font-size: .85rem; color: var(--tema-texto-secundario); }
+.doc-paso-texto code {
+  font-family: ui-monospace, "Cascadia Mono", Consolas, monospace;
+  font-size: .86em;
+}
+
+/* ==========================================================================
+   Utilidades comunes del mundo
+   ========================================================================== */
+.seccion { margin-top: 1.55rem; }
+.marco {
+  max-width: 1040px;
+  margin-inline: auto;
+  padding: 1.4rem clamp(.8rem, 3vw, 1.5rem) 3.6rem;
+}
+.medida { max-width: 68ch; margin-inline: auto; }
+.texto-secundario { color: var(--tema-texto-secundario); }
+.texto-acento { color: var(--tema-acento); }
+.texto-acento-texto { color: var(--tema-acento-texto); }
+#confeti { display: block; width: 100%; height: 128px; }
+.pie-creditos {
+  text-align: center;
+  color: var(--tema-texto-secundario);
+  font-size: .8rem;
+  margin-top: 2.6rem;
+}
+.pie-creditos a { color: var(--tema-texto-secundario); text-underline-offset: 3px; }
+.pie-creditos a:hover { color: var(--tema-texto); }
+
+/* ==========================================================================
+   Móvil y tablet
+   ========================================================================== */
+@media (hover: none) {
+  .btn-pea:hover, .btn-opcion:hover, .btn-letra:hover,
+  .btn-categoria:hover, .pea-chip:hover, .memoria-carta:hover,
+  .ficha-palabra:hover, .ficha-actividad:hover {
+    transform: none;
+  }
+  .btn-pea:active { transform: translateY(0) scale(.96); }
+  .btn-opcion:active, .btn-letra:active, .btn-categoria:active {
+    transform: translateY(0) scale(.97);
+  }
+  .ficha-actividad:active, .ficha-palabra:active { transform: translateY(0) scale(.985); }
+  .memoria-carta:active { transform: scale(.96); }
+  .pea-chip:active { transform: scale(.97); }
+  .btn-pea-ghost, .pea-chip { min-height: 44px; }
+}
+
+@media (max-width: 575.98px) {
+  .hud-interior { gap: .3rem .7rem; }
+  .hud-rotulo { display: none; }
+  .hud-dato:nth-child(1) .hud-rotulo { display: inline; }
+  .hud-volumen { display: none; }
+  .hud-controles { margin-left: 0; }
+  .pantalla-cascada > * { animation-duration: 190ms; }
+  .pantalla-cascada > *:nth-child(1)  { animation-delay: 18ms; }
+  .pantalla-cascada > *:nth-child(2)  { animation-delay: 40ms; }
+  .pantalla-cascada > *:nth-child(3)  { animation-delay: 62ms; }
+  .pantalla-cascada > *:nth-child(4)  { animation-delay: 84ms; }
+  .pantalla-cascada > *:nth-child(5)  { animation-delay: 106ms; }
+  .pantalla-cascada > *:nth-child(6)  { animation-delay: 128ms; }
+  .pantalla-cascada > *:nth-child(7)  { animation-delay: 150ms; }
+  .pantalla-cascada > *:nth-child(8)  { animation-delay: 172ms; }
+  .pantalla-cascada > *:nth-child(n+9) { animation-delay: 194ms; }
+  .pipo { align-items: flex-start; }
+  .pipo img, .pipo-foto { width: 64px; height: 64px; }
+  .carga-pipo { width: 104px; height: 104px; }
+  .carga-titulo { font-size: clamp(1.35rem, 6.4vw, 1.8rem); }
+}
+
+@media (max-width: 479.98px) {
+  .memo-tablero { --memo-cols: 3; gap: .45rem; }
+  .memoria-carta { min-height: 74px; }
+}
+
+/* ==========================================================================
+   Movimiento reducido: estático, instantáneo (con delays muertos)
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-delay: 0s !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ==========================================================================
+   Transiciones de vista (ClientRouter): el vaivén entre páginas
+   ========================================================================== */
+::view-transition-old(root) {
+  animation: salir-pantalla 160ms cubic-bezier(.5, 0, .75, .4) both;
+}
+::view-transition-new(root) {
+  animation: entrar-hijo 260ms var(--ease-salida) both;
+}

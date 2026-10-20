@@ -1,0 +1,16 @@
+---
+/* Ordenar palabra (espejo de interfaz/ordenar.py): letras mezcladas en
+   celdas y el jugador escribe (Enter ≡ Comprobar, como Leer en PSeInt);
+   vacío → aviso en la burbuja sin navegar. */
+import Layout from "../layouts/Layout.astro";
+import { ruta } from "../lib/rutas";
+---
+<Layout titulo="Ordenar palabra" hud pantalla="ordenar">
+  <div class="marco">
+    <h1 class="titulo-pantalla text-center" tabindex="-1">Ordenar palabra</h1>
+    <div id="juego" data-isla-ordenar></div>
+  </div>
+</Layout>
+<script>
+  import "../scripts/ordenar";
+</script>

@@ -1,0 +1,54 @@
+---
+/* Encabezado persistente (espejo de crear_encabezado en Tk). En Astro
+   vive en el Layout con transition:persist: el navegador lo MANTIENE
+   entre páginas (el slider y el tema no parpadean — ventaja real del
+   ClientRouter). Los datos los pinta src/scripts/hud.ts en cada carga. */
+const { mostrarMenu = true } = Astro.props;
+import { ruta } from "../lib/rutas";
+---
+<header id="hud" class="hud" transition:persist="hud">
+  <div class="hud-interior">
+    <div class="hud-estadisticas">
+      <span class="hud-dato">
+        <i class="bi bi-person" aria-hidden="true" style="font-size:.8rem; color:var(--tema-texto-secundario); align-self:center;"></i>
+        <span class="hud-rotulo">Jugador:</span>
+        <span class="hud-valor" data-hud="nombre"></span>
+      </span>
+      <span class="hud-dato">
+        <i class="bi bi-star" aria-hidden="true" style="font-size:.8rem; color:var(--tema-texto-secundario); align-self:center;"></i>
+        <span class="hud-rotulo">Puntos:</span>
+        <span class="hud-valor hud-valor-acento fuente-num" data-hud="puntos"></span>
+      </span>
+      <span class="hud-dato">
+        <i class="bi bi-check2-circle" aria-hidden="true" style="font-size:.8rem; color:var(--tema-texto-secundario); align-self:center;"></i>
+        <span class="hud-rotulo">Aciertos:</span>
+        <span class="hud-valor fuente-num" data-hud="aciertos"></span>
+      </span>
+      <span class="hud-dato">
+        <i class="bi bi-lightning-charge" aria-hidden="true" style="font-size:.8rem; color:var(--tema-texto-secundario); align-self:center;"></i>
+        <span class="hud-rotulo">Nivel:</span>
+        <span class="hud-valor hud-valor-acento fuente-num" data-hud="nivel"></span>
+      </span>
+    </div>
+    <div class="hud-controles">
+      <span class="aviso-sin-sonido" data-hud="aviso" hidden>
+        <i class="bi bi-volume-mute" aria-hidden="true"></i>
+        <span>Sin sonido</span>
+      </span>
+      <span class="hud-volumen" data-hud="volumen">
+        <i class="bi bi-volume-up" aria-hidden="true" style="color:var(--tema-texto-secundario); font-size:.85rem;"></i>
+        <input type="range" min="0" max="100" value="50" aria-label="Volumen del sonido" data-accion="volumen" />
+      </span>
+      <button class="btn-pea-ghost" type="button" data-accion="tema">
+        <i class="bi bi-brightness-high" aria-hidden="true"></i>
+        <span data-hud="etiqueta-tema">Modo claro</span>
+      </button>
+      {mostrarMenu && (
+        <a class="btn-pea-ghost" href={ruta("menu/")}>
+          <i class="bi bi-list" aria-hidden="true"></i>
+          <span>Menú</span>
+        </a>
+      )}
+    </div>
+  </div>
+</header>
